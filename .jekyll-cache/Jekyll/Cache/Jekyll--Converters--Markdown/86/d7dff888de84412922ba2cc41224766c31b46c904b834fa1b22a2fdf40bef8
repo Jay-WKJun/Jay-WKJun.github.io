@@ -1,0 +1,133 @@
+I"�<h1 id="which-code-is-best">Which code is Best?</h1>
+
+<hr />
+
+<p>프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.</p>
+
+<h2 id="readable">Readable</h2>
+
+<p>즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.</p>
+
+<h2 id="space-complexity--memory">Space Complexity = Memory</h2>
+
+<p>메모리 공간을 얼마나 사용하는 지에 대한 관점이다.</p>
+
+<p>메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.</p>
+
+<p>ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack :  where we keep track of our function calls</p>
+
+<h2 id="time-complexity--speed">Time Complexity = Speed</h2>
+
+<p>처리 속도에 대한 관점이다.</p>
+
+<p>처리 속도가 빠를 수록 효율적인 코드라 할 수 있다.</p>
+
+<p>위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다!</p>
+
+<h1 id="big-o-notation">Big O Notation</h1>
+
+<hr />
+
+<p>어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다.</p>
+
+<h2 id="definition">Definition</h2>
+
+<p>여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다.</p>
+
+<p>Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다.</p>
+
+<p><img src="/assets/img/IT_Pic/BigOComplexityChart.jpeg" alt="Big O Complexity Chart" /></p>
+
+<h2 id="rules">Rules</h2>
+
+<p>Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다.</p>
+
+<h2 id="worst-case">Worst Case</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">String [] nemo = {"asd", "sdf", "qwe", "nemo", "zxc"};</span>
+
+<span class="s">findNemo(nemo);</span>
+
+<span class="s">public void findNemo(String []array) {</span>
+<span class="err">		</span><span class="s">Date date = new Date();</span>
+<span class="err">		</span><span class="s">long startD = date.getTime();</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span><span class="s">long endD = date.getTime();</span>
+<span class="err">		</span><span class="s">System.out.println("Call to find Nemo = " + (endD - startD));</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만</p>
+
+<p>Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 <em>O(n)</em>이 된다.</p>
+
+<h2 id="remove-constants">Remove Constants</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void findNemo(String []array) {</span>
+		
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 <em>O(n)</em>이 된다.</p>
+
+<h2 id="different-terms-for-inputs">Different terms for inputs</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void findNemo(String []array, String []array2) {</span>
+		
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array2.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array2[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다.</p>
+
+<h2 id="drop-non-dominants">Drop Non Dominants</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void rule4(String []array, String []array2) {</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">for (int j = 0; j &lt; array2.length; j++) {</span>
+<span class="err">				</span><span class="s">System.out.println(array[i]+array[j]);</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만</p>
+
+<p>rule인 drop non dominants에 의하면 <em>O(n^2)</em>가 더 중요하므로 중요한것만 남겨 써야한다.</p>
+:ET

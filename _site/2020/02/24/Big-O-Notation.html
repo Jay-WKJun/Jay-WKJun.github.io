@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/02/24/Big-O-Notation.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Big O Notation | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Big O Notation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. Readable 즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다. Space Complexity = Memory 메모리 공간을 얼마나 사용하는 지에 대한 관점이다. 메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다. ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack : where we keep track of our function calls Time Complexity = Speed 처리 속도에 대한 관점이다. 처리 속도가 빠를 수록 효율적인 코드라 할 수 있다. 위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다! Big O Notation 어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다. Definition 여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다. Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다. Rules Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다. 1. Worst Case String [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;}; findNemo(nemo); public void findNemo(String []array) { Date date = new Date(); long startD = date.getTime(); for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } long endD = date.getTime(); System.out.println(&quot;Call to find Nemo = &quot; + (endD - startD)); } nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만 Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다. 2. Remove Constants public void findNemo(String []array) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다. 3. Different terms for inputs public void findNemo(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array2.length; i++) { if (array2[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } 넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다. 4. Drop Non Dominants public void rule4(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); } } for (int i = 0; i &lt; array.length; i++) { for (int j = 0; j &lt; array2.length; j++) { System.out.println(array[i]+array[j]); } } } 안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만 rule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다. Space complexity 공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다. /* * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다. */ public void booos(int [] n) { for (int i = 0; i &lt; n.length; i++) { System.out.println(&quot;boooo!!&quot;); } } /* * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다. */ public String[] makeArrayWithNum(int n) { String [] array = new String[n]; //여기서 변수를 만들때 메모리를 소모 for (int i = 0; i &lt; array.length; i++) { //iteration을 위한 i 변수에 의한 메모리 소모 array[i] = &quot;hi&quot;; } return array; } 더 좋은 프로그램을 만들기 위한 팁 Javascript String의 length Property 자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면 그것은 String의 글자 수에 달렸다고 말할 수 있지만 자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다. String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기. 즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.) 즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다. Big O notation이 중요한 이유 시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다. 이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재. 따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다. 하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다." />
+<meta property="og:description" content="Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. Readable 즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다. Space Complexity = Memory 메모리 공간을 얼마나 사용하는 지에 대한 관점이다. 메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다. ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack : where we keep track of our function calls Time Complexity = Speed 처리 속도에 대한 관점이다. 처리 속도가 빠를 수록 효율적인 코드라 할 수 있다. 위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다! Big O Notation 어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다. Definition 여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다. Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다. Rules Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다. 1. Worst Case String [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;}; findNemo(nemo); public void findNemo(String []array) { Date date = new Date(); long startD = date.getTime(); for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } long endD = date.getTime(); System.out.println(&quot;Call to find Nemo = &quot; + (endD - startD)); } nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만 Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다. 2. Remove Constants public void findNemo(String []array) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다. 3. Different terms for inputs public void findNemo(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array2.length; i++) { if (array2[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } 넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다. 4. Drop Non Dominants public void rule4(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); } } for (int i = 0; i &lt; array.length; i++) { for (int j = 0; j &lt; array2.length; j++) { System.out.println(array[i]+array[j]); } } } 안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만 rule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다. Space complexity 공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다. /* * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다. */ public void booos(int [] n) { for (int i = 0; i &lt; n.length; i++) { System.out.println(&quot;boooo!!&quot;); } } /* * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다. */ public String[] makeArrayWithNum(int n) { String [] array = new String[n]; //여기서 변수를 만들때 메모리를 소모 for (int i = 0; i &lt; array.length; i++) { //iteration을 위한 i 변수에 의한 메모리 소모 array[i] = &quot;hi&quot;; } return array; } 더 좋은 프로그램을 만들기 위한 팁 Javascript String의 length Property 자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면 그것은 String의 글자 수에 달렸다고 말할 수 있지만 자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다. String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기. 즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.) 즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다. Big O notation이 중요한 이유 시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다. 이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재. 따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다. 하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다." />
+<link rel="canonical" href="http://localhost:4000/2020/02/24/Big-O-Notation.html" />
+<meta property="og:url" content="http://localhost:4000/2020/02/24/Big-O-Notation.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-24T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Big O Notation","dateModified":"2020-02-24T00:00:00+09:00","datePublished":"2020-02-24T00:00:00+09:00","url":"http://localhost:4000/2020/02/24/Big-O-Notation.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/02/24/Big-O-Notation.html"},"description":"Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. Readable 즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다. Space Complexity = Memory 메모리 공간을 얼마나 사용하는 지에 대한 관점이다. 메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다. ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack : where we keep track of our function calls Time Complexity = Speed 처리 속도에 대한 관점이다. 처리 속도가 빠를 수록 효율적인 코드라 할 수 있다. 위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다! Big O Notation 어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다. Definition 여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다. Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다. Rules Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다. 1. Worst Case String [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;}; findNemo(nemo); public void findNemo(String []array) { Date date = new Date(); long startD = date.getTime(); for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } long endD = date.getTime(); System.out.println(&quot;Call to find Nemo = &quot; + (endD - startD)); } nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만 Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다. 2. Remove Constants public void findNemo(String []array) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다. 3. Different terms for inputs public void findNemo(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array2.length; i++) { if (array2[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } 넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다. 4. Drop Non Dominants public void rule4(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); } } for (int i = 0; i &lt; array.length; i++) { for (int j = 0; j &lt; array2.length; j++) { System.out.println(array[i]+array[j]); } } } 안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만 rule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다. Space complexity 공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다. /* * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다. */ public void booos(int [] n) { for (int i = 0; i &lt; n.length; i++) { System.out.println(&quot;boooo!!&quot;); } } /* * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다. */ public String[] makeArrayWithNum(int n) { String [] array = new String[n]; //여기서 변수를 만들때 메모리를 소모 for (int i = 0; i &lt; array.length; i++) { //iteration을 위한 i 변수에 의한 메모리 소모 array[i] = &quot;hi&quot;; } return array; } 더 좋은 프로그램을 만들기 위한 팁 Javascript String의 length Property 자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면 그것은 String의 글자 수에 달렸다고 말할 수 있지만 자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다. String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기. 즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.) 즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다. Big O notation이 중요한 이유 시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다. 이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재. 따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다. 하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Big O Notation | Dev.JK Tech Note</title>
+    <meta name="description" content="Which code is Best?프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.Readable즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.Space Complexity = Memory메모리 공간을 얼마나 사용하...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+		<a href="/">
+			<img alt="logo img" class="avatar" src="/assets/img/triangle.png" />
+		</a>
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/02/24/Big-O-Notation.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="Big O Notation" />
+<meta property="og:description"  content="Which code is Best?
+
+
+
+프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.
+
+Readable
+
+즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.
+
+Space Complexity = Memory
+
+메모리 공간을 얼마나 사용하는 지에 대한 관점이다.
+
+메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.
+
+ps. Memory의..." />
+<meta property="og:image"        content="assets/img/pexels/triangular.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="Big+O+Notation" class="title">Big O Notation</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      February 24, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="which-code-is-best">Which code is Best?</h1>
+
+<hr />
+
+<p>프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.</p>
+
+<h2 id="readable">Readable</h2>
+
+<p>즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.</p>
+
+<h2 id="space-complexity--memory">Space Complexity = Memory</h2>
+
+<p>메모리 공간을 얼마나 사용하는 지에 대한 관점이다.</p>
+
+<p>메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.</p>
+
+<p>ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack :  where we keep track of our function calls</p>
+
+<h2 id="time-complexity--speed">Time Complexity = Speed</h2>
+
+<p>처리 속도에 대한 관점이다.</p>
+
+<p>처리 속도가 빠를 수록 효율적인 코드라 할 수 있다.</p>
+
+<p>위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다!</p>
+
+<h1 id="big-o-notation">Big O Notation</h1>
+
+<hr />
+
+<p>어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다.</p>
+
+<h2 id="definition">Definition</h2>
+
+<p>여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다.</p>
+
+<p>Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다.</p>
+
+<p><img src="/assets/img/IT_Pic/BigOComplexityChart.jpeg" alt="Big O Complexity Chart" /></p>
+
+<h2 id="rules">Rules</h2>
+
+<p>Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다.</p>
+
+<h2 id="1-worst-case">1. Worst Case</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">String [] nemo = {"asd", "sdf", "qwe", "nemo", "zxc"};</span>
+
+<span class="s">findNemo(nemo);</span>
+
+<span class="s">public void findNemo(String []array) {</span>
+<span class="err">		</span><span class="s">Date date = new Date();</span>
+<span class="err">		</span><span class="s">long startD = date.getTime();</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span><span class="s">long endD = date.getTime();</span>
+<span class="err">		</span><span class="s">System.out.println("Call to find Nemo = " + (endD - startD));</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만</p>
+
+<p>Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 <em>O(n)</em>이 된다.</p>
+
+<h2 id="2-remove-constants">2. Remove Constants</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void findNemo(String []array) {</span>
+		
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 <em>O(n)</em>이 된다.</p>
+
+<h2 id="3-different-terms-for-inputs">3. Different terms for inputs</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void findNemo(String []array, String []array2) {</span>
+		
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array2.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array2[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">				</span><span class="s">break;</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다.</p>
+
+<h2 id="4-drop-non-dominants">4. Drop Non Dominants</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void rule4(String []array, String []array2) {</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
+<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">		</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
+<span class="err">			</span><span class="s">for (int j = 0; j &lt; array2.length; j++) {</span>
+<span class="err">				</span><span class="s">System.out.println(array[i]+array[j]);</span>
+<span class="err">			}</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<p>안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만</p>
+
+<p>rule인 drop non dominants에 의하면 <em>O(n^2)</em>가 더 중요하므로 중요한것만 남겨 써야한다.</p>
+
+<h1 id="space-complexity">Space complexity</h1>
+
+<hr />
+
+<p>공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">/*</span>
+<span class="err">	</span> <span class="err">*</span> <span class="s">밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에</span>
+<span class="err">	</span> <span class="err">*</span> <span class="s">booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다.</span>
+<span class="err">	</span> <span class="err">*</span><span class="s">/</span>
+<span class="err">	</span><span class="s">public void booos(int [] n) {</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; n.length; i++) {</span>
+<span class="err">			</span><span class="s">System.out.println("boooo!!");</span>
+<span class="err">		}</span>
+<span class="err">	}</span>
+<span class="err">	</span>
+<span class="err">	</span>
+<span class="err">	</span><span class="s">/*</span>
+<span class="err">	</span> <span class="err">*</span> <span class="s">n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고</span>
+<span class="err">	</span> <span class="err">*</span> <span class="s">for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다.</span>
+<span class="err">	</span> <span class="err">*</span><span class="s">/</span>
+<span class="err">	</span><span class="s">public String[] makeArrayWithNum(int n) {</span>
+<span class="err">		</span><span class="s">String [] array = new String[n];</span><span class="err">	</span><span class="s">//여기서 변수를 만들때 메모리를 소모</span>
+<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span><span class="err">	</span><span class="s"> //iteration을 위한 i 변수에 의한 메모리 소모</span>
+<span class="err">			</span><span class="s">array[i] = "hi";</span>
+<span class="err">		}</span>
+<span class="err">		</span><span class="s">return array;</span>
+<span class="err">	}</span>
+</code></pre></div></div>
+
+<h1 id="더-좋은-프로그램을-만들기-위한-팁">더 좋은 프로그램을 만들기 위한 팁</h1>
+
+<hr />
+
+<h2 id="javascript-string의-length-property">Javascript String의 length Property</h2>
+
+<p>자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면</p>
+
+<p>그것은 String의 글자 수에 달렸다고 말할 수 있지만</p>
+
+<p>자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다.</p>
+
+<p>String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기.</p>
+
+<p>즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.)</p>
+
+<p><em>즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다.</em></p>
+
+<h2 id="big-o-notation이-중요한-이유">Big O notation이 중요한 이유</h2>
+
+<p>시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다.</p>
+
+<p>이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재.</p>
+
+<p><em>따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다.</em></p>
+
+<p>하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다.</p>
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F02%2F24%2FBig-O-Notation.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=Big+O+Notation%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F02%2F24%2FBig-O-Notation.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/02/24/Big-O-Notation.html&title=Big+O+Notation%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=Big+O+Notation%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/02/24/Big-O-Notation.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list"></div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+
+    
+    <div id="next-post">
+        <a alt="Markdown Syntax" href="/2020/02/20/Markdown-Syntax.html">
+            <p>Next post</p>
+            Markdown Syntax
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,12 @@
+I"-<p>This is an example of a post which includes a feature image specified in the front matter of the post. 
+The feature image spans the full-width of the page, and is shown with the title on permalink pages:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">feature-img</span><span class="pi">:</span> <span class="s2">"</span><span class="s">assets/img/pexels/desk-messy.jpeg"</span>
+</code></pre></div></div>
+
+<blockquote>
+  <ul>
+    <li>And now it is working</li>
+  </ul>
+</blockquote>
+:ET

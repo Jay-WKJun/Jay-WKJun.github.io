@@ -1,0 +1,57 @@
+I"U<h1 id="which-code-is-best">Which code is Best?</h1>
+
+<p>프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.</p>
+
+<h2 id="readable">Readable</h2>
+
+<p>즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.</p>
+
+<h2 id="space-complexity--memory">Space Complexity = Memory</h2>
+
+<p>메모리 공간을 얼마나 사용하는 지에 대한 관점이다.</p>
+
+<p>메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.</p>
+
+<p>ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack :  where we keep track of our function calls</p>
+
+<h2 id="time-complexity--speed">Time Complexity = Speed</h2>
+
+<p>처리 속도에 대한 관점이다.</p>
+
+<p>처리 속도가 빠를 수록 효율적인 코드라 할 수 있다.</p>
+
+<p>위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다!</p>
+
+<h1 id="시간-복잡도-공간-복잡도">시간 복잡도, 공간 복잡도</h1>
+
+<hr />
+
+<p>어떤 알고리즘의 효율성을 판단하는 기준으로 복잡도의 기준은 알고리즘이 소모하는 소요 시간과 메모리 사용량 등의 자원이다.</p>
+
+<p>전자를 시간 복잡도, 후자를 공간 복잡도라 한다.</p>
+
+<p>물론 우리들의 목적은 복잡도를 최소한으로 줄이는 것이다!</p>
+
+<h1 id="big-o-notation">Big O Notation</h1>
+
+<hr />
+
+<h2 id="definition">Definition</h2>
+
+<p>여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다.</p>
+
+<p>Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다.</p>
+
+<p><img src="/assets/img/IT_Pic/BigOComplexityChart.jpeg" alt="Big O Complexity Chart" /></p>
+
+<h2 id="rules">Rules</h2>
+
+<p>Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다.</p>
+
+<ol>
+  <li>Worst Case</li>
+  <li>Remove Constants</li>
+  <li>Different terms for inputs</li>
+  <li>Drop Non Dominants</li>
+</ol>
+:ET

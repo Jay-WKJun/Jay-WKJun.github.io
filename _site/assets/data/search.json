@@ -1,0 +1,213 @@
+[
+  
+  {
+    "title"    : "Big O Notation",
+    "category" : "",
+    "tags"     : " ",
+    "url"      : "/2020/02/24/Big-O-Notation.html",
+    "date"     : "February 24, 2020",
+    "excerpt"  : "Which code is Best?\n\n\n\n프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.\n\nReadable\n\n즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.\n\nSpace Complexity = Memory\n\n메모리 공간을 얼마나 사용하는 지에 대한 관점이다.\n\n메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.\n\nps. Memory의...",
+  "content"  : "Which code is Best?\n\n\n\n프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.\n\nReadable\n\n즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.\n\nSpace Complexity = Memory\n\n메모리 공간을 얼마나 사용하는 지에 대한 관점이다.\n\n메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.\n\nps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack :  where we keep track of our function calls\n\nTime Complexity = Speed\n\n처리 속도에 대한 관점이다.\n\n처리 속도가 빠를 수록 효율적인 코드라 할 수 있다.\n\n위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다!\n\nBig O Notation\n\n\n\n어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다.\n\nDefinition\n\n여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다.\n\nBig O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다.\n\n\n\nRules\n\nBig O Notation으로 복잡도를 판단하는 4가지의 룰이 있다.\n\n1. Worst Case\n\nString [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;};\n\nfindNemo(nemo);\n\npublic void findNemo(String []array) {\n\t\tDate date = new Date();\n\t\tlong startD = date.getTime();\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\n\t\t\tif (array[i] == &quot;nemo&quot;) {\n\t\t\t\tSystem.out.println(&quot;Found Nemo!!&quot;);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\tlong endD = date.getTime();\n\t\tSystem.out.println(&quot;Call to find Nemo = &quot; + (endD - startD));\n\t}\n\n\nnemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만\n\nNotation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다.\n\n2. Remove Constants\n\npublic void findNemo(String []array) {\n\t\t\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\n\t\t\tif (array[i] == &quot;nemo&quot;) {\n\t\t\t\tSystem.out.println(&quot;Found Nemo!!&quot;);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\t\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\n\t\t\tif (array[i] == &quot;nemo&quot;) {\n\t\t\t\tSystem.out.println(&quot;Found Nemo!!&quot;);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t}\n\n\nfor문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다.\n\n3. Different terms for inputs\n\npublic void findNemo(String []array, String []array2) {\n\t\t\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\n\t\t\tif (array[i] == &quot;nemo&quot;) {\n\t\t\t\tSystem.out.println(&quot;Found Nemo!!&quot;);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t\t\n\t\tfor (int i = 0; i &amp;lt; array2.length; i++) {\n\t\t\tif (array2[i] == &quot;nemo&quot;) {\n\t\t\t\tSystem.out.println(&quot;Found Nemo!!&quot;);\n\t\t\t\tbreak;\n\t\t\t}\n\t\t}\n\t}\n\n\n넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다.\n\n4. Drop Non Dominants\n\npublic void rule4(String []array, String []array2) {\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\n\t\t\tif (array[i] == &quot;nemo&quot;) {\n\t\t\t\tSystem.out.println(&quot;Found Nemo!!&quot;);\n\t\t\t}\n\t\t}\n\t\t\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\n\t\t\tfor (int j = 0; j &amp;lt; array2.length; j++) {\n\t\t\t\tSystem.out.println(array[i]+array[j]);\n\t\t\t}\n\t\t}\n\t}\n\n\n안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만\n\nrule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다.\n\nSpace complexity\n\n\n\n공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다.\n\n/*\n\t * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에\n\t * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다.\n\t */\n\tpublic void booos(int [] n) {\n\t\tfor (int i = 0; i &amp;lt; n.length; i++) {\n\t\t\tSystem.out.println(&quot;boooo!!&quot;);\n\t\t}\n\t}\n\t\n\t\n\t/*\n\t * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고\n\t * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다.\n\t */\n\tpublic String[] makeArrayWithNum(int n) {\n\t\tString [] array = new String[n];\t//여기서 변수를 만들때 메모리를 소모\n\t\tfor (int i = 0; i &amp;lt; array.length; i++) {\t //iteration을 위한 i 변수에 의한 메모리 소모\n\t\t\tarray[i] = &quot;hi&quot;;\n\t\t}\n\t\treturn array;\n\t}\n\n\n더 좋은 프로그램을 만들기 위한 팁\n\n\n\nJavascript String의 length Property\n\n자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면\n\n그것은 String의 글자 수에 달렸다고 말할 수 있지만\n\n자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다.\n\nString함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기.\n\n즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.)\n\n즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다.\n\nBig O notation이 중요한 이유\n\n시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다.\n\n이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재.\n\n따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다.\n\n하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다.\n"
+} ,
+  
+  {
+    "title"    : "Markdown Syntax",
+    "category" : "",
+    "tags"     : " A Tag, Test, Lorem, Ipsum",
+    "url"      : "/2020/02/20/Markdown-Syntax.html",
+    "date"     : "February 20, 2020",
+    "excerpt"  : "1단계 제목\n2단계 제목\n\n1단계 제목\n2단계 제목\n——-\n\n*목록1\n*목록2\n*목록3\n-이렇게 목록을 써도 됨\n-마이너스로 말이야\n\n\n  첫째입니다.\n  둘째입니다.\n  셋째입니다.\n  넷째입니다. 다섯째 아닙니다.\n  이게 다섯째입니다.\n  이건 여섯째.\n\n\n‘*’ 앞뒤 두번으로 굵게 쓰거나 ‘_’ 앞뒤 두번으로 두껍게 쓰거나\n\n‘’ 앞뒤 한번으로 *기울게 쓰면서 ‘’ 앞뒤 한번으로 _기울게 쓴다\n\n\n  인용문은\n  \n    ’&amp;gt;...",
+  "content"  : "1단계 제목\n2단계 제목\n\n1단계 제목\n2단계 제목\n——-\n\n*목록1\n*목록2\n*목록3\n-이렇게 목록을 써도 됨\n-마이너스로 말이야\n\n\n  첫째입니다.\n  둘째입니다.\n  셋째입니다.\n  넷째입니다. 다섯째 아닙니다.\n  이게 다섯째입니다.\n  이건 여섯째.\n\n\n‘*’ 앞뒤 두번으로 굵게 쓰거나 ‘_’ 앞뒤 두번으로 두껍게 쓰거나\n\n‘’ 앞뒤 한번으로 *기울게 쓰면서 ‘’ 앞뒤 한번으로 _기울게 쓴다\n\n\n  인용문은\n  \n    ’&amp;gt;’로 이렇게 쓴다.\n  \n\n\n링크 다는 법\n[구글링크]https://www.google.com/\n\n[구글링크 주석형][google]\n[google]https://www.google.com/ “이것이 구글주석”\n\n여러가지 가로선\n\n\n\n\n\n————\n"
+} ,
+  
+  {
+    "title"    : "Sample post",
+    "category" : "",
+    "tags"     : " A Tag, Test, Lorem, Ipsum",
+    "url"      : "/2019/06/30/sample-post.html",
+    "date"     : "June 30, 2019",
+    "excerpt"  : "Consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. \nPraesent et diam eget libero egestas mattis sit amet vitae augue. Nam tinci...",
+  "content"  : "Consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. \nPraesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. \n\nDonec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem.\n\n\n  Consectetur adipiscing elit\n  Donec a diam lectus\n  Sed sit amet ipsum mauris\n\n\nUt turpis felis, pulvinar a semper sed, adipiscing id dolor. Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris vitae nisi at sem facilisis semper ac in est.\n\nNunc diam velit, adipiscing ut tristique vitae, sagittis vel odio. Maecenas convallis ullamcorper ultricies. Curabitur ornare, ligula semper consectetur sagittis, nisi diam iaculis velit, id fringilla sem nunc vel mi. Nam dictum, odio nec pretium volutpat, arcu ante placerat erat, non tristique elit urna et turpis. Quisque mi metus, ornare sit amet fermentum et, tincidunt et orci. Fusce eget orci a orci congue vestibulum.\n\n\n\nUt dolor diam, elementum et vestibulum eu, porttitor vel elit. Curabitur venenatis pulvinar tellus gravida ornare. Sed et erat faucibus nunc euismod ultricies ut id justo. Nullam cursus suscipit nisi, et ultrices justo sodales nec. Fusce venenatis facilisis lectus ac semper. Aliquam at massa ipsum. Quisque bibendum purus convallis nulla ultrices ultricies. Nullam aliquam, mi eu aliquam tincidunt, purus velit laoreet tortor, viverra pretium nisi quam vitae mi. Fusce vel volutpat elit. Nam sagittis nisi dui.\n\n\n  Suspendisse lectus leo, consectetur in tempor sit amet, placerat quis neque\n\n\nEtiam luctus porttitor lorem, sed suscipit est rutrum non. Curabitur lobortis nisl a enim congue semper. Aenean commodo ultrices imperdiet. Vestibulum ut justo vel sapien venenatis tincidunt.\n\nPhasellus eget dolor sit amet ipsum dapibus condimentum vitae quis lectus. Aliquam ut massa in turpis dapibus convallis. Praesent elit lacus, vestibulum at malesuada et, ornare et est. Ut augue nunc, sodales ut euismod non, adipiscing vitae orci. Mauris ut placerat justo. Mauris in ultricies enim. Quisque nec est eleifend nulla ultrices egestas quis ut quam. Donec sollicitudin lectus a mauris pulvinar id aliquam urna cursus. Cras quis ligula sem, vel elementum mi. Phasellus non ullamcorper urna.\n"
+} ,
+  
+  {
+    "title"    : "Color Post",
+    "category" : "",
+    "tags"     : " Test, Color, Markdown",
+    "url"      : "/2019/05/18/color-post.html",
+    "date"     : "May 18, 2019",
+    "excerpt"  : "What a colorful post!\n\nThis is an idea that came from xukimseven/HardCandy-Jekyll \nlooking at this cheerful and colorful them, I wanted to enable something similar for mine.\n\nYou can go fork and star hers too! 😉\n\n\n\nHow does it work?\n\nBasically you...",
+  "content"  : "What a colorful post!\n\nThis is an idea that came from xukimseven/HardCandy-Jekyll \nlooking at this cheerful and colorful them, I wanted to enable something similar for mine.\n\nYou can go fork and star hers too! 😉\n\n\n\nHow does it work?\n\nBasically you need to add just one thing, the color:\n\n---\nlayout: post\ntitle: Color Post\ncolor: brown\n---\n\n\nIt can either be a html color like brown (which look like red to me). Or with the rgb:\n\n---\nlayout: post\ntitle: Color Post\ncolor: rgb(165,42,42)\n---\n\n\nThe background used is lineart.png from xukimseven you can edit it in the config file. \nIf you want another one, put it in /assets/img as well.\n\n  ⚠️ It’s a bit hacking the css in the post.html\n\n"
+} ,
+  
+  {
+    "title"    : "Feature images",
+    "category" : "",
+    "tags"     : " Test, Lorem",
+    "url"      : "/2014/11/29/feature-images.html",
+    "date"     : "November 29, 2014",
+    "excerpt"  : "This is an example of a post which includes a feature image specified in the front matter of the post. \nThe feature image spans the full-width of the page, and is shown with the title on permalink pages:\n\nfeature-img: &quot;assets/img/pexels/desk-messy...",
+  "content"  : "This is an example of a post which includes a feature image specified in the front matter of the post. \nThe feature image spans the full-width of the page, and is shown with the title on permalink pages:\n\nfeature-img: &quot;assets/img/pexels/desk-messy.jpeg&quot;\n\n\n\n  \n    And now it is working\n  \n\n"
+} ,
+  
+  {
+    "title"    : "Markdown and HTML",
+    "category" : "",
+    "tags"     : " Test, Markdown",
+    "url"      : "/2014/11/28/markdown-and-html.html",
+    "date"     : "November 28, 2014",
+    "excerpt"  : "Jekyll supports the use of Markdown with inline HTML tags which makes it easier to quickly write posts with Jekyll, without having to worry too much about text formatting. A sample of the formatting follows.\n\nTables have also been extended from Ma...",
+  "content"  : "Jekyll supports the use of Markdown with inline HTML tags which makes it easier to quickly write posts with Jekyll, without having to worry too much about text formatting. A sample of the formatting follows.\n\nTables have also been extended from Markdown:\n\n\n  \n    \n      First Header\n      Second Header\n    \n  \n  \n    \n      Content Cell\n      Content Cell\n    \n    \n      Content Cell\n      Content Cell\n    \n  \n\n\nHere’s an example of an image, which is included using Markdown:\n\n\n\nHighlighting for code in Jekyll is done using Base16 or Rouge. This theme makes use of Rouge by default.\n\n// count to ten\nfor (var i = 1; i &amp;lt;= 10; i++) {\n    console.log(i);\n}\n\n// count to twenty\nvar j = 0;\nwhile (j &amp;lt; 20) {\n    j++;\n    console.log(j);\n}\n\nType on Strap uses KaTeX to display maths. Equations such as  can be displayed inline.\n\nAlternatively, they can be shown on a new line:\n\n\n"
+} ,
+  
+  {
+    "title"    : "What&#39;s your title",
+    "category" : "",
+    "tags"     : " Test, Lorem",
+    "url"      : "/2014/11/27/whats-your-title.html",
+    "date"     : "November 27, 2014",
+    "excerpt"  : "This is an example of a post which includes a feature image that has a\ntext, where you don’t want to redisplay the title.\nWe cannot simply set the title to the empty string, as that would\nbreak pages that list this post, such as home and tags.\n\n",
+  "content"  : "This is an example of a post which includes a feature image that has a\ntext, where you don’t want to redisplay the title.\nWe cannot simply set the title to the empty string, as that would\nbreak pages that list this post, such as home and tags.\n\n"
+} ,
+  
+  {
+    "title"    : "Markup: Syntax Highlighting",
+    "category" : "",
+    "tags"     : " code",
+    "url"      : "/2014/08/08/Markup-Syntax-Highlighting.html",
+    "date"     : "August 8, 2014",
+    "excerpt"  : "From Michael’s Rose Minimal Mistakes.\nSyntax highlighting is a feature that displays source code, in different colors and fonts according to the category of terms. This feature facilitates writing in a structured language such as a programming lan...",
+  "content"  : "From Michael’s Rose Minimal Mistakes.\nSyntax highlighting is a feature that displays source code, in different colors and fonts according to the category of terms. This feature facilitates writing in a structured language such as a programming language or a markup language as both structures and syntax errors are visually distinct. Highlighting does not affect the meaning of the text itself; it is intended only for human readers.\n\nGFM Code Blocks\n\nGitHub Flavored Markdown fenced code blocks are supported. To modify styling and highlight colors edit /_sass/syntax.scss.\n\n#container {\n  float: left;\n  margin: 0 -240px 0 0;\n  width: 100%;\n}\n\n\n1\n2\n3\n4\n5\n6\n7\n.highlight {\n  margin: 0;\n  padding: 1em;\n  font-family: $monospace;\n  font-size: $type-size-7;\n  line-height: 1.8;\n}\n\n\n&amp;lt;nav class=&quot;pagination&quot; role=&quot;navigation&quot;&amp;gt;\n  {% if page.previous %}\n    &amp;lt;a href=&quot;{{ site.url }}{{ page.previous.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.previous.title }}&quot;&amp;gt;Previous article&amp;lt;/a&amp;gt;\n  {% endif %}\n  {% if page.next %}\n    &amp;lt;a href=&quot;{{ site.url }}{{ page.next.url }}&quot; class=&quot;btn&quot; title=&quot;{{ page.next.title }}&quot;&amp;gt;Next article&amp;lt;/a&amp;gt;\n  {% endif %}\n&amp;lt;/nav&amp;gt;&amp;lt;!-- /.pagination --&amp;gt;\n\n\nmodule Jekyll\n  class TagIndex &amp;lt; Page\n    def initialize(site, base, dir, tag)\n      @site = site\n      @base = base\n      @dir = dir\n      @name = &#39;index.html&#39;\n      self.process(@name)\n      self.read_yaml(File.join(base, &#39;_layouts&#39;), &#39;tag_index.html&#39;)\n      self.data[&#39;tag&#39;] = tag\n      tag_title_prefix = site.config[&#39;tag_title_prefix&#39;] || &#39;Tagged: &#39;\n      tag_title_suffix = site.config[&#39;tag_title_suffix&#39;] || &#39;&amp;amp;#8211;&#39;\n      self.data[&#39;title&#39;] = &quot;#{tag_title_prefix}#{tag}&quot;\n      self.data[&#39;description&#39;] = &quot;An archive of posts tagged #{tag}.&quot;\n    end\n  end\nend\n\n\nCode Blocks in Lists\n\nIndentation matters. Be sure the indent of the code block aligns with the first non-space character after the list item marker (e.g., 1.). Usually this will mean indenting 3 spaces instead of 4.\n\n\n  Do step 1.\n  \n    Now do this:\n\n    def print_hi(name)\n  puts &quot;Hi, #{name}&quot;\nend\nprint_hi(&#39;Tom&#39;)\n#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.\n    \n  \n  Now you can do this.\n\n\nGitHub Gist Embed\n\nAn example of a Gist embed below.\n\n\n\nSource\n\n"
+} ,
+  
+  {
+    "title"    : "Generate a table of content",
+    "category" : "",
+    "tags"     : " toc.js, kramdown, Markdown, Customization",
+    "url"      : "/2013/12/12/Generate-a-table-of-content.html",
+    "date"     : "December 12, 2013",
+    "excerpt"  : "Test article, get the source on github.\n\nUsing Kramdown GFM \n\n\n\n  Using Kramdown GFM     \n      Basic Usage\n    \n  \n  Using toc.js    \n      Customize with toc.js        \n          Use with this jekyll template\n        \n      \n      Basic Usage\n  ...",
+  "content"  : "Test article, get the source on github.\n\nUsing Kramdown GFM \n\n\n\n  Using Kramdown GFM     \n      Basic Usage\n    \n  \n  Using toc.js    \n      Customize with toc.js        \n          Use with this jekyll template\n        \n      \n      Basic Usage\n      How it would look like\n    \n  \n\n\nBasic Usage\n\nYou need to put this at the beginning of the page where you want the table of content to be displayed\n\n* TOC\n{:toc}\n\n\nIt will then render the markdown and html titles (lines that begins with # or using the &amp;lt;h1&amp;gt;&amp;lt;/h1&amp;gt; tages)\n\nUsing toc.js\n\nDemo display of jekyll-table-of-contents by ghiculescu.\n\n\n\n\nCustomize with toc.js\n\ntoc.js stands for table of content, it is a js plugin that generates automatically a table of content of a post.\n\nUse with this jekyll template\n\nIf you want to customize the theme it is up to you, you can add the toc.js file into the asset &amp;gt; js and add it into the page.html layout with:\n\n&amp;lt;script src=&quot;/assets/js/toc.js&quot; &amp;gt;&amp;lt;/script&amp;gt;\n\nThen you can use it as it is said on the repository.\n\nBasic Usage\n\nThe script requires jQuery. First, reference toc.js in templates where you would like to add the table of content. Then, create an HTML element wherever you want your table of contents to appear:\n\n&amp;lt;div id=&quot;toc&quot;&amp;gt;&amp;lt;/div&amp;gt;\n\n\nThen you put your post with titles and all like:\n\n## Title\n## Mid title 1\nThis is text on page one\n## Mid title 2\nThis is text for page two\n### Sub title 2.a\nSome more text\n\n\nThen at the end of your post, you call the .toc() function using:\n\n&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;\n$(document).ready(function() {\n    $(&#39;#toc&#39;).toc();\n});\n&amp;lt;/script&amp;gt;\n\n\nHow it would look like\n\n\n\n\n\n\n\n\n"
+} ,
+  
+  {
+    "title"    : "Blogging with title",
+    "category" : "",
+    "tags"     : " Test, Ipsum, Markdown, Portfolio",
+    "url"      : "/2013/11/18/blogging-with-title.html",
+    "date"     : "November 18, 2013",
+    "excerpt"  : "I am a BIG title\n\nThis is a very tiny tiny post with less than 250 letters.\n\nSearch should be working even for complicated escape symbols\nsed -i &#39;s/\\&quot;hostname\\&quot;\\:.*$/\\&quot;hostname\\&quot;\\: \\&quot;&#39;$IPADDR&#39;\\&quot;\\,/g&#39; open-falcon/agent/config/cfg.json\n\n",
+  "content"  : "I am a BIG title\n\nThis is a very tiny tiny post with less than 250 letters.\n\nSearch should be working even for complicated escape symbols\nsed -i &#39;s/\\&quot;hostname\\&quot;\\:.*$/\\&quot;hostname\\&quot;\\: \\&quot;&#39;$IPADDR&#39;\\&quot;\\,/g&#39; open-falcon/agent/config/cfg.json\n\n"
+} 
+  
+  ,
+  
+  {
+  
+  "title"    : "Ninja",
+  "category" : "",
+  "tags"     : " Lorem",
+  "url"      : "/portfolio/ninja",
+  "date"     : "April 8, 2014",
+  "excerpt"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem qu...",
+  "content"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Creative",
+  "category" : "",
+  "tags"     : " Ipsum",
+  "url"      : "/portfolio/safe",
+  "date"     : "August 16, 2014",
+  "excerpt"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia...",
+  "content"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\nUse this area of the page to describe your project. The icon above is part of a free icon set by Flat Icons. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Circus",
+  "category" : "",
+  "tags"     : " Ipsum",
+  "url"      : "/portfolio/circus",
+  "date"     : "September 1, 2014",
+  "excerpt"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem qu...",
+  "content"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Tower of Hanoi",
+  "category" : "",
+  "tags"     : " ",
+  "url"      : "/portfolio/hanoi",
+  "date"     : "September 1, 2014",
+  "excerpt"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem qu...",
+  "content"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Tic tac toe",
+  "category" : "",
+  "tags"     : " ",
+  "url"      : "/portfolio/tictactoe",
+  "date"     : "September 1, 2014",
+  "excerpt"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia...",
+  "content"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Cake",
+  "category" : "",
+  "tags"     : " Lorem, Ipsum, Portfolio",
+  "url"      : "/portfolio/cake",
+  "date"     : "September 27, 2015",
+  "excerpt"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia...",
+  "content"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\nUse this area of the page to describe your project. The icon above is part of a free icon set by Flat Icons. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Jekyll",
+  "category" : "",
+  "tags"     : " ",
+  "url"      : "/portfolio/jekyllblog",
+  "date"     : "May 26, 2017",
+  "excerpt"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia...",
+  "content"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Lorem Ipsum",
+  "category" : "",
+  "tags"     : " ",
+  "url"      : "/portfolio/submarine",
+  "date"     : "September 3, 2017",
+  "excerpt"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia...",
+  "content"  : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\nUse this area of the page to describe your project. The icon above is part of a free icon set by Flat Icons. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!\n\n"
+  
+} ,
+  
+  {
+  
+  "title"    : "Github",
+  "category" : "",
+  "tags"     : " Lorem, Portfolio",
+  "url"      : "/portfolio/gitlecture",
+  "date"     : "October 20, 2017",
+  "excerpt"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem qu...",
+  "content"  : "\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\n\n"
+  
+} 
+  
+]
