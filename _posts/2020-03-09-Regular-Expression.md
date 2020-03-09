@@ -69,3 +69,15 @@ excerpt_separator: <!--more-->
 ## IPv4
 
 /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/
+
+# reference
+
+https://regexone.com/
+
+https://regexr.com/
+
+## explain
+
+https://namu.wiki/w/%EC%A0%95%EA%B7%9C%20%ED%91%9C%ED%98%84%EC%8B%9D?from=%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D
+
+https://soooprmx.com/archives/7718
