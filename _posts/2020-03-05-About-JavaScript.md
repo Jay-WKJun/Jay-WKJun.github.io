@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists
+title: About JavaScript
 tags: [Tech, Javascript]
 excerpt_separator: <!--more-->
 ---

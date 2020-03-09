@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists
+title: Stacks and Queue
 tags: [ComputerScience, DataStructure]
 excerpt_separator: <!--more-->
 ---
