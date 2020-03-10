@@ -61,3 +61,11 @@ peek | O(1)
 Queue와 Array는 비슷하지만 Array는 index가 있어서 insert나 delete시에 모든 index에 영향을 주기 때문에
 
 Queue에 비해 속도에서 크게 손해를 보게 된다.
+
+# Pros & Cons
+
+Pros  | Cons
+------------- | -------------
+Fast Lookups  | Slow Lookups
+Fast peeks | 
+Ordered | 
