@@ -11,6 +11,23 @@ Single Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리�
 
 pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게 Data를 다룰 수 있다.(특히 앞에서만 시작했던 linked list와는 달리 뒤에서도 접근이 가능하다.)
 
+웹페이지 forward, backward가 이것으로 구성되어 있다.
+
+# Methods
+
+methods  | Big O notation
+------------- | -------------
+Inserts  | O(1)
+Removal | O(1)
+Searching | O(n)
+Access | O(n)
+
+물론 실제로는 searching, access는 O(n/2)지만 규칙에 따라 O(n)이다.
+
+# Doubly vs Singly
+
+
+
 # reference
 
 https://visualgo.net/en/list?slide=1a
@@ -116,7 +133,7 @@ class DoublyLinkedList {
     }
     insert(index, val){
       if(index < 0||index >= this.length){
-        return;
+        return undefinded;
       }
       if(index === 0){
         return this.unshift(val);
@@ -135,20 +152,23 @@ class DoublyLinkedList {
       return this;
     }
     remove(index){
+      if(index < 0||index >= this.length){
+        return undefinded;
+      }
       if(index === 0){
         return this.shift();
       }
       if(index === this.length-1){
         return this.pop();
       }
-      var foundNode = this.get(index-1);
+      var foundNode = this.get(index);
       var nextNode = foundNode.next;
       var prevNode = foundNode.prev;
       nextNode.prev = prevNode;
       prevNode.next = nextNode;
       foundNode = null;
       this.length--;
-      return true;
+      return foundNode;
     }
 }
 ```
