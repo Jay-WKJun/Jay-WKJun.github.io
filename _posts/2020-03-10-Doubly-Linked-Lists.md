@@ -13,6 +13,8 @@ pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 fle
 
 웹페이지 forward, backward가 이것으로 구성되어 있다.
 
+<!--more-->
+
 # Methods
 
 methods  | Big O notation
@@ -23,10 +25,6 @@ Searching | O(n)
 Access | O(n)
 
 물론 실제로는 searching, access는 O(n/2)지만 규칙에 따라 O(n)이다.
-
-# Doubly vs Singly
-
-
 
 # reference
 
