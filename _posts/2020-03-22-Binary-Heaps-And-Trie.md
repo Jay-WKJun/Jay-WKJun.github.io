@@ -11,6 +11,8 @@ Tree의 한 종류
 
 규칙 : 위 층보다 작은 숫자가 위치한다. 만약 밑에 부모보다 큰 수가 자식에 오면 자리가 교체된다.
 
+<!--more-->
+
 https://visualgo.net/en/heap
 
 ## priority queue

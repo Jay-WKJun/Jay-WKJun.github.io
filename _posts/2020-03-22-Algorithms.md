@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Algorithms
-tags: [ComputerScience, DataStructure]
+tags: [ComputerScience, Algorithms]
 excerpt_separator: <!--more-->
 ---
 
@@ -12,6 +12,8 @@ Algorithm이란 간단히 process들의 step으로 computer에게 우리가 원�
 Data Structures + Algorithms = Programs
 
 위 수식에서 Algorithm은 Data structure를 이용해 특정 동작을 할 수 있게 해준다.
+
+<!--more-->
 
 # Why Algorithms are so important, especially in big company?
 
