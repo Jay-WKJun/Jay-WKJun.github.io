@@ -25,7 +25,7 @@ recursive = ##O(2^n)## (O(n^2)보다 훨씬 operation이 많다.)
 
 ## Although!! why they use recursive?
 
-Anything you can do with a recursion CAN be done iteratively(loop)
+##Anything you can do with a recursion CAN be done iteratively(loop)##
 
 pros  | cons
 ------------- | -------------
@@ -50,7 +50,8 @@ Everytime you are using a tree converting Something into a tree, consider Recurs
 
 - Divide and Conquer using Recursion
 - BFS(Breadth First Search), DFS(Depth First Search)
-- Tree Data structure
+- Tree Data structure or Tree Traversal
+- Sorting
 
 # Three Rules
 
