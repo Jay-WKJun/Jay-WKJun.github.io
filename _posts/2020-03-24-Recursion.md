@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Algorithms
+title: Recursion
 tags: [ComputerScience, Algorithms]
 excerpt_separator: <!--more-->
 ---
@@ -12,8 +12,6 @@ Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.
 Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면
 
 push된 recursion function들을 하나씩 pop하면서 실행한다.
-
-
 
 <!--more-->
 

@@ -1,9 +1,15 @@
 ---
 layout: post
-title: Algorithms
+title: 오답노트
 tags: [StudyNote, Incorrects]
 excerpt_separator: <!--more-->
 ---
+
+# 이 페이지의 목적
+
+틀렸던 코딩 문제들의 모음집
+
+<!--more-->
 
 # Problem : getHeights, Binary search Trees
 
