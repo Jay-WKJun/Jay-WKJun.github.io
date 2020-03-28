@@ -1,0 +1,9 @@
+I":<h1 id="recursion">Recursion</h1>
+
+<p>Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.</p>
+
+<p>Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면</p>
+
+<p>push된 recursion function들을 하나씩 pop하면서 실행한다.</p>
+
+:ET

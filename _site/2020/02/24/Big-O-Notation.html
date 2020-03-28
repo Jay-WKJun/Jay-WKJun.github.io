@@ -34,6 +34,23 @@
     
 
     <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
      <!-- End Google Analytics -->
 
     <!-- seo tags -->
@@ -42,21 +59,21 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Big O Notation" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. Readable 즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다. Space Complexity = Memory 메모리 공간을 얼마나 사용하는 지에 대한 관점이다. 메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다. ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack : where we keep track of our function calls Time Complexity = Speed 처리 속도에 대한 관점이다. 처리 속도가 빠를 수록 효율적인 코드라 할 수 있다. 위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다! Big O Notation 어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다. Definition 여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다. Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다. Rules Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다. 1. Worst Case String [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;}; findNemo(nemo); public void findNemo(String []array) { Date date = new Date(); long startD = date.getTime(); for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } long endD = date.getTime(); System.out.println(&quot;Call to find Nemo = &quot; + (endD - startD)); } nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만 Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다. 2. Remove Constants public void findNemo(String []array) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다. 3. Different terms for inputs public void findNemo(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array2.length; i++) { if (array2[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } 넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다. 4. Drop Non Dominants public void rule4(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); } } for (int i = 0; i &lt; array.length; i++) { for (int j = 0; j &lt; array2.length; j++) { System.out.println(array[i]+array[j]); } } } 안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만 rule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다. Space complexity 공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다. /* * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다. */ public void booos(int [] n) { for (int i = 0; i &lt; n.length; i++) { System.out.println(&quot;boooo!!&quot;); } } /* * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다. */ public String[] makeArrayWithNum(int n) { String [] array = new String[n]; //여기서 변수를 만들때 메모리를 소모 for (int i = 0; i &lt; array.length; i++) { //iteration을 위한 i 변수에 의한 메모리 소모 array[i] = &quot;hi&quot;; } return array; } 더 좋은 프로그램을 만들기 위한 팁 Javascript String의 length Property 자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면 그것은 String의 글자 수에 달렸다고 말할 수 있지만 자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다. String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기. 즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.) 즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다. Big O notation이 중요한 이유 시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다. 이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재. 따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다. 하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다." />
-<meta property="og:description" content="Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. Readable 즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다. Space Complexity = Memory 메모리 공간을 얼마나 사용하는 지에 대한 관점이다. 메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다. ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack : where we keep track of our function calls Time Complexity = Speed 처리 속도에 대한 관점이다. 처리 속도가 빠를 수록 효율적인 코드라 할 수 있다. 위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다! Big O Notation 어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다. Definition 여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다. Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다. Rules Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다. 1. Worst Case String [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;}; findNemo(nemo); public void findNemo(String []array) { Date date = new Date(); long startD = date.getTime(); for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } long endD = date.getTime(); System.out.println(&quot;Call to find Nemo = &quot; + (endD - startD)); } nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만 Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다. 2. Remove Constants public void findNemo(String []array) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다. 3. Different terms for inputs public void findNemo(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array2.length; i++) { if (array2[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } 넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다. 4. Drop Non Dominants public void rule4(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); } } for (int i = 0; i &lt; array.length; i++) { for (int j = 0; j &lt; array2.length; j++) { System.out.println(array[i]+array[j]); } } } 안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만 rule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다. Space complexity 공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다. /* * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다. */ public void booos(int [] n) { for (int i = 0; i &lt; n.length; i++) { System.out.println(&quot;boooo!!&quot;); } } /* * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다. */ public String[] makeArrayWithNum(int n) { String [] array = new String[n]; //여기서 변수를 만들때 메모리를 소모 for (int i = 0; i &lt; array.length; i++) { //iteration을 위한 i 변수에 의한 메모리 소모 array[i] = &quot;hi&quot;; } return array; } 더 좋은 프로그램을 만들기 위한 팁 Javascript String의 length Property 자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면 그것은 String의 글자 수에 달렸다고 말할 수 있지만 자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다. String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기. 즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.) 즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다. Big O notation이 중요한 이유 시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다. 이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재. 따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다. 하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다." />
+<meta name="description" content="Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. 1.Readable 2.Space Complexity 3.Time Complexity" />
+<meta property="og:description" content="Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. 1.Readable 2.Space Complexity 3.Time Complexity" />
 <link rel="canonical" href="http://localhost:4000/2020/02/24/Big-O-Notation.html" />
 <meta property="og:url" content="http://localhost:4000/2020/02/24/Big-O-Notation.html" />
 <meta property="og:site_name" content="Dev.JK Tech Note" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-02-24T00:00:00+09:00" />
 <script type="application/ld+json">
-{"@type":"BlogPosting","headline":"Big O Notation","dateModified":"2020-02-24T00:00:00+09:00","datePublished":"2020-02-24T00:00:00+09:00","url":"http://localhost:4000/2020/02/24/Big-O-Notation.html","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/02/24/Big-O-Notation.html"},"description":"Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. Readable 즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다. Space Complexity = Memory 메모리 공간을 얼마나 사용하는 지에 대한 관점이다. 메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다. ps. Memory의 종류 - heap : 변수와 여러 값들을 직접 저장하는 곳, stack : where we keep track of our function calls Time Complexity = Speed 처리 속도에 대한 관점이다. 처리 속도가 빠를 수록 효율적인 코드라 할 수 있다. 위 3가지를 모두 항상 만족할 수 없겠지만 그 타협점에서 가장 효율적인 코드를 완성하는 것을 목표로 해야한다! Big O Notation 어떤 처리 과정이 얼마나 효율적인가를 표현하는 코드의 처리 효율성 Index같은 것이다. Definition 여러가지 복잡도 표기법중에서는 Big O Notation을 가장 많이 사용한다. Big O Notation은 밑에 표처럼 여러가지로 구분 될 수 있다. Rules Big O Notation으로 복잡도를 판단하는 4가지의 룰이 있다. 1. Worst Case String [] nemo = {&quot;asd&quot;, &quot;sdf&quot;, &quot;qwe&quot;, &quot;nemo&quot;, &quot;zxc&quot;}; findNemo(nemo); public void findNemo(String []array) { Date date = new Date(); long startD = date.getTime(); for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } long endD = date.getTime(); System.out.println(&quot;Call to find Nemo = &quot; + (endD - startD)); } nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만 Notation은 항상 최대로 for문이 실행되었을 경우를 가정해야 한다. 따라서 O(n)이 된다. 2. Remove Constants public void findNemo(String []array) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 O(n)이 된다. 3. Different terms for inputs public void findNemo(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } for (int i = 0; i &lt; array2.length; i++) { if (array2[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); break; } } } 넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다. 4. Drop Non Dominants public void rule4(String []array, String []array2) { for (int i = 0; i &lt; array.length; i++) { if (array[i] == &quot;nemo&quot;) { System.out.println(&quot;Found Nemo!!&quot;); } } for (int i = 0; i &lt; array.length; i++) { for (int j = 0; j &lt; array2.length; j++) { System.out.println(array[i]+array[j]); } } } 안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만 rule인 drop non dominants에 의하면 O(n^2)가 더 중요하므로 중요한것만 남겨 써야한다. Space complexity 공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다. /* * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다. */ public void booos(int [] n) { for (int i = 0; i &lt; n.length; i++) { System.out.println(&quot;boooo!!&quot;); } } /* * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다. */ public String[] makeArrayWithNum(int n) { String [] array = new String[n]; //여기서 변수를 만들때 메모리를 소모 for (int i = 0; i &lt; array.length; i++) { //iteration을 위한 i 변수에 의한 메모리 소모 array[i] = &quot;hi&quot;; } return array; } 더 좋은 프로그램을 만들기 위한 팁 Javascript String의 length Property 자바스크립트에서 String.length는 과연 얼마의 Big O notation을 가질까 한다면 그것은 String의 글자 수에 달렸다고 말할 수 있지만 자바스크립트 언어 자체에 내장된 length라는 것은 String 함수 자체가 가진 length를 그냥 읽어온 것이다. String함수를 작성하고 실행하여 String객체를 만들때 이미 length라는 property도 작성된다는 얘기. 즉 함수가 아닌 String 함수내의 하나의 property이기 때문의 O(1)을 가진다.(즉, 그냥 변수 값을 가져오는것으로 생각 할 수 있다.) 즉, 각 언어가 어떻게 동작하는지 알아서 기본적으로 내장된 기능들과 여러 api들의 big O notation을 파악할 수 있으면 훨씬 더 좋은 프로그램을 만들 수 있다는 것이다. Big O notation이 중요한 이유 시간과 메모리 공간은 cost이고 이것을 측정하는 개념인 Big O notation이다. 이것을 항상 염두해두며 최소한으로 줄일 줄 아는 엔지니어야 말로 회사의 황금과 같은 존재. 따라서 쓰이는 개념은 아니지만 회사가 자주 물어보는 주제이며 engineer로서 항상 염두하고 해결하기 위해 노력해야한다. 하지만 3가지의 좋은 프로그램의 조건을 모두 고려해야하므로 그 3가지를 잘 조절해서 가장 효율적인 코드를 짜내야한다.","@context":"https://schema.org"}</script>
+{"headline":"Big O Notation","dateModified":"2020-02-24T00:00:00+09:00","datePublished":"2020-02-24T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/02/24/Big-O-Notation.html"},"url":"http://localhost:4000/2020/02/24/Big-O-Notation.html","description":"Which code is Best? 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다. 1.Readable 2.Space Complexity 3.Time Complexity","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <!-- Manual seo tags -->
     <!--
     <title>Big O Notation | Dev.JK Tech Note</title>
-    <meta name="description" content="Which code is Best?프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.Readable즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.Space Complexity = Memory메모리 공간을 얼마나 사용하...">
+    <meta name="description" content="Which code is Best?프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.1.Readable2.Space Complexity3.Time Complexity">
     -->
 </head>
 
@@ -65,10 +82,6 @@
 
     <!-- Logo and title -->
 	<div class="branding">
-        
-		<a href="/">
-			<img alt="logo img" class="avatar" src="/assets/img/triangle.png" />
-		</a>
         
 
 		<h1 class="site-title">
@@ -159,6 +172,15 @@
             
             
         
+            
+            
+        
+            
+            
+        
+            
+            
+        
     </ul>
 
 	</nav>
@@ -176,18 +198,12 @@
 
 프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.
 
-Readable
+1.Readable
+2.Space Complexity
+3.Time Complexity
 
-즉 가독성이다. 읽기 쉽고 직관적인 코드는 유지보수에 큰 도움이 되고 프로그램의 수명도 길어진다.
-
-Space Complexity = Memory
-
-메모리 공간을 얼마나 사용하는 지에 대한 관점이다.
-
-메모리 공간은 한정되있고 그것을 최대한 효율적으로 사용하는 코드일 수록 효율적인 코드이다.
-
-ps. Memory의..." />
-<meta property="og:image"        content="assets/img/pexels/triangular.jpeg" />
+" />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
 
 
 <article >
@@ -211,6 +227,12 @@ ps. Memory의..." />
 <hr />
 
 <p>프로그램의 코드를 평가하는데는 3가지의 관점에서 평가할 수 있다.</p>
+
+<p>1.Readable
+2.Space Complexity
+3.Time Complexity</p>
+
+<!--more-->
 
 <h2 id="readable">Readable</h2>
 
@@ -252,22 +274,22 @@ ps. Memory의..." />
 
 <h2 id="1-worst-case">1. Worst Case</h2>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">String [] nemo = {"asd", "sdf", "qwe", "nemo", "zxc"};</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="o">[]</span> <span class="n">nemo</span> <span class="o">=</span> <span class="o">{</span><span class="s">"asd"</span><span class="o">,</span> <span class="s">"sdf"</span><span class="o">,</span> <span class="s">"qwe"</span><span class="o">,</span> <span class="s">"nemo"</span><span class="o">,</span> <span class="s">"zxc"</span><span class="o">};</span>
 
-<span class="s">findNemo(nemo);</span>
+<span class="n">findNemo</span><span class="o">(</span><span class="n">nemo</span><span class="o">);</span>
 
-<span class="s">public void findNemo(String []array) {</span>
-<span class="err">		</span><span class="s">Date date = new Date();</span>
-<span class="err">		</span><span class="s">long startD = date.getTime();</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
-<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
-<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
-<span class="err">				</span><span class="s">break;</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">		</span><span class="s">long endD = date.getTime();</span>
-<span class="err">		</span><span class="s">System.out.println("Call to find Nemo = " + (endD - startD));</span>
-<span class="err">	}</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">findNemo</span><span class="o">(</span><span class="nc">String</span> <span class="o">[]</span><span class="n">array</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Date</span> <span class="n">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">();</span>
+		<span class="kt">long</span> <span class="n">startD</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="na">getTime</span><span class="o">();</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="s">"nemo"</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found Nemo!!"</span><span class="o">);</span>
+				<span class="k">break</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="kt">long</span> <span class="n">endD</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="na">getTime</span><span class="o">();</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Call to find Nemo = "</span> <span class="o">+</span> <span class="o">(</span><span class="n">endD</span> <span class="o">-</span> <span class="n">startD</span><span class="o">));</span>
+	<span class="o">}</span>
 </code></pre></div></div>
 
 <p>nemo 배열안에 nemo는 4번째에 있어서 for문을 모두 돌지 않고 4번째에서 멈추기 때문에 복잡도는 4라고 할 수 있지만</p>
@@ -276,63 +298,63 @@ ps. Memory의..." />
 
 <h2 id="2-remove-constants">2. Remove Constants</h2>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void findNemo(String []array) {</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">findNemo</span><span class="o">(</span><span class="nc">String</span> <span class="o">[]</span><span class="n">array</span><span class="o">)</span> <span class="o">{</span>
 		
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
-<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
-<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
-<span class="err">				</span><span class="s">break;</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">		</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
-<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
-<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
-<span class="err">				</span><span class="s">break;</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">	}</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="s">"nemo"</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found Nemo!!"</span><span class="o">);</span>
+				<span class="k">break</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="s">"nemo"</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found Nemo!!"</span><span class="o">);</span>
+				<span class="k">break</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
 </code></pre></div></div>
 
 <p>for문을 2번 실행하기 때문에 O(2n)이 맞지만 constant는 지워줘야하는 룰에 의해 <em>O(n)</em>이 된다.</p>
 
 <h2 id="3-different-terms-for-inputs">3. Different terms for inputs</h2>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void findNemo(String []array, String []array2) {</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">findNemo</span><span class="o">(</span><span class="nc">String</span> <span class="o">[]</span><span class="n">array</span><span class="o">,</span> <span class="nc">String</span> <span class="o">[]</span><span class="n">array2</span><span class="o">)</span> <span class="o">{</span>
 		
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
-<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
-<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
-<span class="err">				</span><span class="s">break;</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">		</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array2.length; i++) {</span>
-<span class="err">			</span><span class="s">if (array2[i] == "nemo") {</span>
-<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
-<span class="err">				</span><span class="s">break;</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">	}</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="s">"nemo"</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found Nemo!!"</span><span class="o">);</span>
+				<span class="k">break</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">array2</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="s">"nemo"</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found Nemo!!"</span><span class="o">);</span>
+				<span class="k">break</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
 </code></pre></div></div>
 
 <p>넣어주는 parameter값이 여러개라면 모두 다른 이름으로 넣어주어야한다.</p>
 
 <h2 id="4-drop-non-dominants">4. Drop Non Dominants</h2>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">public void rule4(String []array, String []array2) {</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
-<span class="err">			</span><span class="s">if (array[i] == "nemo") {</span>
-<span class="err">				</span><span class="s">System.out.println("Found Nemo!!");</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">		</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span>
-<span class="err">			</span><span class="s">for (int j = 0; j &lt; array2.length; j++) {</span>
-<span class="err">				</span><span class="s">System.out.println(array[i]+array[j]);</span>
-<span class="err">			}</span>
-<span class="err">		}</span>
-<span class="err">	}</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">rule4</span><span class="o">(</span><span class="nc">String</span> <span class="o">[]</span><span class="n">array</span><span class="o">,</span> <span class="nc">String</span> <span class="o">[]</span><span class="n">array2</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="s">"nemo"</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Found Nemo!!"</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">array2</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="n">array</span><span class="o">[</span><span class="n">j</span><span class="o">]);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
 </code></pre></div></div>
 
 <p>안에 2가지 for가 있다. O(n + n^2)로 표현가능하지만</p>
@@ -345,28 +367,28 @@ ps. Memory의..." />
 
 <p>공간 복잡도의 계산은 밑의 코드와 같이 계산할 수 있다.</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">/*</span>
-<span class="err">	</span> <span class="err">*</span> <span class="s">밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에</span>
-<span class="err">	</span> <span class="err">*</span> <span class="s">booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다.</span>
-<span class="err">	</span> <span class="err">*</span><span class="s">/</span>
-<span class="err">	</span><span class="s">public void booos(int [] n) {</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; n.length; i++) {</span>
-<span class="err">			</span><span class="s">System.out.println("boooo!!");</span>
-<span class="err">		}</span>
-<span class="err">	}</span>
-<span class="err">	</span>
-<span class="err">	</span>
-<span class="err">	</span><span class="s">/*</span>
-<span class="err">	</span> <span class="err">*</span> <span class="s">n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고</span>
-<span class="err">	</span> <span class="err">*</span> <span class="s">for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다.</span>
-<span class="err">	</span> <span class="err">*</span><span class="s">/</span>
-<span class="err">	</span><span class="s">public String[] makeArrayWithNum(int n) {</span>
-<span class="err">		</span><span class="s">String [] array = new String[n];</span><span class="err">	</span><span class="s">//여기서 변수를 만들때 메모리를 소모</span>
-<span class="err">		</span><span class="s">for (int i = 0; i &lt; array.length; i++) {</span><span class="err">	</span><span class="s"> //iteration을 위한 i 변수에 의한 메모리 소모</span>
-<span class="err">			</span><span class="s">array[i] = "hi";</span>
-<span class="err">		}</span>
-<span class="err">		</span><span class="s">return array;</span>
-<span class="err">	}</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+	 * 밖에서 booos의 관점에서는 밖에서 받아온 변수는 메모리에 포함이 안되기 때문에
+	 * booos불러 사용한다면 O(1)의 공간복잡도라고 할 수 있다.
+	 */</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">booos</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"boooo!!"</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	
+	
+	<span class="cm">/*
+	 * n개의 배열을 메소드안에서 생성하기 때문에 그만큼의 메모리가 필요하고
+	 * for문을 위한 i 변수의 매모리공간이 또 필요하기 때문에 O(n)의 공간 복잡도라고 할 수 있다.
+	 */</span>
+	<span class="kd">public</span> <span class="nc">String</span><span class="o">[]</span> <span class="nf">makeArrayWithNum</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">String</span> <span class="o">[]</span> <span class="n">array</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="n">n</span><span class="o">];</span>	<span class="c1">//여기서 변수를 만들때 메모리를 소모</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>	 <span class="c1">//iteration을 위한 i 변수에 의한 메모리 소모</span>
+			<span class="n">array</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="s">"hi"</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">array</span><span class="o">;</span>
+	<span class="o">}</span>
 </code></pre></div></div>
 
 <h1 id="더-좋은-프로그램을-만들기-위한-팁">더 좋은 프로그램을 만들기 위한 팁</h1>
@@ -447,7 +469,17 @@ ps. Memory의..." />
 
 
 <footer>
-  <div class="tag-list"></div>
+  <div class="tag-list">
+    
+      <div class="meta">Tag</div>
+    
+
+    
+    <a class="button" href="/tags#ComputerScience">
+      <p><i class="fa fa-tag fa-fw"></i> ComputerScience</p>
+    </a>
+    
+  </div>
 </footer>
 
 
@@ -455,10 +487,31 @@ ps. Memory의..." />
 
 <!-- Disqus -->
 
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
 
 <!-- Post navigation -->
 
   <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="Arrays" href="/2020/03/01/Arrays.html">
+            <p>Previous post</p>
+            Arrays
+        </a>
+    </div>
     
 
     

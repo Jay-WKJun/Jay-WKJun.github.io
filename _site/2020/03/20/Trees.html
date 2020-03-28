@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/03/20/Trees.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Trees | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Trees" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Trees Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다. Rules 모든 Parent node는 최대 2개의 child를 가질 수 있다. Parent node보다 좌측의 node는 Parent보다 항상 작다. Parent node보다 우측의 node는 Parent보다 항상 크다. 대표적인 예가 바로 윈도우의 파일 구조이다." />
+<meta property="og:description" content="Trees Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다. Rules 모든 Parent node는 최대 2개의 child를 가질 수 있다. Parent node보다 좌측의 node는 Parent보다 항상 작다. Parent node보다 우측의 node는 Parent보다 항상 크다. 대표적인 예가 바로 윈도우의 파일 구조이다." />
+<link rel="canonical" href="http://localhost:4000/2020/03/20/Trees.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/20/Trees.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-20T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"Trees","dateModified":"2020-03-20T00:00:00+09:00","datePublished":"2020-03-20T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/20/Trees.html"},"url":"http://localhost:4000/2020/03/20/Trees.html","description":"Trees Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다. Rules 모든 Parent node는 최대 2개의 child를 가질 수 있다. Parent node보다 좌측의 node는 Parent보다 항상 작다. Parent node보다 우측의 node는 Parent보다 항상 크다. 대표적인 예가 바로 윈도우의 파일 구조이다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Trees | Dev.JK Tech Note</title>
+    <meta name="description" content="TreesParent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다.Rules  모든 Parent node는 최대 2개의 child를 가질 수 있다.  Parent node보다 좌측의 node는 Parent보다 항상 작다.  Parent node보...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/03/20/Trees.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="Trees" />
+<meta property="og:description"  content="Trees
+
+Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다.
+
+Rules
+
+
+  모든 Parent node는 최대 2개의 child를 가질 수 있다.
+  Parent node보다 좌측의 node는 Parent보다 항상 작다.
+  Parent node보다 우측의 node는 Parent보다 항상 크다.
+
+
+대표적인 예가 바로 윈도우의 파일 구조이다.
+
+" />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="Trees" class="title">Trees</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      March 20, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="trees">Trees</h1>
+
+<p>Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다.</p>
+
+<p>Rules</p>
+
+<ul>
+  <li>모든 Parent node는 최대 2개의 child를 가질 수 있다.</li>
+  <li>Parent node보다 좌측의 node는 Parent보다 항상 작다.</li>
+  <li>Parent node보다 우측의 node는 Parent보다 항상 크다.</li>
+</ul>
+
+<p>대표적인 예가 바로 윈도우의 파일 구조이다.</p>
+
+<!--more-->
+
+<h2 id="tree-terminology">Tree Terminology</h2>
+
+<ul>
+  <li>Root : Tree의 가장 Top</li>
+  <li>Child : 다른 node와 직접적으로 연결 된 node, 부모의 하위 개념이 된다.</li>
+  <li>Parent : Child의 부모</li>
+  <li>Siblings : 같은 부모를 가진 다른 Child node</li>
+  <li>Leaf : Children이 없는 node</li>
+  <li>Edge : 어떤 node와 다른 node의 연결</li>
+</ul>
+
+<h2 id="kinds-of-trees">Kinds of Trees</h2>
+
+<ul>
+  <li>Trees</li>
+  <li>Binary Trees</li>
+  <li>Binary Search Trees</li>
+</ul>
+
+<h2 id="big-o-notation">big O notation</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>methods</th>
+      <th>big O notation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>insert</td>
+      <td>O(log N)</td>
+    </tr>
+    <tr>
+      <td>search</td>
+      <td>O(log N)</td>
+    </tr>
+    <tr>
+      <td>delete</td>
+      <td>O(log N)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="pros--cons">pros &amp; cons</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>pros</th>
+      <th>cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Better than O(n)</td>
+      <td>No O(1) Operation</td>
+    </tr>
+    <tr>
+      <td>Ordered</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Flexible size</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="examples">Examples</h2>
+
+<ul>
+  <li>HTML DOM(Document Object Model)</li>
+  <li>Network Routing</li>
+  <li>abstract syntax tree</li>
+  <li>AI(경우의 수 판단, 분석 시)</li>
+  <li>OS’s Folder System</li>
+</ul>
+
+<h1 id="unbalanced-binary-search-tree">Unbalanced Binary Search Tree(!!!)</h1>
+
+<p><img src="/assets/img/IT_Pic/Unbalanced%20Binary%20search%20tree.png" alt="Unbalanced vs Balanced" /></p>
+
+<p>제대로 정렬되있지 않은 tree는 이런식으로 길게 늘어져 linked list와 같은 형태를 가지게 된다.</p>
+
+<p>해결하는 방법은 길쭉한 line의 가운데 값을 root로 삼아 양 옆으로 데이터를 분산 하는 방법이다.</p>
+
+<p>reference(AVL과 Red,Black의 작동원리를 애니메이션)</p>
+
+<p>https://www.cs.usfca.edu/~galles/visualization/AVLtree.html</p>
+
+<p>https://www.cs.usfca.edu/~galles/visualization/RedBlack.html</p>
+
+<h2 id="redblack-tree-avl-tree">Red/Black tree, AVL tree</h2>
+
+<p>이 두가지 tree Data structure는 너무 치우쳐 있다면 알아서 balance를 잡을 수 있도록 해주는 tree로서 tree가 길게 늘어지지 않게 한다.</p>
+
+<p>3개가 한줄로 이루어져 있을 때, 그 가운데 값을 root로 두고 나머지를 양 옆으로 분산하여 tree구조의 balace를 맞춘다.</p>
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F20%2FTrees.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=Trees%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F20%2FTrees.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/03/20/Trees.html&title=Trees%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=Trees%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/03/20/Trees.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#ComputerScience">
+      <p><i class="fa fa-tag fa-fw"></i> ComputerScience</p>
+    </a>
+    
+    <a class="button" href="/tags#DataStructure">
+      <p><i class="fa fa-tag fa-fw"></i> DataStructure</p>
+    </a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="Algorithms" href="/2020/03/22/Algorithms.html">
+            <p>Previous post</p>
+            Algorithms
+        </a>
+    </div>
+    
+
+    
+    <div id="next-post">
+        <a alt="Doubly Linked Lists" href="/2020/03/10/Doubly-Linked-Lists.html">
+            <p>Next post</p>
+            Doubly Linked Lists
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

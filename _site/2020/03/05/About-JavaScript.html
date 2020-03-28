@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/03/05/About-JavaScript.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>About JavaScript | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="About JavaScript" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="JavaScript javascript란 single thread 이고 non-blocked 언어이다." />
+<meta property="og:description" content="JavaScript javascript란 single thread 이고 non-blocked 언어이다." />
+<link rel="canonical" href="http://localhost:4000/2020/03/05/About-JavaScript.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/05/About-JavaScript.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-05T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"About JavaScript","dateModified":"2020-03-05T00:00:00+09:00","datePublished":"2020-03-05T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/05/About-JavaScript.html"},"url":"http://localhost:4000/2020/03/05/About-JavaScript.html","description":"JavaScript javascript란 single thread 이고 non-blocked 언어이다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>About JavaScript | Dev.JK Tech Note</title>
+    <meta name="description" content="JavaScriptjavascript란 single thread 이고 non-blocked 언어이다.">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/03/05/About-JavaScript.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="About JavaScript" />
+<meta property="og:description"  content="JavaScript
+
+javascript란 single thread 이고 non-blocked 언어이다.
+
+" />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="About+JavaScript" class="title">About JavaScript</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      March 5, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="javascript">JavaScript</h1>
+
+<p>javascript란 single thread 이고 non-blocked 언어이다.</p>
+
+<!--more-->
+
+<h1 id="program이란">Program이란?</h1>
+
+<ul>
+  <li>Allocate Memory</li>
+  <li>parse and execute(=read and run command)</li>
+</ul>
+
+<h1 id="web-browser--javascript-engine">web browser &amp; javascript engine</h1>
+
+<p>각 web browser는 각자의 javascript engine이 있고 chrome은 V8 engine을 사용한다.</p>
+
+<p>Engine은 ‘Memory heap’과 ‘Call stack’으로 이루어져있다.</p>
+
+<p>‘Memory heap’은 데이터가 저장되는 곳=, ‘Call stack’은 code가 read, execute되는 곳이다.</p>
+
+<h2 id="memory-leak">Memory leak</h2>
+
+<p>사용하지 않는, 그래서 쓸모없게 된 variable이 있을 때 Memory leak라고 한다.</p>
+
+<p>특히 전역변수는 생성하면 프로그램이 끝날때까지 Memory heap을 차지하기 때문에 memory leak의 원인이 되어 좋지 않다.</p>
+
+<h2 id="call-stack">Call stack</h2>
+
+<p>명령을 stack에 push하고 실행하고 pop하는 형식으로 명령을 계속 실행해 나간다.</p>
+
+<h1 id="single-threaded">Single Threaded</h1>
+
+<p>Single Thread = one Call stack 이라는 말로 한번에 하나의 명령을 수행한다.</p>
+
+<h2 id="deadlock--multi-thread">Deadlock &amp; multi thread</h2>
+
+<p>multi thread의 단점으로 Deadlock을 들 수 있다. 복잡하게 여려 명령을 쪼개서 실행하기 때문이다.</p>
+
+<h2 id="stack-overflow">Stack Overflow</h2>
+
+<p>말 그대로 Stack의 용량보다 더 많은 양의 Data혹은 command가 stack에 들어올 때 생기는 오류이다.</p>
+
+<p>Stack Overflow는 이런식으로 일으킬 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+	<span class="nx">foo</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Recursion을 통해 foo()가 무한히 stack에 쌓여 overflow가 일어난다.</p>
+
+<h1 id="non-blocking--asynchronous">non-blocking &amp; asynchronous</h1>
+
+<p>javascript는 single thread이 하고 있는 작업을 막지 않는(non-blocking) asynchronous한 언어이다.</p>
+
+<h2 id="synchronous-vs-asynchronous">synchronous vs asynchronous</h2>
+
+<p>synchronous는 선생님에게 전화하는것과 같다. 답변을 받기 위해 계속 전화하고 그동안 아무것도 하지 못하는 상태이다.</p>
+
+<p>즉, 맡은 작업이 끝날 때 까지 다른 작업이 방해하지 못하게(blocked)하는 것이다.</p>
+
+<p>asynchronous는 선생님에게 문자를 보내는 것과 같다. 질문을 보내놓고 다른걸 하다가 답변을 받으면 그것을 보고 해결하면 된다.</p>
+
+<p>즉, 맡은 작업이 끝나지 않아도 잠시 미뤄두고 다른 작업을 할 수 있다는 것이다.(non-blocked)(callback)</p>
+
+<p>setTimeout이 아주 그 예이다. web API중 하나로 특정 시간동안 특정 method를 미뤄뒀다가 callback하여 다시 작업을 처리 할 수 있다.</p>
+
+<p>ex) EventLoop, onClick, onLoad etc…</p>
+
+<h2 id="eventloop">EventLoop</h2>
+
+<p>EventLoop는 call stack이 비어있을 때, 남은 작업을 callback 해주는 loop로 callback queue를 하나씩 차례대로 callback해준다.</p>
+
+<h1 id="my-stack">My Stack</h1>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">value</span><span class="o">;</span>
+	<span class="nc">Node</span> <span class="n">next</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="nc">String</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"Node [value="</span> <span class="o">+</span> <span class="n">value</span> <span class="o">+</span> <span class="s">", next="</span> <span class="o">+</span> <span class="n">next</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stack</span> <span class="o">{</span>
+
+	<span class="nc">String</span> <span class="n">top</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">bottom</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">length</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="nf">Stack</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">length</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Stack</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Stack</span><span class="o">();</span>
+		<span class="nc">Node</span> <span class="n">head</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+		<span class="nc">String</span> <span class="n">youtube</span> <span class="o">=</span> <span class="s">"youtube"</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">google</span> <span class="o">=</span> <span class="s">"google"</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">udemy</span> <span class="o">=</span> <span class="s">"udemy"</span><span class="o">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">youtube</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">google</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">udemy</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="kt">void</span> <span class="nf">peek</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">){</span>
+		<span class="c1">//값이 없다면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nothing to peek man..."</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="nc">Node</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+		
+		<span class="c1">//최종 값까지 가서</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//최종 값 출력</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">currentNode</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+	<span class="o">}</span>
+	
+	<span class="nc">Node</span> <span class="nf">push</span><span class="o">(</span><span class="nc">String</span> <span class="n">value</span><span class="o">,</span> <span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//최초라면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="nf">Node</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+		<span class="nc">Node</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+		<span class="n">length</span><span class="o">++;</span>
+		
+		<span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="nc">Node</span> <span class="nf">pop</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//값이 없다면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nothing to pop..."</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//마지막 값만 남아 있다면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+			<span class="n">length</span><span class="o">--;</span>
+			<span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="nc">Node</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+		<span class="c1">//최종 바로 전 값까지 가서</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//pointer를 제거한다</span>
+		<span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">length</span><span class="o">--;</span>
+		
+		<span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F05%2FAbout-JavaScript.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=About+JavaScript%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F05%2FAbout-JavaScript.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/03/05/About-JavaScript.html&title=About+JavaScript%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=About+JavaScript%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/03/05/About-JavaScript.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#Javascript">
+      <p><i class="fa fa-tag fa-fw"></i> Javascript</p>
+    </a>
+    
+    <a class="button" href="/tags#Tech">
+      <p><i class="fa fa-tag fa-fw"></i> Tech</p>
+    </a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="Stacks and Queue" href="/2020/03/05/Stacks-and-Queues.html">
+            <p>Previous post</p>
+            Stacks and Queue
+        </a>
+    </div>
+    
+
+    
+    <div id="next-post">
+        <a alt="Scope" href="/2020/03/04/Scope.html">
+            <p>Next post</p>
+            Scope
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

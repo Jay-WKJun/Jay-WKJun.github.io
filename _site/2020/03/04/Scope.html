@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/03/04/Scope.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Scope | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Scope" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Scope Scope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로 프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다." />
+<meta property="og:description" content="Scope Scope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로 프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다." />
+<link rel="canonical" href="http://localhost:4000/2020/03/04/Scope.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/04/Scope.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-04T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"Scope","dateModified":"2020-03-04T00:00:00+09:00","datePublished":"2020-03-04T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/04/Scope.html"},"url":"http://localhost:4000/2020/03/04/Scope.html","description":"Scope Scope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로 프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Scope | Dev.JK Tech Note</title>
+    <meta name="description" content="ScopeScope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다.">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/03/04/Scope.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="Scope" />
+<meta property="og:description"  content="Scope
+
+Scope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로
+
+프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다.
+
+" />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="Scope" class="title">Scope</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      March 4, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="scope">Scope</h1>
+
+<p>Scope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로</p>
+
+<p>프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다.</p>
+
+<!--more-->
+
+<h1 id="static-scope정적-스코프">Static Scope(정적 스코프)</h1>
+
+<p>정의 : 사용되는 시점에서의 유효범위를 사용하는 것이 아니라 정의된 시점에서의 유효범위를 사용하는 것이다.</p>
+
+<p>Lexical Scope(렉시컬 스코프)라고도 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScopeDemo</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+ 
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+        <span class="n">b</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">a</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위의 로직에서 메소드 a가 메소드 b를 호출하고 있는데 메소드 b에는 변수 i의 값이 존재하지 않는다.</p>
+
+<p>이 상태에서 메소드 a를 호출하면 메소드 b에서 System.out.println(i)를 했을 때 메소드 a의 변수 i가 아닌 클래스 변수 i를 사용한다.</p>
+
+<p>메소드 내(b)에서 지역변수가 존재하지 않는다면 그 메소드가 소속된 클래스의 전역변수를 사용하게 된다는 것이 정적 스코프의 대표적인 예라고 할 수 있다.</p>
+
+<h2 id="dynamic-scope동적-스코프">Dynamic Scope(동적 스코프)</h2>
+
+<p>동적 스코프라는 것도 있다. 만약 메소드 b의 결과가 10이라면 메소드 b는 메소드 a의 유효범위에 소속된 것이라고 할 수 있다. 하지만 자바는 동적 스코프를 채택하지 않고 있다.</p>
+
+<p><strong>대부분의 현대적인 언어들이 정적 스코프 방식을 선택하고 있다.</strong></p>
+
+<h2 id="reference">reference</h2>
+
+<p>https://opentutorials.org/module/516/5447</p>
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F04%2FScope.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=Scope%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F04%2FScope.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/03/04/Scope.html&title=Scope%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=Scope%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/03/04/Scope.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#Java">
+      <p><i class="fa fa-tag fa-fw"></i> Java</p>
+    </a>
+    
+    <a class="button" href="/tags#Tech">
+      <p><i class="fa fa-tag fa-fw"></i> Tech</p>
+    </a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="About JavaScript" href="/2020/03/05/About-JavaScript.html">
+            <p>Previous post</p>
+            About JavaScript
+        </a>
+    </div>
+    
+
+    
+    <div id="next-post">
+        <a alt="Linked Lists" href="/2020/03/03/LinkedLists.html">
+            <p>Next post</p>
+            Linked Lists
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

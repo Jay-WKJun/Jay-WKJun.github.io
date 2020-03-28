@@ -1,0 +1,100 @@
+I"�<h1 id="arrays">Arrays!!</h1>
+
+<hr />
+
+<p>순차적인 순서를 가진 Array이다.</p>
+
+<p>언제나 명심해야 할 것은 엔지니어로서 <em>한정된 자원을 가장 효율적으로</em> 사용할 수 있도록하여 원하는 목표를 달성하는 것이 목표이기 때문에 데이터 구조(Data Structure)와 이를 구성하는 것들의 속성 또한 함께 알아둬야 한다.</p>
+
+<!--more-->
+
+<h2 id="pros--cons">Pros &amp; Cons</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pros</th>
+      <th>Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fast Lookups</td>
+      <td>Slow Inserts</td>
+    </tr>
+    <tr>
+      <td>Fast push/pop</td>
+      <td>Slow Deletes</td>
+    </tr>
+    <tr>
+      <td>Ordered</td>
+      <td>Fixed Size(when static)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Array는 index가 특정되어 있어 특정정보를 찾기 좋고 index를 수정안해도 되는 push/pop에 대해서 O(1)로 빠르다.</p>
+
+<p>하지만 Insert Delete에서는 수정후 그 뒤의 데이터들의 index를 모두 수정해줘야하므로 O(n)이고 따라서 느리다.</p>
+
+<h2 id="methods">methods</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>methods</th>
+      <th>Big O notation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lookup</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>push</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>insert</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>delete</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>append</td>
+      <td>O(1) or O(n)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>append는 dynamic array에서 사용하는것으로 push와 같으나 <em>자신의 메모리 공간을 확장할 때</em> O(n)의 과정을 거친다. 특이사항 추가 설명 참고!</p>
+
+<h2 id="push-and-unshift배열-가장-처음에-넣기">push and unshift(배열 가장 처음에 넣기)</h2>
+
+<p>push랑 pop은 배열내 데이터들의 주소를 수정해줄 필요가 없지만 unshift같은 배열 가장 처음에 데이터를 추가하는 것은 첫 배열에 데이터를 추가하고 뒤의 나머지 데이터들의 index를 모두 수정해줘야하기 때문에 O(n)의 값을 가진다.</p>
+
+<h2 id="insert-delete">insert delete</h2>
+
+<p>마찬가지로 insert하고 해당 데이터 배열 뒤의 데이터들의 index를 모두 수정해줘야하고 delete도 마찬가지이기 때문에 O(n)의 값을 가진다.</p>
+
+<h1 id="static--dynamic-array">static &amp; dynamic array</h1>
+
+<h2 id="static">static</h2>
+
+<p>정적 array로 정해진 array를 정의해놓고 시작한다. 따라서 최대로 넣을 수 있는 데이터 수가 정해져있다.</p>
+
+<h2 id="dynamic">dynamic</h2>
+
+<p>컴퓨터가 자동으로 array의 공간을 할당하여 array를 만든다. 따라서 데이터를 넣을때마다 array크기를 알아서 조절해준다.</p>
+
+<p><em>특이 사항</em></p>
+
+<p>dynamic은 자동으로 메모리 공간을 할당하기 때문에 할당된 메모리 공간보다 더 많은 데이터가 오면</p>
+
+<p>기존의 array를 더 큰 메모리 공간에 copy &amp; paste한 다음 추가 데이터를 집어 넣는다</p>
+
+<p>따라서! static에서 push에 해당하는 append는 O(1)일 수도 있지만 O(n)일 수 도 있다.</p>
+:ET

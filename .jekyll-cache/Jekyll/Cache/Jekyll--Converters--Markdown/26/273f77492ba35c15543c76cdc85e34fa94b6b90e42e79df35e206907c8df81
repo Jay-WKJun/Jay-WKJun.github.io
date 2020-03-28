@@ -1,0 +1,15 @@
+I"�<h1 id="trees">Trees</h1>
+
+<p>Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다.</p>
+
+<p>Rules</p>
+
+<ul>
+  <li>모든 Parent node는 최대 2개의 child를 가질 수 있다.</li>
+  <li>Parent node보다 좌측의 node는 Parent보다 항상 작다.</li>
+  <li>Parent node보다 우측의 node는 Parent보다 항상 크다.</li>
+</ul>
+
+<p>대표적인 예가 바로 윈도우의 파일 구조이다.</p>
+
+:ET

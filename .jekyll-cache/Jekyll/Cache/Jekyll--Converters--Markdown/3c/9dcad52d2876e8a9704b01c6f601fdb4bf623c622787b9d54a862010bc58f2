@@ -1,0 +1,211 @@
+I"�9<h1 id="recursion">Recursion</h1>
+
+<p>Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.</p>
+
+<p>Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면</p>
+
+<p>push된 recursion function들을 하나씩 pop하면서 실행한다.</p>
+
+<!--more-->
+
+<h1 id="big-o-notation">Big O notation</h1>
+
+<p>Fibonacci iterrative = O(n)</p>
+
+<p>recursive = ##O(2^n)## (O(n^2)보다 훨씬 operation이 많다.)</p>
+
+<h2 id="although-why-they-use-recursive">Although!! why they use recursive?</h2>
+
+<p>##Anything you can do with a recursion CAN be done iteratively(loop)##</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pros</th>
+      <th>cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Readable</td>
+      <td>Need Large Stack</td>
+    </tr>
+    <tr>
+      <td>DRY</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>javascript 6 version부터는 recursion을 call stack을 늘리지 않고 사용할 수 있다고 한다!!!!(a.k.a Tail call optimization)</p>
+
+<p>https://2ality.com/2015/06/tail-call-optimization.html</p>
+
+<p>이러한 기능은 다른 언어에서도 지원한다고 한다.</p>
+
+<h2 id="then-when-we-should-use-the-recursion">Then, When we should use the recursion?</h2>
+
+<p>Everytime you are using a tree converting Something into a tree, consider Recursion.</p>
+
+<ol>
+  <li>Divided into a number of subproblems that are smaller instances of the same problem(문제를 작게 같은 문제들로 쪼갤 수 있다.)</li>
+  <li>Each instance of the subproblem is identical in nature(쪼갠 문제들의 operation이 모두 같다.)</li>
+  <li>The solution of each subproblem can be combined to solve the problem at hand(여러개로 쪼개진 문제들이 모여 문제를 해결 할 수 있다.)</li>
+</ol>
+
+<p>정리하면…</p>
+
+<ul>
+  <li>Divide and Conquer using Recursion</li>
+  <li>BFS(Breadth First Search), DFS(Depth First Search)</li>
+  <li>Tree Data structure or Tree Traversal</li>
+  <li>Sorting</li>
+</ul>
+
+<h1 id="three-rules">Three Rules</h1>
+
+<p>복잡한것 같지만 이 법칙을 가지고 하나씩 생각하며 recursion을 해석하면 쉽다.</p>
+
+<ol>
+  <li>Identify the base case</li>
+  <li>Identify the recursive case</li>
+  <li>Get closer and closer and return when needed. Usually you have 2 returns.</li>
+</ol>
+
+<h1 id="explain">Explain!</h1>
+
+<h2 id="ex1">ex1</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">inception</span><span class="p">(){</span>
+ <span class="nx">inception</span><span class="p">();</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">inception</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>이 logic의 결과는 Stack overflow(call stack overflow)이다. 끊임없이 자신을 불러내기만 하고 console.log에 도달하지 못해</p>
+
+<p>아무것도 출력하지 못한다.</p>
+
+<h2 id="ex2">ex2</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">inception</span><span class="p">(){</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">)</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">counter</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="dl">"</span><span class="s2">done</span><span class="dl">"</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+ <span class="nx">inception</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">inception</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>이때 inception을 호출했을 경우 결과는 Undefined라는 처리 결과가 나오게 된다.</p>
+
+<p>Debug시에 보면 가장 첫번째는 return을 통해 ‘done’을 출력하지만 recursion으로 불린 function들은 return하지 않기 때문에 Undefined가 출력된다.</p>
+
+<p>inception(inception(‘done’)) = inception(Undefined) …</p>
+
+<h2 id="ex3">ex3</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">inception</span><span class="p">(){</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">)</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">counter</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="dl">"</span><span class="s2">done</span><span class="dl">"</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+ <span class="k">return</span> <span class="nx">inception</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">inception</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Recursion한 method를 return하라고 한다면 자신이 가진 return “done”을 return 하기에 가장 마지막에 pop되는 method에서 return을 실행하여 “done”이 출력된다.</p>
+
+<p>inception(inception(‘done’)) = inception(‘done’) …</p>
+
+<h1 id="excersise">Excersise</h1>
+
+<h2 id="factorial">factorial</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">findFactorialIterative</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">answer</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">number</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">answer</span> <span class="o">=</span> <span class="nx">answer</span> <span class="o">*</span> <span class="nx">i</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">answer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">findFactorialRecursive</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">number</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">number</span> <span class="o">*</span> <span class="nx">findFactorialRecursive</span><span class="p">(</span><span class="nx">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">findFactorialIterative</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">//O(n)</span>
+<span class="nx">findFactorialRecursive</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">//O(n)</span>
+</code></pre></div></div>
+
+<h2 id="fibonacci">Fibonacci</h2>
+
+<p>My answer</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fibonacciIterative</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foreNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">beforeNum</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">n</span><span class="o">===</span><span class="mi">1</span><span class="p">){</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">foreNum</span> <span class="o">+</span> <span class="nx">beforeNum</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">){</span>
+      <span class="nx">foreNum</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">beforeNum</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">fibonacciIterative</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">beforeNum</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">n</span> <span class="o">===</span> <span class="mi">1</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">n</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">beforeNum</span> <span class="o">=</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="nx">beforeNum</span> <span class="o">+</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Better Answer</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fibonacciIterative</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+ <span class="k">return</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">n</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="nx">fibonacciIterative</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">n</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">fibonacciRecursive</span> <span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div></div>
+:ET

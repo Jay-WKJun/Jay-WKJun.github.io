@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Doubly Linked Lists | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Doubly Linked Lists" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Doubly Linked List Single Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리키는 pointer, 그 전 Data를 가리키는 pointer가 그것이다. pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게 Data를 다룰 수 있다.(특히 앞에서만 시작했던 linked list와는 달리 뒤에서도 접근이 가능하다.) 웹페이지 forward, backward가 이것으로 구성되어 있다." />
+<meta property="og:description" content="Doubly Linked List Single Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리키는 pointer, 그 전 Data를 가리키는 pointer가 그것이다. pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게 Data를 다룰 수 있다.(특히 앞에서만 시작했던 linked list와는 달리 뒤에서도 접근이 가능하다.) 웹페이지 forward, backward가 이것으로 구성되어 있다." />
+<link rel="canonical" href="http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-10T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"Doubly Linked Lists","dateModified":"2020-03-10T00:00:00+09:00","datePublished":"2020-03-10T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html"},"url":"http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html","description":"Doubly Linked List Single Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리키는 pointer, 그 전 Data를 가리키는 pointer가 그것이다. pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게 Data를 다룰 수 있다.(특히 앞에서만 시작했던 linked list와는 달리 뒤에서도 접근이 가능하다.) 웹페이지 forward, backward가 이것으로 구성되어 있다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Doubly Linked Lists | Dev.JK Tech Note</title>
+    <meta name="description" content="Doubly Linked ListSingle Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리키는 pointer, 그 전 Data를 가리키는 pointer가 그것이다.pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/03/10/Doubly-Linked-Lists.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="Doubly Linked Lists" />
+<meta property="og:description"  content="Doubly Linked List
+
+Single Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리키는 pointer, 그 전 Data를 가리키는 pointer가 그것이다.
+
+pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게 Data를 다룰 수 있다.(특히 앞에서만 시작했던 linked list와는 달리 뒤에서도 접근이 가능하다.)
+
+웹페이지 forward, backward가..." />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="Doubly+Linked+Lists" class="title">Doubly Linked Lists</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      March 10, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="doubly-linked-list">Doubly Linked List</h1>
+
+<p>Single Linked List와는 다르게 Pointer가 2개이다. 다음 Data를 가리키는 pointer, 그 전 Data를 가리키는 pointer가 그것이다.</p>
+
+<p>pointer가 하나 더 있기 때문에 Memory가 2배로 소모되지만 더 flex하게 Data를 다룰 수 있다.(특히 앞에서만 시작했던 linked list와는 달리 뒤에서도 접근이 가능하다.)</p>
+
+<p>웹페이지 forward, backward가 이것으로 구성되어 있다.</p>
+
+<!--more-->
+
+<h1 id="methods">Methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>methods</th>
+      <th>Big O notation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inserts</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>Removal</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>Searching</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>Access</td>
+      <td>O(n)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>물론 실제로는 searching, access는 O(n/2)지만 규칙에 따라 O(n)이다.</p>
+
+<h1 id="reference">reference</h1>
+
+<p>https://visualgo.net/en/list?slide=1a</p>
+
+<h1 id="my-codes-javascript">My codes (Javascript)</h1>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Node</span><span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nx">DoublyLinkedList</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">push</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+            <span class="nx">newNode</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">tail</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span> 
+    <span class="nx">pop</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">head</span><span class="p">)</span> <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">poppedNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">tail</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="nx">poppedNode</span><span class="p">.</span><span class="nx">prev</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="nx">poppedNode</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">poppedNode</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">shift</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">oldHead</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="nx">oldHead</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="nx">oldHead</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">oldHead</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">unshift</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">tail</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+            <span class="nx">newNode</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">head</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">get</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">count</span><span class="p">,</span> <span class="nx">current</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">/</span><span class="mi">2</span><span class="p">){</span>
+            <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">current</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">head</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="nx">count</span> <span class="o">!==</span> <span class="nx">index</span><span class="p">){</span>
+                <span class="nx">current</span> <span class="o">=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+                <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">count</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="nx">current</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">tail</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="nx">count</span> <span class="o">!==</span> <span class="nx">index</span><span class="p">){</span>
+                <span class="nx">current</span> <span class="o">=</span> <span class="nx">current</span><span class="p">.</span><span class="nx">prev</span><span class="p">;</span>
+                <span class="nx">count</span><span class="o">--</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">current</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">set</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">val</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">foundNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">foundNode</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">){</span>
+            <span class="nx">foundNode</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">insert</span><span class="p">(</span><span class="nx">index</span><span class="p">,</span> <span class="nx">val</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">||</span><span class="nx">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">undefinded</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">===</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="kd">var</span> <span class="nx">newNode</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Node</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">foundNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">index</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">nextNode</span> <span class="o">=</span> <span class="nx">foundNode</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+      <span class="nx">foundNode</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+      <span class="nx">nextNode</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="nx">newNode</span><span class="p">;</span>
+      <span class="nx">newNode</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">nextNode</span><span class="p">;</span>
+      <span class="nx">newNode</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="nx">foundNode</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">++</span><span class="p">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">remove</span><span class="p">(</span><span class="nx">index</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">||</span><span class="nx">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">undefinded</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">===</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">===</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+      <span class="p">}</span>
+      <span class="kd">var</span> <span class="nx">foundNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">index</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">nextNode</span> <span class="o">=</span> <span class="nx">foundNode</span><span class="p">.</span><span class="nx">next</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">prevNode</span> <span class="o">=</span> <span class="nx">foundNode</span><span class="p">.</span><span class="nx">prev</span><span class="p">;</span>
+      <span class="nx">nextNode</span><span class="p">.</span><span class="nx">prev</span> <span class="o">=</span> <span class="nx">prevNode</span><span class="p">;</span>
+      <span class="nx">prevNode</span><span class="p">.</span><span class="nx">next</span> <span class="o">=</span> <span class="nx">nextNode</span><span class="p">;</span>
+      <span class="nx">foundNode</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="o">--</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">foundNode</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F10%2FDoubly-Linked-Lists.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=Doubly+Linked+Lists%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F10%2FDoubly-Linked-Lists.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html&title=Doubly+Linked+Lists%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=Doubly+Linked+Lists%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/03/10/Doubly-Linked-Lists.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#ComputerScience">
+      <p><i class="fa fa-tag fa-fw"></i> ComputerScience</p>
+    </a>
+    
+    <a class="button" href="/tags#DataStructure">
+      <p><i class="fa fa-tag fa-fw"></i> DataStructure</p>
+    </a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="Trees" href="/2020/03/20/Trees.html">
+            <p>Previous post</p>
+            Trees
+        </a>
+    </div>
+    
+
+    
+    <div id="next-post">
+        <a alt="Regular Expression" href="/2020/03/09/Regular-Expression.html">
+            <p>Next post</p>
+            Regular Expression
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

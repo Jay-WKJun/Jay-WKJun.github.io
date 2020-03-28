@@ -1,0 +1,193 @@
+I"�=<h1 id="javascript">JavaScript</h1>
+
+<p>javascript란 single thread 이고 non-blocked 언어이다.</p>
+
+<!--more-->
+
+<h1 id="program이란">Program이란?</h1>
+
+<ul>
+  <li>Allocate Memory</li>
+  <li>parse and execute(=read and run command)</li>
+</ul>
+
+<h1 id="web-browser--javascript-engine">web browser &amp; javascript engine</h1>
+
+<p>각 web browser는 각자의 javascript engine이 있고 chrome은 V8 engine을 사용한다.</p>
+
+<p>Engine은 ‘Memory heap’과 ‘Call stack’으로 이루어져있다.</p>
+
+<p>‘Memory heap’은 데이터가 저장되는 곳=, ‘Call stack’은 code가 read, execute되는 곳이다.</p>
+
+<h2 id="memory-leak">Memory leak</h2>
+
+<p>사용하지 않는, 그래서 쓸모없게 된 variable이 있을 때 Memory leak라고 한다.</p>
+
+<p>특히 전역변수는 생성하면 프로그램이 끝날때까지 Memory heap을 차지하기 때문에 memory leak의 원인이 되어 좋지 않다.</p>
+
+<h2 id="call-stack">Call stack</h2>
+
+<p>명령을 stack에 push하고 실행하고 pop하는 형식으로 명령을 계속 실행해 나간다.</p>
+
+<h1 id="single-threaded">Single Threaded</h1>
+
+<p>Single Thread = one Call stack 이라는 말로 한번에 하나의 명령을 수행한다.</p>
+
+<h2 id="deadlock--multi-thread">Deadlock &amp; multi thread</h2>
+
+<p>multi thread의 단점으로 Deadlock을 들 수 있다. 복잡하게 여려 명령을 쪼개서 실행하기 때문이다.</p>
+
+<h2 id="stack-overflow">Stack Overflow</h2>
+
+<p>말 그대로 Stack의 용량보다 더 많은 양의 Data혹은 command가 stack에 들어올 때 생기는 오류이다.</p>
+
+<p>Stack Overflow는 이런식으로 일으킬 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+	<span class="nx">foo</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="nx">foo</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Recursion을 통해 foo()가 무한히 stack에 쌓여 overflow가 일어난다.</p>
+
+<h1 id="non-blocking--asynchronous">non-blocking &amp; asynchronous</h1>
+
+<p>javascript는 single thread이 하고 있는 작업을 막지 않는(non-blocking) asynchronous한 언어이다.</p>
+
+<h2 id="synchronous-vs-asynchronous">synchronous vs asynchronous</h2>
+
+<p>synchronous는 선생님에게 전화하는것과 같다. 답변을 받기 위해 계속 전화하고 그동안 아무것도 하지 못하는 상태이다.</p>
+
+<p>즉, 맡은 작업이 끝날 때 까지 다른 작업이 방해하지 못하게(blocked)하는 것이다.</p>
+
+<p>asynchronous는 선생님에게 문자를 보내는 것과 같다. 질문을 보내놓고 다른걸 하다가 답변을 받으면 그것을 보고 해결하면 된다.</p>
+
+<p>즉, 맡은 작업이 끝나지 않아도 잠시 미뤄두고 다른 작업을 할 수 있다는 것이다.(non-blocked)(callback)</p>
+
+<p>setTimeout이 아주 그 예이다. web API중 하나로 특정 시간동안 특정 method를 미뤄뒀다가 callback하여 다시 작업을 처리 할 수 있다.</p>
+
+<p>ex) EventLoop, onClick, onLoad etc…</p>
+
+<h2 id="eventloop">EventLoop</h2>
+
+<p>EventLoop는 call stack이 비어있을 때, 남은 작업을 callback 해주는 loop로 callback queue를 하나씩 차례대로 callback해준다.</p>
+
+<h1 id="my-stack">My Stack</h1>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+	<span class="nc">String</span> <span class="n">value</span><span class="o">;</span>
+	<span class="nc">Node</span> <span class="n">next</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="nc">String</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="s">"Node [value="</span> <span class="o">+</span> <span class="n">value</span> <span class="o">+</span> <span class="s">", next="</span> <span class="o">+</span> <span class="n">next</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stack</span> <span class="o">{</span>
+
+	<span class="nc">String</span> <span class="n">top</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="n">bottom</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">length</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="nf">Stack</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">top</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">bottom</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">length</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Stack</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Stack</span><span class="o">();</span>
+		<span class="nc">Node</span> <span class="n">head</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+		<span class="nc">String</span> <span class="n">youtube</span> <span class="o">=</span> <span class="s">"youtube"</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">google</span> <span class="o">=</span> <span class="s">"google"</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">udemy</span> <span class="o">=</span> <span class="s">"udemy"</span><span class="o">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">youtube</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">google</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">udemy</span><span class="o">,</span> <span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+		<span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">(</span><span class="n">head</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="kt">void</span> <span class="nf">peek</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">){</span>
+		<span class="c1">//값이 없다면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nothing to peek man..."</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="nc">Node</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+		
+		<span class="c1">//최종 값까지 가서</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//최종 값 출력</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">currentNode</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+	<span class="o">}</span>
+	
+	<span class="nc">Node</span> <span class="nf">push</span><span class="o">(</span><span class="nc">String</span> <span class="n">value</span><span class="o">,</span> <span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//최초라면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="nf">Node</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+		<span class="nc">Node</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+		<span class="n">length</span><span class="o">++;</span>
+		
+		<span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="nc">Node</span> <span class="nf">pop</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//값이 없다면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nothing to pop..."</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//마지막 값만 남아 있다면</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">node</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+			<span class="n">length</span><span class="o">--;</span>
+			<span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="nc">Node</span> <span class="n">currentNode</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+		<span class="c1">//최종 바로 전 값까지 가서</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">currentNode</span> <span class="o">=</span> <span class="n">currentNode</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//pointer를 제거한다</span>
+		<span class="n">currentNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">length</span><span class="o">--;</span>
+		
+		<span class="k">return</span> <span class="n">node</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+:ET

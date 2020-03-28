@@ -1,0 +1,127 @@
+I"�
+<h1 id="stack-and-queue">Stack and Queue</h1>
+
+<p>이 둘은 linear data structure로 모든 데이터의 접근과 동작을 순차적으로 해야 하는 특징이 있다.</p>
+
+<p>stack은 선입후출(First In Last Out) Queue는 선입선출(First In First Out)이라는  특징이 있다.</p>
+
+<!--more-->
+
+<h2 id="사용하는-이유">사용하는 이유</h2>
+
+<p>이 두 데이터 구조는 가장 적고 간단한 동작(push, pop)들로만 조작이 가능한데 이는 computer science에서는 중요한 역할을 한다.</p>
+
+<p>이유는 동작이 적고 간단하기 때문에 범용성이 크기 때문이다.</p>
+
+<h2 id="사용-예">사용 예</h2>
+
+<p>stack은 가장 최근에 저장한 정보를 알기에 가장 좋은 데이터 구조이다.</p>
+
+<ol>
+  <li>undo, redo = 뒤로가기, 앞으로 가기</li>
+  <li>대부분의 프로그래밍 언어는 stack 방식을 기본으로 하고 있다.</li>
+</ol>
+
+<p>queue는 실생활에서도 많이 쓰이는 데이터 구조 방식이다.</p>
+
+<ol>
+  <li>restaurant의 순서</li>
+  <li>롤러코스터의 wating line</li>
+  <li>Uber!</li>
+  <li>printer queue</li>
+  <li>etc…</li>
+</ol>
+
+<h1 id="methods">Methods</h1>
+
+<p>여기서 헷갈리기 쉬운 점은 peek는 가장 먼저 나올 수 있는 데이터를 보여달라는 method이다.</p>
+
+<p>따라서 stack에서는 가장 최신, queue에서는 가장 최후의 데이터를 보여준다.</p>
+
+<h2 id="stack">stack</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>methods</th>
+      <th>Big O notation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lookup</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>pop</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>push</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>peek</td>
+      <td>O(1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="queue">Queue</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>methods</th>
+      <th>Big O notation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lookup</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>enqueue</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>dequeue</td>
+      <td>O(1)</td>
+    </tr>
+    <tr>
+      <td>peek</td>
+      <td>O(1)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Queue와 Array는 비슷하지만 Array는 index가 있어서 insert나 delete시에 모든 index에 영향을 주기 때문에</p>
+
+<p>Queue에 비해 속도에서 크게 손해를 보게 된다.</p>
+
+<h1 id="pros--cons">Pros &amp; Cons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pros</th>
+      <th>Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fast Lookups</td>
+      <td>Slow Lookups</td>
+    </tr>
+    <tr>
+      <td>Fast peeks</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Ordered</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+:ET

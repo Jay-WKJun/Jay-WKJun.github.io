@@ -1,0 +1,49 @@
+I"�<h1 id="scope">Scope</h1>
+
+<p>Scope(유효범위)란 특정 변수가 적용되는 범위를 뜻하는 개념으로</p>
+
+<p>프로그램이 커지면 여러 가지 이유로 변수 등의 이름이 충돌하게 되는데, 이를 해결하기 위해서 고안된 것이 유효범위라는 개념이다.</p>
+
+<!--more-->
+
+<h1 id="static-scope정적-스코프">Static Scope(정적 스코프)</h1>
+
+<p>정의 : 사용되는 시점에서의 유효범위를 사용하는 것이 아니라 정의된 시점에서의 유효범위를 사용하는 것이다.</p>
+
+<p>Lexical Scope(렉시컬 스코프)라고도 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ScopeDemo</span> <span class="o">{</span>
+    <span class="kd">static</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+ 
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">a</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+        <span class="n">b</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">b</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">a</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위의 로직에서 메소드 a가 메소드 b를 호출하고 있는데 메소드 b에는 변수 i의 값이 존재하지 않는다.</p>
+
+<p>이 상태에서 메소드 a를 호출하면 메소드 b에서 System.out.println(i)를 했을 때 메소드 a의 변수 i가 아닌 클래스 변수 i를 사용한다.</p>
+
+<p>메소드 내(b)에서 지역변수가 존재하지 않는다면 그 메소드가 소속된 클래스의 전역변수를 사용하게 된다는 것이 정적 스코프의 대표적인 예라고 할 수 있다.</p>
+
+<h2 id="dynamic-scope동적-스코프">Dynamic Scope(동적 스코프)</h2>
+
+<p>동적 스코프라는 것도 있다. 만약 메소드 b의 결과가 10이라면 메소드 b는 메소드 a의 유효범위에 소속된 것이라고 할 수 있다. 하지만 자바는 동적 스코프를 채택하지 않고 있다.</p>
+
+<p><strong>대부분의 현대적인 언어들이 정적 스코프 방식을 선택하고 있다.</strong></p>
+
+<h2 id="reference">reference</h2>
+
+<p>https://opentutorials.org/module/516/5447</p>
+:ET

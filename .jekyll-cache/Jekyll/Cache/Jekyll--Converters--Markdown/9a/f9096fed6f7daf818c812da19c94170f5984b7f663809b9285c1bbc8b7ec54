@@ -1,0 +1,9 @@
+I"�<h1 id="hash-tables">Hash Tables</h1>
+
+<p>특정 Key에 특정 value가 있는 배열구조형태</p>
+
+<p>Hash Table이 중요한 점은 실생활에서도 매우 많이 사용되고 있고 따라서 <em>coding test에 반드시</em> 물어본다는 점에 있다.</p>
+
+<p>그리고 많이 쓰이는 이유는! <strong>보통 HashTable로 처리시간을 크게 단축할 수 있기 때문이다</strong>(공간은 더 차지하지만)</p>
+
+:ET

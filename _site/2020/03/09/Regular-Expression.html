@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/03/09/Regular-Expression.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Regular Expression | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Regular Expression" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Regular Expression 정규 표현식 또는 정규식은 특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어이다. 정규 표현식은 많은 텍스트 편집기와 프로그래밍 언어에서 문자열의 검색과 치환을 위해 지원하고 있으며, 특히 펄과 Tcl은 언어 자체에 강력한 정규 표현식을 구현하고 있다." />
+<meta property="og:description" content="Regular Expression 정규 표현식 또는 정규식은 특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어이다. 정규 표현식은 많은 텍스트 편집기와 프로그래밍 언어에서 문자열의 검색과 치환을 위해 지원하고 있으며, 특히 펄과 Tcl은 언어 자체에 강력한 정규 표현식을 구현하고 있다." />
+<link rel="canonical" href="http://localhost:4000/2020/03/09/Regular-Expression.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/09/Regular-Expression.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-09T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"Regular Expression","dateModified":"2020-03-09T00:00:00+09:00","datePublished":"2020-03-09T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/09/Regular-Expression.html"},"url":"http://localhost:4000/2020/03/09/Regular-Expression.html","description":"Regular Expression 정규 표현식 또는 정규식은 특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어이다. 정규 표현식은 많은 텍스트 편집기와 프로그래밍 언어에서 문자열의 검색과 치환을 위해 지원하고 있으며, 특히 펄과 Tcl은 언어 자체에 강력한 정규 표현식을 구현하고 있다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Regular Expression | Dev.JK Tech Note</title>
+    <meta name="description" content="Regular Expression정규 표현식 또는 정규식은 특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어이다. 정규 표현식은 많은 텍스트 편집기와 프로그래밍 언어에서 문자열의 검색과 치환을 위해 지원하고 있으며, 특히 펄과 Tcl은 언어 자체에 강력한 정규 표...">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/03/09/Regular-Expression.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="Regular Expression" />
+<meta property="og:description"  content="Regular Expression
+
+정규 표현식 또는 정규식은 특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어이다. 정규 표현식은 많은 텍스트 편집기와 프로그래밍 언어에서 문자열의 검색과 치환을 위해 지원하고 있으며, 특히 펄과 Tcl은 언어 자체에 강력한 정규 표현식을 구현하고 있다.
+
+" />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="Regular+Expression" class="title">Regular Expression</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      March 9, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="regular-expression">Regular Expression</h1>
+
+<p>정규 표현식 또는 정규식은 특정한 규칙을 가진 문자열의 집합을 표현하는 데 사용하는 형식 언어이다. 정규 표현식은 많은 텍스트 편집기와 프로그래밍 언어에서 문자열의 검색과 치환을 위해 지원하고 있으며, 특히 펄과 Tcl은 언어 자체에 강력한 정규 표현식을 구현하고 있다.</p>
+
+<!--more-->
+
+<h1 id="meta-word">Meta word</h1>
+
+<p>정규표현식에서 일정한 의미를 가지고 쓰는 특수문자를 메타 문자라고 부른다. 여기에 쓰이는 글자가 포함된 패턴을 넣으려면 해당 글자 앞에 \를 넣어줘야 한다.</p>
+
+<ul>
+  <li>^ : 문자열의 시작</li>
+  <li>$ : 문자열의 종료. 옵션에 따라 문장의 끝 또는 문서의 끝에 매치된다.</li>
+  <li>. : 임의의 한 문자</li>
+  <li>[]: 문자 클래스. 문자 클래스 안에 들어가 있는 문자는 그 바깥에서 하나의 문자로 취급된다.</li>
+  <li>^ : 문자 클래스 내에서 ^는 not</li>
+  <li>
+    <ul>
+      <li>: ex) a-z는 a에서 z까지의 문자</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>: or를 나타냄</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>? : 앞 문자가 없거나 하나 있음</li>
+  <li>
+    <ul>
+      <li>: 앞 문자가 하나 이상임</li>
+    </ul>
+  </li>
+  <li>
+    <ul>
+      <li>: 앞 문자가 0개 이상임</li>
+    </ul>
+  </li>
+  <li>{n,m} : 앞 패턴이 n개 이상 m개 이하. {0,1} 은 ?와 같은 의미다.</li>
+  <li>{n,} : 앞 패턴이 n개 이상. 위의 형태에서 m이 생략된 형태이다. {0,} 이면 *와 같고 {1,} 이면 +와 같은 의미이다.</li>
+  <li>{n} : 앞 패턴이 정확히 n개. {n,n} 과 같은 의미이다.</li>
+  <li>() : 패턴 그룹. 하나의 패턴구분자 안에 서브 패턴을 지정해서 사용할 경우 괄호로 묶어주는 방식을 사용한다.</li>
+  <li>\s : 공백문자. 대문자로(\S) 적으면 반대를 의미한다.</li>
+  <li>\b : 문자와 공백 사이를 의미한다. 공백, 탭, 컴마, 대시 등이 올 수 있다. 대문자로(\B) 적으면 반대를 의미한다. (ex) \bplay\b일때 playground(x) let’s play around(o) )</li>
+  <li>\d : 숫자 [0-9]와 같다. 대문자로(\D) 적으면 반대를 의미한다.</li>
+  <li>\t : 탭문자</li>
+  <li>\w : 단어 영문자+숫자+<em>(밑줄) [0-9a-zA-Z</em>] 대문자로(\W) 적으면 반대를 의미한다.</li>
+</ul>
+
+<h1 id="패턴-변경자">패턴 변경자</h1>
+
+<p>패턴구분자가 끝나면 그 뒤에 쓰는 것으로, 패턴에 일괄적으로 변경을 가할 때 사용한다. 정규식 엔진에 따라 변경자의 적용 방식이 상이하므로 해당 구현의 매뉴얼을 읽어야 한다.</p>
+
+<p>예를 들어 대소문자 무시 플래그의 경우 자바스크립트는 /패턴/i 로 쓰지만 파이썬에서는 re.compile(패턴, flags=re.I) 로 Go에서는 (?i)패턴으로 쓴다.</p>
+
+<ul>
+  <li>i : 패턴을 대소문자 구분 없이 검사한다. 이 변경자를 사용할 경우 [a-z]로만 검사해도 자동으로 [a-zA-Z]와 같은 기능을 하게 된다. 영어가 아닌 언어(독일어, 프랑스어 등)를 다룰 때에는 버그 가능성이 있으므로 쓰지 않는 게 좋다. 대소문자라는 개념이 없는 한글, 한자, 가나문자는 이 패턴 변경자가 아무 역할도 하지 않는다.</li>
+  <li>s : 임의의 한 문자를 가리키는 . 메타 문자에 개행 문자(\n)도 포함시키도록 한다. 이 변경자를 사용하면 .이 줄바꿈도 임의의 한 문자로 취급하여 찾는다.</li>
+  <li>g : ^문자가 문장이 아닌 문서의 처음에, $ 문자가 문장의 끝(라인 피드 \n)이 아닌 주어진 문자열의 끝에 매치되게 변경한다.</li>
+  <li>m : 주어진 문자열에 줄바꿈이 있을 경우, 여러 줄로 취급하여 검사한다. (줄바꿈이 없다면 써도 의미가 없다.) 원래 정규표현식을 쓸 때 줄바꿈은 무시되는데, 이걸 사용하면 줄바꿈을 적용해서 검사한다. 그리고 ^은 한 줄의 시작, $는 한 줄의 끝으로 의미가 달라진다.</li>
+  <li>x : 공백 문자를 무시한다. 단, 이스케이프(역슬래쉬하고 같이 쓸 경우)하거나 문자 클래스 안에 있을 경우에는 예외. 정규식을 조금 더 읽기 편하게 만들어준다. 그러나 이 변경자를 지원하지 않는 엔진이 많은 게 단점이다.</li>
+</ul>
+
+<h1 id="탐욕적-및-게으른-수량자">탐욕적 및 게으른 수량자</h1>
+
+<p>정규표현식에서는 일치하는 패턴을 찾는 횟수제한이 없어 필요이상의 상황을 연출하기도 하는데 이것은 의도적으로 수량자를 탐욕적으로 만들었기 때문이다.</p>
+
+<p>문법에서 말하는 탐욕적 수량자란 가능하면 가장 큰 덩어리를 찾는다는 뜻이며, 반대의 개념인 게으른 수량자(Lazy Quantifier)는 패턴에 근접하는 최소한의 덩어리를 찾는다.</p>
+
+<p>사용 예(Python)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="s">"&lt;div&gt; &lt;p&gt;First&lt;/p&gt; &lt;p&gt;Second&lt;/p&gt;&lt;/div&gt;"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">re</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"&lt;p&gt;(.+)&lt;/p&gt;"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># 기본적으로 탐욕적인 매칭
+</span><span class="p">[</span><span class="s">'First&lt;/p&gt; &lt;p&gt;Second'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r"&lt;p&gt;(.+?)&lt;/p&gt;"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>  <span class="c1"># 게으른 수량자 사용
+</span><span class="p">[</span><span class="s">'First'</span><span class="p">,</span> <span class="s">'Second'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h1 id="ip-regex">IP Regex</h1>
+
+<h2 id="ipv4">IPv4</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>/^(([0-9]</td>
+      <td>[1-9][0-9]</td>
+      <td>1[0-9]{2}</td>
+      <td>2[0-4][0-9]</td>
+      <td>25[0-5]).){3}([0-9]</td>
+      <td>[1-9][0-9]</td>
+      <td>1[0-9]{2}</td>
+      <td>2[0-4][0-9]</td>
+      <td>25[0-5])$/</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="reference">reference</h1>
+
+<p>https://regexone.com/</p>
+
+<p>https://regexr.com/</p>
+
+<h2 id="explain">explain</h2>
+
+<p>https://namu.wiki/w/%EC%A0%95%EA%B7%9C%20%ED%91%9C%ED%98%84%EC%8B%9D?from=%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D</p>
+
+<p>https://soooprmx.com/archives/7718</p>
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F09%2FRegular-Expression.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=Regular+Expression%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F09%2FRegular-Expression.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/03/09/Regular-Expression.html&title=Regular+Expression%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=Regular+Expression%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/03/09/Regular-Expression.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#ComputerScience">
+      <p><i class="fa fa-tag fa-fw"></i> ComputerScience</p>
+    </a>
+    
+    <a class="button" href="/tags#DataStructure">
+      <p><i class="fa fa-tag fa-fw"></i> DataStructure</p>
+    </a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="Doubly Linked Lists" href="/2020/03/10/Doubly-Linked-Lists.html">
+            <p>Previous post</p>
+            Doubly Linked Lists
+        </a>
+    </div>
+    
+
+    
+    <div id="next-post">
+        <a alt="Stacks and Queue" href="/2020/03/05/Stacks-and-Queues.html">
+            <p>Next post</p>
+            Stacks and Queue
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

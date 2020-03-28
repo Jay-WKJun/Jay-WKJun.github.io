@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<!--
+    Type on Strap jekyll theme v2.0.0
+    Copyright 2016-2019 Sylhare
+    Theme free for personal and commercial use under the MIT license
+    https://github.com/sylhare/Type-on-Strap/blob/master/LICENSE
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Main JS (navbar.js, katex_init.js and masonry_init.js)-->
+    <script defer=true src="/assets/js/main.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="http://localhost:4000/2020/03/24/Recursion.html">
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/atom+xml" title="Dev.JK Tech Note" href="http://localhost:4000/feed.xml"/>
+    
+    
+
+    <!-- KaTeX 0.8.3 -->
+    <!-- if you have any issue check https://github.com/KaTeX/KaTeX -->
+    
+    <script src="/assets/js/vendor/katex.min.js"></script>
+    
+
+    <!-- Google Analytics -->
+    
+    <!-- Global site tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159651055-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-159651055-1');
+    </script>
+    
+    <!-- Page analysis (analytics.js) -->
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-159651055-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+     <!-- End Google Analytics -->
+
+    <!-- seo tags -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Recursion | Dev.JK Tech Note</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Recursion" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Recursion Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다. Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면 push된 recursion function들을 하나씩 pop하면서 실행한다." />
+<meta property="og:description" content="Recursion Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다. Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면 push된 recursion function들을 하나씩 pop하면서 실행한다." />
+<link rel="canonical" href="http://localhost:4000/2020/03/24/Recursion.html" />
+<meta property="og:url" content="http://localhost:4000/2020/03/24/Recursion.html" />
+<meta property="og:site_name" content="Dev.JK Tech Note" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-24T00:00:00+09:00" />
+<script type="application/ld+json">
+{"headline":"Recursion","dateModified":"2020-03-24T00:00:00+09:00","datePublished":"2020-03-24T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/24/Recursion.html"},"url":"http://localhost:4000/2020/03/24/Recursion.html","description":"Recursion Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다. Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면 push된 recursion function들을 하나씩 pop하면서 실행한다.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- Manual seo tags -->
+    <!--
+    <title>Recursion | Dev.JK Tech Note</title>
+    <meta name="description" content="RecursionRecursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면push된 recursion function들을 하나씩 pop하면서 실행한다.">
+    -->
+</head>
+
+  <body>
+    <header class="site-header">
+
+    <!-- Logo and title -->
+	<div class="branding">
+        
+
+		<h1 class="site-title">
+			<a aria-label="Dev.JK Tech Note" href="/">
+        Dev.JK Tech Note
+      </a>
+		</h1>
+	</div>
+
+    <!-- Toggle menu -->
+    <nav class="clear">
+    <a aria-label="pull" id="pull" class="toggle" href="#">
+    <i class="fa fa-bars fa-lg"></i>
+    </a>
+
+    <!-- Menu -->
+    <ul class="hide">
+        
+
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="About" title="About" href="/about/">
+                     About 
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Gallery" title="Gallery" href="/gallery/">
+                     Gallery 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Portfolio" title="Portfolio" href="/portfolio/">
+                     Portfolio 
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Search" title="Search" href="/search/">
+                     <i class="fa fa-search" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            <li class="separator"> | </li>
+            <li>
+                <a class="clear" aria-label="Tags" title="Tags" href="/tags/">
+                     <i class="fa fa-tags" aria-hidden="true"></i>
+                    
+                </a>
+            </li>
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+            
+            
+        
+    </ul>
+
+	</nav>
+</header>
+
+    <div class="content">
+      
+
+<meta property="og:url"          content="/2020/03/24/Recursion.html" />
+<meta property="og:type"         content="article" />
+<meta property="og:title"        content="Recursion" />
+<meta property="og:description"  content="Recursion
+
+Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.
+
+Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면
+
+push된 recursion function들을 하나씩 pop하면서 실행한다.
+
+" />
+<meta property="og:image"        content="assets/img/wallpaper/eat sleep code repeat_copy2.jpeg" />
+
+
+<article >
+  <header id="main" style="">
+    
+      <h1 id="Recursion" class="title">Recursion</h1>
+      
+
+
+<div class="post-info">
+    <p class="meta">
+      March 24, 2020
+    </p></div>
+
+    
+  </header>
+  <section class="post-content">
+  
+      <h1 id="recursion">Recursion</h1>
+
+<p>Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.</p>
+
+<p>Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면</p>
+
+<p>push된 recursion function들을 하나씩 pop하면서 실행한다.</p>
+
+<!--more-->
+
+<h1 id="big-o-notation">Big O notation</h1>
+
+<p>Fibonacci iterrative = O(n)</p>
+
+<p>recursive = ##O(2^n)## (O(n^2)보다 훨씬 operation이 많다.)</p>
+
+<h2 id="although-why-they-use-recursive">Although!! why they use recursive?</h2>
+
+<p>##Anything you can do with a recursion CAN be done iteratively(loop)##</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pros</th>
+      <th>cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Readable</td>
+      <td>Need Large Stack</td>
+    </tr>
+    <tr>
+      <td>DRY</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>javascript 6 version부터는 recursion을 call stack을 늘리지 않고 사용할 수 있다고 한다!!!!(a.k.a Tail call optimization)</p>
+
+<p>https://2ality.com/2015/06/tail-call-optimization.html</p>
+
+<p>이러한 기능은 다른 언어에서도 지원한다고 한다.</p>
+
+<h2 id="then-when-we-should-use-the-recursion">Then, When we should use the recursion?</h2>
+
+<p>Everytime you are using a tree converting Something into a tree, consider Recursion.</p>
+
+<ol>
+  <li>Divided into a number of subproblems that are smaller instances of the same problem(문제를 작게 같은 문제들로 쪼갤 수 있다.)</li>
+  <li>Each instance of the subproblem is identical in nature(쪼갠 문제들의 operation이 모두 같다.)</li>
+  <li>The solution of each subproblem can be combined to solve the problem at hand(여러개로 쪼개진 문제들이 모여 문제를 해결 할 수 있다.)</li>
+</ol>
+
+<p>정리하면…</p>
+
+<ul>
+  <li>Divide and Conquer using Recursion</li>
+  <li>BFS(Breadth First Search), DFS(Depth First Search)</li>
+  <li>Tree Data structure or Tree Traversal</li>
+  <li>Sorting</li>
+</ul>
+
+<h1 id="three-rules">Three Rules</h1>
+
+<p>복잡한것 같지만 이 법칙을 가지고 하나씩 생각하며 recursion을 해석하면 쉽다.</p>
+
+<ol>
+  <li>Identify the base case</li>
+  <li>Identify the recursive case</li>
+  <li>Get closer and closer and return when needed. Usually you have 2 returns.</li>
+</ol>
+
+<h1 id="explain">Explain!</h1>
+
+<h2 id="ex1">ex1</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">inception</span><span class="p">(){</span>
+ <span class="nx">inception</span><span class="p">();</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">inception</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>이 logic의 결과는 Stack overflow(call stack overflow)이다. 끊임없이 자신을 불러내기만 하고 console.log에 도달하지 못해</p>
+
+<p>아무것도 출력하지 못한다.</p>
+
+<h2 id="ex2">ex2</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">inception</span><span class="p">(){</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">)</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">counter</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="dl">"</span><span class="s2">done</span><span class="dl">"</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+ <span class="nx">inception</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">inception</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>이때 inception을 호출했을 경우 결과는 Undefined라는 처리 결과가 나오게 된다.</p>
+
+<p>Debug시에 보면 가장 첫번째는 return을 통해 ‘done’을 출력하지만 recursion으로 불린 function들은 return하지 않기 때문에 Undefined가 출력된다.</p>
+
+<p>inception(inception(‘done’)) = inception(Undefined) …</p>
+
+<h2 id="ex3">ex3</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">inception</span><span class="p">(){</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">counter</span><span class="p">)</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">counter</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="dl">"</span><span class="s2">done</span><span class="dl">"</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+ <span class="k">return</span> <span class="nx">inception</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="nx">inception</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Recursion한 method를 return하라고 한다면 자신이 가진 return “done”을 return 하기에 가장 마지막에 pop되는 method에서 return을 실행하여 “done”이 출력된다.</p>
+
+<p>inception(inception(‘done’)) = inception(‘done’) …</p>
+
+<h1 id="excersise">Excersise</h1>
+
+<h2 id="factorial">factorial</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">findFactorialIterative</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">answer</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">number</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">answer</span> <span class="o">=</span> <span class="nx">answer</span> <span class="o">*</span> <span class="nx">i</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">answer</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">findFactorialRecursive</span><span class="p">(</span><span class="nx">number</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">number</span> <span class="o">===</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">number</span> <span class="o">*</span> <span class="nx">findFactorialRecursive</span><span class="p">(</span><span class="nx">number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">findFactorialIterative</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">//O(n)</span>
+<span class="nx">findFactorialRecursive</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span> <span class="c1">//O(n)</span>
+</code></pre></div></div>
+
+<h2 id="fibonacci">Fibonacci</h2>
+
+<p>My answer</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fibonacciIterative</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">foreNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">beforeNum</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">n</span><span class="o">===</span><span class="mi">1</span><span class="p">){</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">result</span> <span class="o">=</span> <span class="nx">foreNum</span> <span class="o">+</span> <span class="nx">beforeNum</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">%</span><span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span><span class="p">){</span>
+      <span class="nx">foreNum</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">beforeNum</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nx">fibonacciIterative</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">beforeNum</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">n</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">n</span> <span class="o">===</span> <span class="mi">1</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">n</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">beforeNum</span> <span class="o">=</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="nx">beforeNum</span> <span class="o">+</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Better Answer</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">fibonacciIterative</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+ <span class="k">return</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">n</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="nx">fibonacciIterative</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">n</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">fibonacciRecursive</span> <span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">fibonacciRecursive</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div></div>
+
+    
+  </section>
+
+  <!-- Social media shares -->
+  
+
+<div class="share-buttons">
+    <ul class="share-buttons">
+        <div class="meta">Share</div>
+        
+        <li>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F24%2FRecursion.html" target="_blank" title=" Facebook">
+			<i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Facebook</span>
+		</a>
+        </li>
+         
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=Recursion%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F03%2F24%2FRecursion.html" target="_blank" title="">
+			<i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Tweet</span>
+		</a>
+        </li>
+            
+        <li>
+            <a href="http://www.reddit.com/submit?url=http://localhost:4000/2020/03/24/Recursion.html&title=Recursion%20%7C%20Dev.JK+Tech+Note" target="_blank" title=" Reddit">
+			<i class="fa fa-reddit-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Share on Reddit</span>
+		</a>
+        </li>
+           
+        <li>
+            <a href="mailto:?subject=Recursion%20%7C%20Dev.JK+Tech+Note&body=:%20http://localhost:4000/2020/03/24/Recursion.html" target="_blank" title="">
+			<i class="fa fa-envelope-square fa-2x" aria-hidden="true"></i>
+			<span class="sr-only">Email</span>
+		</a>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+
+   <!-- Tag list -->
+  
+  
+
+
+<footer>
+  <div class="tag-list">
+    
+      <div class="meta">Tags</div>
+    
+
+    
+    <a class="button" href="/tags#Algorithms">
+      <p><i class="fa fa-tag fa-fw"></i> Algorithms</p>
+    </a>
+    
+    <a class="button" href="/tags#ComputerScience">
+      <p><i class="fa fa-tag fa-fw"></i> ComputerScience</p>
+    </a>
+    
+  </div>
+</footer>
+
+
+</article>
+
+<!-- Disqus -->
+
+<div class="comments">
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+	var disqus_shortname = 'jay-w';
+	(function() {
+		var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	})();
+</script>
+<noscript>Please enable JavaScript to view comments.</noscript>
+
+</div>
+
+
+<!-- Post navigation -->
+
+  <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="오답노트" href="/2020/03/25/Incorrected-Problems.html">
+            <p>Previous post</p>
+            오답노트
+        </a>
+    </div>
+    
+
+    
+    <div id="next-post">
+        <a alt="Binary Heaps And Trie" href="/2020/03/22/Binary-Heaps-And-Trie.html">
+            <p>Next post</p>
+            Binary Heaps And Trie
+        </a>
+    </div>
+    
+</div>
+
+
+
+<!-- To change color of links in the page -->
+<style>
+  
+
+  header#main {
+    background-repeat:no-repeat;
+    
+  }
+</style>
+
+    </div>
+    <footer class="site-footer">
+    <p class="text">
+        Powered by <a href="https://jekyllrb.com/">Jekyll</a> with <a href="https://github.com/sylhare/Type-on-Strap">Type on Strap</a>
+</p>
+            <div class="footer-icons">
+                <ul>
+                <!-- Social icons from Font Awesome, if enabled -->
+                
+<li>
+    <a feed.xml href="http://localhost:4000/" title="Follow RSS feed">
+    <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+    <a href="https://github.com/sylhare" title="Follow on GitHub">
+		<span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+        </span>
+    </a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ul>
+            </div>
+</footer>
+
+
+
+  </body>
+</html>

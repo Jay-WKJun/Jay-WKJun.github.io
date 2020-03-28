@@ -1,0 +1,7 @@
+I"*<h1 id="stack-and-queue">Stack and Queue</h1>
+
+<p>이 둘은 linear data structure로 모든 데이터의 접근과 동작을 순차적으로 해야 하는 특징이 있다.</p>
+
+<p>stack은 선입후출(First In Last Out) Queue는 선입선출(First In First Out)이라는  특징이 있다.</p>
+
+:ET
