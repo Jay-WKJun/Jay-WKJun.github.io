@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Regular Expression
-tags: [ComputerScience, DataStructure]
+tags: [Java, APIs]
 excerpt_separator: <!--more-->
 ---
 
@@ -81,3 +81,43 @@ https://regexr.com/
 https://namu.wiki/w/%EC%A0%95%EA%B7%9C%20%ED%91%9C%ED%98%84%EC%8B%9D?from=%EC%A0%95%EA%B7%9C%ED%91%9C%ED%98%84%EC%8B%9D
 
 https://soooprmx.com/archives/7718
+
+# Java Patterns and Matchers methods
+
+java에선 주로 patterns와 matchers클래스로 정규표현식을 다룬다. String.replaceAll(regex, replace)같은 예외도 존재한다.
+
+## Matcher 클래스 메서드들
+
+find() : 패턴이 일치하는 경우 true를 반환하고, 그 위치로 이동(여러개가 매칭되는 경우 반복 실행가능)
+find(int start) : start위치 이후부터 매칭검색을 수행
+start() : 매칭되는 문자열 시작위치 반환
+start(int group) : 지정된 그룹이 매칭되는 시작위치 반환
+end() : 매칭되는  문자열 끝 다음 문자위치 반환
+end(int group) : 지정되 그룹이 매칭되는 끝 다음 문자위치 반환
+
+group() : 매칭된 부분을 반환
+group(int group) : 매칭된 부분중 group번 그룹핑 매칭부분 반환
+groupCount() : 패턴내 그룹핑한(괄호지정) 전체 갯수 반환
+matches() : 패턴이 전체 문자열과 일치할 경우 true 반환
+
+## Group
+
+패턴 내에서 그룹을 지정하기 위해서 ()를 통해 그룹을 설정해주면 되고, () 갯수만큼 그룹이 만들어 진다.
+
+![Matcher.group]({{ "/assets/img/IT_Pic/Matcherclass_groupMethod.png" | relative_url }})
+
+위 예제에서는 2개의 그룹이 설정이 되었으며, 각 그룹은 group()메서드를 통해 1,2번으로 접근이 가능하다.
+
+group()나 group(0) 메서드는 매칭된 전체 문자열을 반환한다.
+
+## matching index
+
+start()메서드를 통해 패턴이 일치하는 문자열의 시작 위치와 end() 메서드를 통해 패턴이 끝나는 문자열의 다음 문자위치를 반환한다.
+
+![Matcher.startAndend]({{ "/assets/img/IT_Pic/Matcherclass_startAndEnd.png" | relative_url }})
+
+end() 메서드가 패턴이 일치하는 문자열의 끝부분 위치가 아닌 끝부분 다음 문자의 위치이다.
+
+start(int group)와 end(int group)에 group이 지정되는 경우 해당 그룹이 매칭되는 위치를 반환하게 된다.
+
+https://enterkey.tistory.com/353
