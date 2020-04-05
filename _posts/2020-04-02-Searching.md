@@ -25,6 +25,10 @@ excerpt_separator: <!--more-->
 
 Graph와 Tree의 데이터구조에서 모든 원소들(n)을 들를 때 Traversal이라고 한다. 모든 원소를 거치기 때문에 O(n)이다.
 
+visualGo의 Traversal Animation
+
+https://visualgo.net/en/dfsbfs?slide=1
+
 ## Breath First Search
 
 이것은 가로로 훑는 방법으로 Tree일땐 왼쪽에서 오른쪽으로~ 밑으로 내려가서 끝까지 반복이다.
@@ -158,3 +162,29 @@ function traversePostOrder(node, list){
 interview에서 자주 묻는 질문이다. binary search tree가 규칙대로 되어있는가를 확인하는 것이다. 보통 BFS가 유용하다.
 
 https://leetcode.com/problems/validate-binary-search-tree/
+
+# Graph Traversals
+
+## BFS, DFS
+
+Tree는 Graph의 한 종류이므로 같은 원리로 Traversal을 할 수 있다.
+
+중요한건 BFS와 DFS의 쓰임인데 Graph는 실생활과 밀접한 관련이 있는 데이터 구조이기 때문에, 실제로도 많이 사용되고 있다.
+
+## BFS in Graph
+
+BFS - Shortest path
+
+ex) Amazon의 recommendation system, Facebook의 현재 가장 가까운 친구, Google map의 길찾기
+
+## DFS in Graph
+
+DFS - Check to see if it exists, maze를 풀어내는 것과 같다.
+
+# Dijkstra & Bellman - Ford Algorithms
+
+둘 다 weighted graph에서 shortest path를 찾는 알고리즘으로 효율적이며 각자 특징이 있다.
+
+Dijkstra - negative edge가 있으면 사용 불가능, Bellman - Ford보다 더 효율적이다.
+
+Bellman - Ford - negative weight가 있어도 사용 가능, Dijkstra비해 complexity가 비효율적(worst case O(n^2))
