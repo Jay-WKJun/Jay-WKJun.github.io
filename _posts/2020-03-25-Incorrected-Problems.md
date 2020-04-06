@@ -37,3 +37,7 @@ public static int getHeight(Node root){
 ```
 
 양 옆의 가지가 비어있을 때 까지 recursion하고 빈 곳에서 -1을 받고 그 위로 0를 리턴한다. 이렇게 되면 양쪽 중 긴쪽의 return값이 더 크기 때문에 큰 값만 return되고 최종적으로 가장 큰 값만 return되어 가장 큰 길이를 얻을 수 있다.
+
+# 복습 노트 (직접 구현하면서 복습했던 것들)
+
+BFS, DFS 다시
