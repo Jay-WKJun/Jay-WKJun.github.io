@@ -188,3 +188,119 @@ DFS - Check to see if it exists, maze를 풀어내는 것과 같다.
 Dijkstra - negative edge가 있으면 사용 불가능, Bellman - Ford보다 더 효율적이다.
 
 Bellman - Ford - negative weight가 있어도 사용 가능, Dijkstra비해 complexity가 비효율적(worst case O(n^2))
+
+# self implement
+
+```java
+class Node {
+	Node left, right;
+	int data;
+
+	Node(int data) {
+		this.data = data;
+		left = right = null;
+	}
+}
+
+public class BSTLevelOrderTraversal {
+
+	static Queue<Node> queue = new ArrayDeque<>();
+
+	static void levelOrder(Node root) {
+		// Write your code here
+
+		if (root == null) {
+			return;
+		}
+
+		System.out.print(root.data + " ");
+
+		if (root.left != null) {
+			queue.add(root.left);
+		}
+
+		if (root.right != null) {
+			queue.add(root.right);
+		}
+
+		levelOrder(queue.poll());
+
+	}
+
+	public static Node insert(Node root, int data) {
+		if (root == null) {
+			return new Node(data);
+		} else {
+			Node cur;
+			if (data <= root.data) {
+				cur = insert(root.left, data);
+				root.left = cur;
+			} else {
+				cur = insert(root.right, data);
+				root.right = cur;
+			}
+			return root;
+		}
+	}
+
+	public static void depthFirstSearch(Node node) {
+		if (node == null) {
+			return;
+		}
+
+		System.out.print(node.data + " ");
+
+		depthFirstSearch(node.left);
+		depthFirstSearch(node.right);
+
+	}
+	public static void depthFirstSearchIn(Node node) {
+		
+		//System.out.println(++count);
+		if (node == null) {
+			return;
+		}
+		depthFirstSearchIn(node.left);
+		System.out.print(node.data + " ");
+		depthFirstSearchIn(node.right);
+	}
+
+	public static void depthFirstSearchPost(Node node) {
+
+		if (node == null) {
+			return;
+		}
+		depthFirstSearchPost(node.left);
+		depthFirstSearchPost(node.right);
+		System.out.print(node.data + " ");
+	}
+
+	public static void main(String args[]) {
+		Node root = null;
+
+		int[] data = { 3, 5, 4, 7, 2, 1 };
+
+		for (int i = 0; i < data.length; i++) {
+			root = insert(root, data[i]);
+		}
+
+		//   3
+		//  2   5
+		// 1   4 7
+		System.out.println("BFS");
+		levelOrder(root);
+		System.out.println();
+		
+		System.out.println("DFS preorder");
+		depthFirstSearch(root);
+		System.out.println();
+		
+		System.out.println("DFS inorder");
+		depthFirstSearchIn(root);
+		System.out.println();
+		
+		System.out.println("DFS postorder");
+		depthFirstSearchPost(root);
+	}
+}
+```
