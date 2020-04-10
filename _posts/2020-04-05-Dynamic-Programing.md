@@ -24,6 +24,30 @@ Dynamic programing = Divide & Conquer + Memoization 으로 구성된다.
 3. Are there repetive subproblems?
 4. Memoize subproblems
 
+# When can we use dynamic programing?
+
+Dynamic programing은 크게 1.Optimal SubStructure 2. Overlapping Subproblems 이 두가지의 경우에 사용 할 수 있다.
+
+## Overlapping Subproblems
+
+Definition : A problem is said to have overlapping subproblems if it can be broken down into subproblems which are reused several times
+
+즉 subproblem으로 쪼개질 수 있고 subproblem을 여러번 사용(overlap)할 경우에 사용할 수 있다.(한번 풀었던 subproblem을 저장했다가 다시 사용하는 거니 당연하다.)
+
+ex) fibonacci sequence - 전에 계산했던 결과를 반복하므로 그것을 저장했다가 다시 사용할 수 있다.
+
+merge sort는 subproblem으로 쪼갤 수 있지만 subproblem이 겹치(overlap)지 않아서 dynamic program을 사용할 수 없다.
+
+## Optimal Substructure(최적화 문제)
+
+A problem is said to have optimal substructure if an opitmal solution can be constructed from optimal solutions of its subproblems.
+
+최적화 문제(Optimization problems)란 여러개의 선택가능한 후보 중에서 최적의 해(Optimal value) 또는 최적의 해에 근접한 값을 찾는 문제를 일컫는다. 일반적으로 기계학습 분야에서는 비용함수(Cost function)를 최소화 또는 최대화 시키는 모델의 파라미터(parameter)를 구하게 되는데, 이것은 최적화 문제로 정의될 수 있다.
+
+만약 알파벳으로 여러 지점이 나뉘어 져있는 지도에서 A -> B 로 가는 길이 가장 짧은 길이고 A -> C로 가는 길은 A - B - C 가 가장 짧으며 A -> D로 가는 길은 A - B - C - D일때, A -> D의 경우에 있는 경로에
+
+A->B, A->C의 subproblem들이 가장 최적화 된 경로로 A->D의 경로에 사용되고 있으니 이것은 Optimal subproblem이라 할 수 있다.
+
 # Memoization
 
 Caching 방법 중 하나로 똑같은 입력을 똑같은 처리를 해야할 때, cache에 저장된 이미 처리된 결과를 그대로 가져다가 사용하는 것이다.
@@ -108,7 +132,11 @@ calculations의 결과를 보면 알 수 있다.
 
 이것 또한 dynamic programing의 방법 중 하나로 위의 memoization이 top down approach(recursion)이었다면 이 방법은 반대이다.
 
-code가 훨씬 직관적이고 recursion을 사용하지않지만 다른 case에 적용하기 어렵다는 단점이 있다.
+fibonacci에서 n부터 시작하는게 아니라 1,2부터 시작해서 n까지 연산해서 올라간다.(가장 작은 subproblem부터 타고 올라간다),전 계산 결과를 table에 담고 그것을 다시 사용한다. 이렇게 table에 결과들을 담아가는 것을 "Tabulant"라고 한다.
+
+장점은 memoization을 사용하는 top-down에선 call stack을 쌓아놓고 base case에서 풀면서 오지만 bottom-up에선 전에 계산한 것을 바로 사용하기 때문에 stack을  사용하지 않아 space complexity가 훨씬 좋다.(fib(100000)인 경우 bottom-up은 overflow가 일어나지 않는다.)
+
+code가 훨씬 직관적이고 recursion을 사용하지않지만 다른 case에 적용하기 어렵다는 단점이 있다.(code를 보면 반드시 저번에 계산했던 결과를 사용해야만 한다.)
 
 ```javascipt
 function fibonacciMaster2(n) {
