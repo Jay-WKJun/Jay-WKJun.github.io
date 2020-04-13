@@ -1,0 +1,444 @@
+I"�<h1 id="sorting">Sorting</h1>
+
+<p>우리말로 “정렬”로 데이터를 정렬하는 것이다.</p>
+
+<p>Sorting은 데이터의 규모가 커질 수록 중요해진다. 작은 데이터일 경우엔 언어에 내장된 메소드를 이용하면되지만 데이터가 10억 규모가 되면 이야기가 달라진다.</p>
+
+<p>(이를 위해 wikipedia에는 수많은 sorting 알고리즘이 있지만 이것은 advanced 알고리즘으로 여기선 기초만 다룬다.)</p>
+
+<p>데이터 규모가 커지면 커질수록 Data Handle에 cost가 기하급수적으로 오르기 때문에 큰 기업들에선 Sorting을 매우 중요하게 생각하며, 같은 이유로 interview에서도 마찬가지로 중요한 주제이다.</p>
+
+<p>직접 scratch로 coding할 일은 없지만 상황에 따라 각 sorting algorithm의 장단점을 따져서 가장 적절한 것을 선택해서 쓸 줄 알아야한다.</p>
+
+<!--more-->
+
+<p>아래 페이지에서 각 sorting을 animation으로 볼 수 있다.</p>
+
+<p>https://www.toptal.com/developers/sorting-algorithms</p>
+
+<h2 id="dont-always-trust-built-in-method-in-your-language">Don’t always trust built in method in your language</h2>
+
+<p>built in인 sort method를 항상 믿으면 안된다.</p>
+
+<p>javascript의 경우 문자의 가장 앞자리를 UTF-16의 encoding형태로 서로 비교하여 sorting하기 때문에 원하는 답이 안나올 수도 있다. int가 2자리 이상인 경우도 마찬가지이다.</p>
+
+<p>게다가 문서엔 browser에 따라 처리속도와 필요 메모리가 바뀔 수 있다고 하니 주의해야한다.(javascript의 ECMAscript로 인해 browser에 내장되어 있는 engine에 따라 다르게 작동한다.)</p>
+
+<p>Chrome V8 engine : Quick sort or insertion sort(in small case)</p>
+
+<p>Mozilla firefox engine : Merge sort</p>
+
+<p>javascript의 sort method API document</p>
+
+<p>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">months</span> <span class="o">=</span> <span class="p">[</span><span class="dl">'</span><span class="s1">March</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Jan</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Feb</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Dec</span><span class="dl">'</span><span class="p">];</span>
+<span class="nx">months</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">months</span><span class="p">);</span>
+<span class="c1">// expected output: Array ["Dec", "Feb", "Jan", "March"]</span>
+
+<span class="kd">const</span> <span class="nx">array1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">100000</span><span class="p">];</span>
+<span class="nx">array1</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">array1</span><span class="p">);</span>
+<span class="c1">// expected output: Array [1, 100000, 21, 30, 4]</span>
+
+<span class="c1">//이렇게하면 보완이 가능하다.</span>
+<span class="kd">const</span> <span class="nx">array2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="nx">array2</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">){</span>
+	<span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">})</span>
+<span class="c1">// expected output: Array [1, 2, 2, 7, 8, 34, 65]</span>
+</code></pre></div></div>
+
+<h1 id="bubble-sort">Bubble sort</h1>
+
+<p>양 옆의 갚을 비교 하여 정렬하고 nested loop을 통해 완성한다. [O(n^2)]</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">283</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">bubbleSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="o">-</span><span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span>
+        <span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+        <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">bubbleSort</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h1 id="selection-sort">Selection Sort</h1>
+
+<p>List를 모두 훑으면서 가장 작은 값을 찾고 그 값을 해당 loop의 순번에 넣는다. 이것을 nested loop로 반복 [O(n^2)]</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">283</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">selectionSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">j</span><span class="o">&lt;</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]){</span>
+        <span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span>
+        <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+        <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">selectionSort</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h1 id="insertion-sort">Insertion sort</h1>
+
+<p>거의 sorting되어 있고 small data set이면 Insertion sorting이 가장 빠르다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">283</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">insertionSort</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">{</span>
+      <span class="c1">//move number to the first position</span>
+      <span class="nx">array</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// only sort number smaller than number on the left of it. This is the part of insertion sort that makes it fast if the array is almost sorted.</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+        <span class="c1">//find where number should go</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">i</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span> <span class="p">{</span>
+            <span class="c1">//move number to the right spot</span>
+            <span class="nx">array</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">j</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="nx">array</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">insertionSort</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h1 id="merge-sort">Merge Sort</h1>
+
+<p>배열을 반으로 쪼개고 쪼개 1개까지 쪼개서 양옆의 배열의 값과 비교하고 합병하면서 sorting한다.(Divide and Conquer) O(n log(n)), O(n)</p>
+
+<p>위의 sorting보다 빠르다는게 장점이다, 메모리가 더 많이 필요한게 단점</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">283</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">mergeSort</span> <span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">array</span>
+  <span class="p">}</span>
+  <span class="c1">// Split Array in into right and left</span>
+  <span class="kd">const</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">middle</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">middle</span><span class="p">)</span> 
+  <span class="kd">const</span> <span class="nx">right</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">middle</span><span class="p">)</span>
+  <span class="c1">// console.log('left:', left);</span>
+  <span class="c1">// console.log('right:', right);</span>
+
+  
+  <span class="k">return</span> <span class="nx">merge</span><span class="p">(</span>
+    <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">left</span><span class="p">),</span>
+    <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">right</span><span class="p">)</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">merge</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">){</span>
+  <span class="kd">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="kd">let</span> <span class="nx">leftIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">rightIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">while</span><span class="p">(</span><span class="nx">leftIndex</span> <span class="o">&lt;</span> <span class="nx">left</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> 
+        <span class="nx">rightIndex</span> <span class="o">&lt;</span> <span class="nx">right</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+     <span class="k">if</span><span class="p">(</span><span class="nx">left</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">right</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">]){</span>
+       <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">left</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">]);</span>
+       <span class="nx">leftIndex</span><span class="o">++</span><span class="p">;</span>
+     <span class="p">}</span> <span class="k">else</span><span class="p">{</span>
+       <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">right</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">]);</span>
+       <span class="nx">rightIndex</span><span class="o">++</span>
+    <span class="p">}</span>
+  <span class="p">}</span>  
+  <span class="c1">//console.log(left, right)</span>
+  <span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">left</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">leftIndex</span><span class="p">)).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">right</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">rightIndex</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">answer</span> <span class="o">=</span> <span class="nx">mergeSort</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">answer</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MergeSortSoloReview</span> <span class="o">{</span>
+	
+	<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	
+	<span class="c1">//처음에 쪼개고 쪼개서 하나로 만들고(call stack을 쌓고) 하나를 리턴해서 병합하고 리턴하고 반복...</span>
+	<span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">divideAndMerge</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"divide count = "</span> <span class="o">+</span> <span class="o">++</span><span class="n">count</span><span class="o">);</span>
+		<span class="c1">//a가 하나로 쪼개지면 그대로 리턴한다.(base case)</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"return : "</span> <span class="o">+</span> <span class="n">a</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+			<span class="k">return</span> <span class="n">a</span><span class="o">;</span>
+		<span class="o">}</span>
+		
+		<span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span> <span class="c1">//오른쪽 파티션의 첫번째 인덱스이다.</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"mid = "</span> <span class="o">+</span> <span class="n">mid</span><span class="o">);</span>
+		
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">left</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">mid</span><span class="o">];</span>
+		
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">left</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">left</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+		<span class="o">}</span>
+		
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span> <span class="o">[</span><span class="n">a</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">mid</span><span class="o">];</span>
+		
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">right</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">right</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="n">mid</span><span class="o">];</span>
+		<span class="o">}</span>
+		
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"divided : "</span><span class="o">);</span>
+		<span class="n">scan</span><span class="o">(</span><span class="n">left</span><span class="o">);</span>
+		<span class="n">scan</span><span class="o">(</span><span class="n">right</span><span class="o">);</span>
+		
+		<span class="c1">//쪼갰으니 병합해서 리턴해야한다.</span>
+		<span class="c1">//하나가 남을때까지 반복적으로 쪼개야하므로 이렇게 불러야한다.</span>
+		<span class="c1">//base case 조건 : array가 하나일 것</span>
+		<span class="c1">//자신의 작업을 다시 사용할 필요가 없다면 base case조건을 통해 리턴을 유도하는게 중요하다!</span>
+		<span class="c1">//base case에 다다르면 left와 right는 재귀하지 않고 자신을 리턴할 것이고</span>
+		<span class="c1">//right도 마찬가지로 자신을 재귀하면 merge를 시작하게 된다. = 마지막 하나일때 merge를 시작함</span>
+		<span class="c1">//merge를해서 결과를 리턴했으므로 그 전에 불럿던 divdeAndMerge함수하나는 리턴값을 가지고 다시 divide를 부르지 않는다.</span>
+		<span class="c1">//반대쪽도 마찬가지... 따라서 merge하고 다시 리턴값을 위로 올려서 가장 위에까지 반복....</span>
+		<span class="k">return</span> <span class="nf">merge</span><span class="o">(</span><span class="n">divideAndMerge</span><span class="o">(</span><span class="n">left</span><span class="o">),</span><span class="n">divideAndMerge</span><span class="o">(</span><span class="n">right</span><span class="o">));</span>
+	<span class="o">}</span>
+	
+	<span class="c1">//합치기 위한 함수</span>
+	<span class="c1">//divde를 재귀하지 않고 리턴하면 merge 함수의 조건이 만족되어서 merge를 하게 된다. = 끝가지 divide반복 후 merge하며 돌아옴</span>
+	<span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">merge</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="o">[]</span><span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"merge : "</span><span class="o">);</span>
+		<span class="n">scan</span><span class="o">(</span><span class="n">left</span><span class="o">);</span>
+		<span class="n">scan</span><span class="o">(</span><span class="n">right</span><span class="o">);</span>
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">left</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="n">right</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+		<span class="kt">int</span> <span class="n">leftindex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">rightindex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">resultindex</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">leftindex</span> <span class="o">&lt;=</span> <span class="n">left</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">result</span><span class="o">[</span><span class="n">resultindex</span><span class="o">]</span> <span class="o">=</span> <span class="n">left</span><span class="o">[</span><span class="n">leftindex</span><span class="o">];</span>
+			<span class="n">resultindex</span><span class="o">++;</span>
+			<span class="n">leftindex</span><span class="o">++;</span>
+		<span class="o">}</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">rightindex</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">result</span><span class="o">[</span><span class="n">resultindex</span><span class="o">]</span> <span class="o">=</span> <span class="n">right</span><span class="o">[</span><span class="n">rightindex</span><span class="o">];</span>
+			<span class="n">resultindex</span><span class="o">++;</span>
+			<span class="n">rightindex</span><span class="o">++;</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//insertion sort</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">result</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">])</span> <span class="o">{</span>
+				<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+				<span class="n">result</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+				<span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="k">if</span><span class="o">(</span><span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">result</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">])</span> <span class="o">{</span>
+				<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+					<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">result</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+					<span class="n">result</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">];</span>
+					<span class="n">result</span><span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+					<span class="k">if</span> <span class="o">(</span><span class="n">result</span><span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">2</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">result</span> <span class="o">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">)</span> <span class="o">{</span>
+						<span class="k">break</span><span class="o">;</span>
+					<span class="o">}</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"merge result : "</span><span class="o">);</span>
+		<span class="n">scan</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">scan</span><span class="o">(</span><span class="kt">int</span> <span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">" "</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+	<span class="o">}</span>
+	
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="mi">99</span><span class="o">,</span> <span class="mi">44</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">63</span><span class="o">,</span> <span class="mi">87</span><span class="o">,</span> <span class="mi">283</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">0</span><span class="o">};</span>
+		
+		<span class="nc">MergeSortSoloReview</span> <span class="n">n</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MergeSortSoloReview</span><span class="o">();</span>
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="na">divideAndMerge</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+		<span class="cm">/*
+		 * for (int i = 0; i &lt; result.length; i++) { System.out.println(result[i]+" ");
+		 * } System.out.println();
+		 */</span>
+	<span class="o">}</span>
+	
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="quick-sort">Quick Sort</h1>
+
+<p>Quick sort는 array에서 pivot이라는 기준을 두어 정렬을 시도한다. O(n log(n)), O(log(n)), merge sort보다 space complexity면에서 우수하다. average속도도 실질적으론 merge보다 빠르다.</p>
+
+<p>pivot의 선정방식은 random이며 여러가지 방법 들이 있다. pivot의 왼쪽은 pivot보다 항상 작아야하고 오른쪽은 항상 크도록 정렬한다.</p>
+
+<p>따라서 pivot을 적절한 위치로  정렬해야하는데 pivot의 정렬방식은 여러가지이다. pivot이 정렬되었으면 array을 둘로 쪼개고 똑같은 작업을 반복한다음 정렬이 끝나면 하나의 array로 합병하여 끝낸다.</p>
+
+<p>하지만 pivot이 가장 크거나 작고 혹은 array 가장 끝에 있으면 O(n^2)이라는 끔찍하게 느린 속도가 나오므로 적절한 pivot 선정이 매우 중요하다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">numbers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">99</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">87</span><span class="p">,</span> <span class="mi">283</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">){</span>
+  <span class="kd">const</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> 
+  <span class="kd">let</span> <span class="nx">pivot</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">partitionIndex</span><span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">left</span> <span class="o">&lt;</span> <span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">pivot</span> <span class="o">=</span> <span class="nx">right</span><span class="p">;</span>
+    <span class="nx">partitionIndex</span> <span class="o">=</span> <span class="nx">partition</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">pivot</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">);</span>
+    
+    <span class="c1">//sort left and right</span>
+    <span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">partitionIndex</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="nx">quickSort</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">partitionIndex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">right</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+<span class="p">}</span>
+   
+<span class="kd">function</span> <span class="nx">partition</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">pivot</span><span class="p">,</span> <span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">){</span>
+  <span class="kd">let</span> <span class="nx">pivotValue</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">pivot</span><span class="p">];</span>
+  <span class="kd">let</span> <span class="nx">partitionIndex</span> <span class="o">=</span> <span class="nx">left</span><span class="p">;</span>
+
+  <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">left</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">right</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nx">pivotValue</span><span class="p">){</span>
+      <span class="nx">swap</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">partitionIndex</span><span class="p">);</span>
+      <span class="nx">partitionIndex</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="nx">swap</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">right</span><span class="p">,</span> <span class="nx">partitionIndex</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">partitionIndex</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">swap</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">firstIndex</span><span class="p">,</span> <span class="nx">secondIndex</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">temp</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">firstIndex</span><span class="p">];</span>
+    <span class="nx">array</span><span class="p">[</span><span class="nx">firstIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">secondIndex</span><span class="p">];</span>
+    <span class="nx">array</span><span class="p">[</span><span class="nx">secondIndex</span><span class="p">]</span> <span class="o">=</span> <span class="nx">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//Select first and last index as 2nd and 3rd parameters</span>
+<span class="nx">quickSort</span><span class="p">(</span><span class="nx">numbers</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">numbers</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">numbers</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuickSortSoloReview</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">quicksort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//오른쪽 시작위치까지</span>
+		<span class="kt">int</span> <span class="n">partition</span> <span class="o">=</span> <span class="n">partition</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>
+		
+		<span class="k">if</span><span class="o">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">partition</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 오른쪽 파티션 시작점 바로 전이 왼쪽파티션의 시작점이면 왼쪽 파티션이 1개남았단 소리로 발동 스킵</span>
+			<span class="n">quicksort</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">left</span><span class="o">,</span> <span class="n">partition</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>	<span class="c1">//왼쪽 파티션</span>
+		<span class="o">}</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">right</span> <span class="o">&gt;</span> <span class="n">partition</span><span class="o">)</span> <span class="o">{</span>	<span class="c1">// 파티션 시작점이 가장 끝점이랑 같다면 오른쪽 파티션엔 하나남았던 소리로 발동 스킵</span>
+			<span class="n">quicksort</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">partition</span><span class="o">,</span> <span class="n">right</span><span class="o">);</span>		<span class="c1">//오른쪽 파티션</span>
+		<span class="o">}</span>
+		
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">partition</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">left</span><span class="o">,</span> <span class="kt">int</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">count</span><span class="o">++;</span>
+		<span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="o">(</span><span class="n">left</span><span class="o">+</span><span class="n">right</span><span class="o">)/</span><span class="mi">2</span><span class="o">;</span>
+		<span class="c1">//(피봇과 같아도 오케이기때문에 마지막엔 피봇을 넘겨버린다.)</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">count</span> <span class="o">+</span> <span class="s">"번째 "</span> <span class="o">+</span> <span class="s">"pivot = "</span> <span class="o">+</span> <span class="n">a</span><span class="o">[</span><span class="n">pivot</span><span class="o">]);</span>
+		<span class="n">doprint</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+		<span class="k">while</span><span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+			<span class="c1">//왼쪽에 피봇보다 큰게 있을 떄 까지 index움직임</span>
+			<span class="k">while</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">[</span><span class="n">pivot</span><span class="o">])</span> <span class="o">{</span>
+				<span class="n">left</span><span class="o">++;</span>
+			<span class="o">}</span>
+			<span class="c1">//오른쪽에 피봇보다 작은게 있을 때 까지 index를 움직인다.</span>
+			<span class="k">while</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">a</span><span class="o">[</span><span class="n">pivot</span><span class="o">])</span> <span class="o">{</span>
+				<span class="n">right</span><span class="o">--;</span>
+			<span class="o">}</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"left = "</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="s">" right = "</span> <span class="o">+</span> <span class="n">right</span><span class="o">);</span>
+				<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"swap - left = "</span> <span class="o">+</span> <span class="n">a</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">+</span> <span class="s">" right = "</span><span class="o">+</span> <span class="n">a</span><span class="o">[</span><span class="n">right</span><span class="o">]);</span>
+				<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="n">left</span><span class="o">];</span>
+				<span class="n">a</span><span class="o">[</span><span class="n">left</span><span class="o">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="n">right</span><span class="o">];</span>
+				<span class="n">a</span><span class="o">[</span><span class="n">right</span><span class="o">]</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+				<span class="n">left</span><span class="o">++;</span>
+				<span class="n">right</span><span class="o">--;</span>
+			<span class="o">}</span>	
+		<span class="o">}</span>
+		<span class="n">doprint</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"return  = "</span> <span class="o">+</span> <span class="n">left</span><span class="o">);</span>
+		
+		<span class="k">return</span> <span class="n">left</span><span class="o">;</span>	<span class="c1">//오른쪽 파티션의 시작점을 반환한다.</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doprint</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">QuickSortSoloReview</span> <span class="n">q</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">QuickSortSoloReview</span><span class="o">();</span>
+		
+		<span class="c1">//int [] arr = {99, 44, 6, 2, 1, 5, 63, 87, 283, 4, 0};</span>
+		<span class="kt">int</span> <span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">};</span>
+		
+		<span class="n">q</span><span class="o">.</span><span class="na">quicksort</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="mi">0</span> <span class="o">,</span><span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+		
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">" "</span> <span class="o">+</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+		<span class="o">}</span>
+		
+	<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<h1 id="heap-sort">Heap Sort</h1>
+
+<p>Merge sort와 비슷한 원리로 sorting한다. space complexity가 merge나 quick보다 좋지만 average속도가 앞의 둘 보다 느리다. O(n log(n)) O(1)</p>
+
+<p>실제로는 quick 사용시 bad case 발견시 heap sort로 전환하여 sorting속도를 높인다고 한다.</p>
+
+<p>원리 animation</p>
+
+<p>https://brilliant.org/wiki/heap-sort/</p>
+
+<p>Quick vs Heap</p>
+
+<p>https://stackoverflow.com/questions/2467751/quicksort-vs-heapsort</p>
+
+<h1 id="non-comparison-sort">non-comparison sort</h1>
+
+<p>Sorting에서 O(n log(n))의 속도는 수학적으로 절대 넘을 수 없다. 두개의 값들을 모두 비교(comparison)하기 때문이다.</p>
+
+<p>그렇다면 비교하지 않는다면…? 저 속도를 넘을 수 있을 것이다. radix sort, counting sort가 그것이다.</p>
+
+<p>저 둘은 int가 이진수로 저장되어있는 원리를 이용한 것으로 속도가 radix = O(nk) counting = O(n+k)로 속도가 매우 빨라진다.</p>
+
+<p>하지만 원리의 특성상 특정 자릿수(10조같은 너무 큰 수) 이하의 Integer data type만 사용가능하다.</p>
+
+<p>Radix Sort: https://brilliant.org/wiki/radix-sort/</p>
+
+<p>Radix Sort Animation: https://www.cs.usfca.edu/~galles/visualization/RadixSort.html</p>
+
+<p>Counting Sort: https://brilliant.org/wiki/counting-sort/</p>
+
+<p>Counting Sort Animation: https://www.cs.usfca.edu/~galles/visualization/CountingSort.html</p>
+:ET

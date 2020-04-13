@@ -1,0 +1,119 @@
+I"5<h1 id="graphs">Graphs</h1>
+
+<p>Graph는 현실을 구현하는데 가장 유용한 Data Structure이다.(그렇기에 Scailing이 가장 어렵다.)</p>
+
+<p>World Wide Web, SNS 등의 모두 Graph로 되어 있고 실제로도 사용하고 있다.</p>
+
+<p>Neo4j라는 회사가 Graph 형태 Database를 제공한다고 한다.</p>
+
+<!--more-->
+
+<p><img src="/assets/img/IT_Pic/graph-introduction.jpg" alt="Graph-Introduction" /></p>
+
+<h1 id="type-of-graphs">Type of graphs</h1>
+
+<h2 id="directed-vs-undirected">Directed vs Undirected</h2>
+
+<p><img src="/assets/img/IT_Pic/2.-Directed-Graph.png" alt="Directed vs Undirected" /></p>
+
+<p>-Directed : 특정 방향으로만 연결 된다. ex)Twitter 트위터는 팔로우하면 자동으로 팔로우 한사람과 서로 팔로우 되지 않는다.
+-Undirected : 무조건 양바향으로 연결 된다. ex)Facebook 친구를 하면 서로 친구가 된다.</p>
+
+<h2 id="weighted-vs-unweighted">Weighted vs Unweighted</h2>
+
+<p><img src="/assets/img/IT_Pic/3.-Weithened-Graph.png" alt="Weighted vs Unweighted" /></p>
+
+<p>-Weighted : node마다 숫자 value가 있고 Edge마다 value가 있다. ex)Google map 특정 장소를 찾아서(node의 value를 검색) 가장 빠른 경로를 찾는다(Edge들의 value분석).
+-Unweighted : node마다 value가 있지만 Edge에 value는 없다.</p>
+
+<h2 id="cyclic-vs-acyclic">Cyclic vs Acyclic</h2>
+
+<p><img src="/assets/img/IT_Pic/cyclic-vs-acyclic-directed-graph.jpg" alt="Cyclic vs Acyclic" /></p>
+
+<p>-Cyclic : 각 node가 서로 연결되어 있는 상태 Cyclic은 특히 Weighted Graph에서 자주 보이는 형태이다.
+-Acyclic : 각 node가 서로 연결되어 있지 않는 상태</p>
+
+<h1 id="graph-data">Graph Data</h1>
+
+<p>아래와 같은 graph가 있다고 할 때 이것을 어떻게 data화 시켜 프로그램에서 다룰 것인가??</p>
+
+<p><img src="/assets/img/IT_Pic/Graph%20Data.jpg" alt="Graph Examples" /></p>
+
+<h2 id="adjacent-matrix">Adjacent Matrix</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">graph</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]];</span>
+</code></pre></div></div>
+
+<p>0과 2가 연결되어 있다, 2와 3이 연결되어 있다, 2와 1이 연결되어 있다, 1과 3이 연결되어 있다</p>
+
+<h2 id="adjacent-list">Adjacent List</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">graph</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]];</span>
+</code></pre></div></div>
+
+<p>0은 2와 근접해있다, 1은 2,3과 근접해있다, 2는 0,1,3과 인접해있다, 3은  1,2와 인접해 있다</p>
+
+<p>HashTable을 이용해 key값을 node의 value로 한다면 한층 다루기 편해질 것.</p>
+
+<h2 id="edge-list">Edge List</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">graph</span> <span class="o">=</span> <span class="p">[</span>
+	<span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> 
+	<span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> 
+	<span class="mi">2</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> 
+	<span class="mi">3</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>0은 2번과 접해있다. 1은 2와 3과 접해있다.</p>
+
+<h1 id="excercise">Excercise</h1>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Graph</span> <span class="p">{</span> 
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">numberOfNodes</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjacentList</span> <span class="o">=</span> <span class="p">{};</span> 
+  <span class="p">}</span> 
+  <span class="nx">addVertex</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span>  <span class="p">{</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjacentList</span><span class="p">[</span><span class="nx">node</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">numberOfNodes</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span> 
+  <span class="nx">addEdge</span><span class="p">(</span><span class="nx">node1</span><span class="p">,</span> <span class="nx">node2</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="c1">//uniderected Graph </span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjacentList</span><span class="p">[</span><span class="nx">node1</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">node2</span><span class="p">);</span> 
+    <span class="k">this</span><span class="p">.</span><span class="nx">adjacentList</span><span class="p">[</span><span class="nx">node2</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">node1</span><span class="p">);</span> 
+  <span class="p">}</span> 
+  <span class="nx">showConnections</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="kd">const</span> <span class="nx">allNodes</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">adjacentList</span><span class="p">);</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">node</span> <span class="k">of</span> <span class="nx">allNodes</span><span class="p">)</span> <span class="p">{</span> 
+      <span class="kd">let</span> <span class="nx">nodeConnections</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">adjacentList</span><span class="p">[</span><span class="nx">node</span><span class="p">];</span> 
+      <span class="kd">let</span> <span class="nx">connections</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span> 
+      <span class="kd">let</span> <span class="nx">vertex</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="nx">vertex</span> <span class="k">of</span> <span class="nx">nodeConnections</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">connections</span> <span class="o">+=</span> <span class="nx">vertex</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">;</span>
+      <span class="p">}</span> 
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">node</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">--&gt;</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">connections</span><span class="p">);</span> 
+    <span class="p">}</span> 
+  <span class="p">}</span> 
+<span class="p">}</span> 
+
+<span class="kd">var</span> <span class="nx">myGraph</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Graph</span><span class="p">();</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">1</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">3</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">4</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">5</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addVertex</span><span class="p">(</span><span class="dl">'</span><span class="s1">6</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">3</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">1</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">3</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">4</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">4</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">4</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">5</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">1</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">0</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">2</span><span class="dl">'</span><span class="p">);</span> 
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">addEdge</span><span class="p">(</span><span class="dl">'</span><span class="s1">6</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">5</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">myGraph</span><span class="p">.</span><span class="nx">showConnections</span><span class="p">();</span> 
+</code></pre></div></div>
+:ET

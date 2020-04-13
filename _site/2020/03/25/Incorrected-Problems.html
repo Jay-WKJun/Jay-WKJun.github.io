@@ -67,7 +67,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-25T00:00:00+09:00" />
 <script type="application/ld+json">
-{"headline":"오답노트","dateModified":"2020-03-25T00:00:00+09:00","datePublished":"2020-03-25T00:00:00+09:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/25/Incorrected-Problems.html"},"url":"http://localhost:4000/2020/03/25/Incorrected-Problems.html","description":"이 페이지의 목적 틀렸던 코딩 문제들의 모음집","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2020/03/25/Incorrected-Problems.html"},"url":"http://localhost:4000/2020/03/25/Incorrected-Problems.html","headline":"오답노트","dateModified":"2020-03-25T00:00:00+09:00","description":"이 페이지의 목적 틀렸던 코딩 문제들의 모음집","datePublished":"2020-03-25T00:00:00+09:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <!-- Manual seo tags -->
@@ -181,6 +181,9 @@
             
             
         
+            
+            
+        
     </ul>
 
 	</nav>
@@ -247,6 +250,28 @@
 </code></pre></div></div>
 
 <p>양 옆의 가지가 비어있을 때 까지 recursion하고 빈 곳에서 -1을 받고 그 위로 0를 리턴한다. 이렇게 되면 양쪽 중 긴쪽의 return값이 더 크기 때문에 큰 값만 return되고 최종적으로 가장 큰 값만 return되어 가장 큰 길이를 얻을 수 있다.</p>
+
+<h1 id="복습-노트-직접-구현하면서-복습했던-것들">복습 노트 (직접 구현하면서 복습했던 것들)</h1>
+
+<p>BFS, DFS 다시</p>
+
+<h1 id="반성-노트">반성 노트</h1>
+
+<p>퀵소트도 못했던 이유</p>
+<ol>
+  <li>
+    <p>스스로 어느정도까지 범위를 줘야하는지도 헷갈리고 있었다.(for문 범위나 array범위를 정확히 몰라서 에러가 나고 이게 혼돈의 카오스)</p>
+
+    <p>= 기본도 안되어 있었다.</p>
+  </li>
+  <li>
+    <p>모든걸 한꺼번에 하려 했다.(이번엔 divide기능 먼저 확실하게 하고 기능을 하나씩 추가해가면서 만들었다.)</p>
+  </li>
+</ol>
+
+<p>2-1. 이번엔 기능을 한번에 하나씩 추가했다.</p>
+
+<p>2-2. 이번엔 해야하는 일(논리구조)을 쪼개서 하나씩 만족시켜 나갔다.(divide를 연속으로 실행 후 1개가 되었을 때 merge연속시행)</p>
 
     
   </section>
@@ -338,6 +363,13 @@
 <!-- Post navigation -->
 
   <div id="post-nav">
+    
+    <div id="previous-post">
+        <a alt="Graphs" href="/2020/03/30/Graphs.html">
+            <p>Previous post</p>
+            Graphs
+        </a>
+    </div>
     
 
     

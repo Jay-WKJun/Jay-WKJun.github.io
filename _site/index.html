@@ -66,7 +66,7 @@
 <meta property="og:site_name" content="Dev.JK Tech Note" />
 <link rel="next" href="http://localhost:4000/blog/page2" />
 <script type="application/ld+json">
-{"headline":"Dev.JK Tech Note","@type":"WebSite","url":"http://localhost:4000/","name":"Dev.JK Tech Note","description":"A website with blog posts and pages","@context":"https://schema.org"}</script>
+{"@type":"WebSite","url":"http://localhost:4000/","name":"Dev.JK Tech Note","headline":"Dev.JK Tech Note","description":"A website with blog posts and pages","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <!-- Manual seo tags -->
@@ -180,6 +180,9 @@
             
             
         
+            
+            
+        
     </ul>
 
 	</nav>
@@ -200,8 +203,8 @@
         <span>
           <header>
             <h1>
-              <a aria-label="오답노트" class="post-link" href="/2020/03/25/Incorrected-Problems.html">
-                오답노트
+              <a aria-label="Dynamic programing" class="post-link" href="/2020/04/05/Dynamic-Programing.html">
+                Dynamic programing
               </a>
             </h1>
             
@@ -209,16 +212,18 @@
 
 <div class="post-info">
     <p class="meta">
-      March 25, 2020
+      April 5, 2020
     </p></div>
 
           </header>
           
               <div class="excerpt">
                   
-                     이 페이지의 목적
+                     Dynamic programing
 
-틀렸던 코딩 문제들의 모음집
+Dynamic programing은 optimization(죄적화) technique 중 하나로 caching(cache를 이용)을 하면 모두 dynamic programing이라 할 수 있다.
+
+하나의 problem을 작은 subproblem으로 쪼개고 subproblem을 하나씩 해결하고 그 solution을 cache에 저장해 나중에 똑같은 problem이 있을때 저장 된 것을 활용하는 방법이다.
 
 
                   
@@ -232,8 +237,8 @@
         <span>
           <header>
             <h1>
-              <a aria-label="Recursion" class="post-link" href="/2020/03/24/Recursion.html">
-                Recursion
+              <a aria-label="Searching" class="post-link" href="/2020/04/02/Searching.html">
+                Searching
               </a>
             </h1>
             
@@ -241,20 +246,16 @@
 
 <div class="post-info">
     <p class="meta">
-      March 24, 2020
+      April 2, 2020
     </p></div>
 
           </header>
           
               <div class="excerpt">
                   
-                     Recursion
+                     Searching
 
-Recursion은 자신의 알고리즘을 다시 불러와 사용하는 것이다.
-
-Recursion을 통해 똑같은 자신의 function을 call stack에 저장하고 base case에 도달하면
-
-push된 recursion function들을 하나씩 pop하면서 실행한다.
+검색은 실생활에서도 자주 사용하는 것으로 Sorting보다는 훨씬 자주 접한다.
 
 
                   
@@ -268,8 +269,8 @@ push된 recursion function들을 하나씩 pop하면서 실행한다.
         <span>
           <header>
             <h1>
-              <a aria-label="Binary Heaps And Trie" class="post-link" href="/2020/03/22/Binary-Heaps-And-Trie.html">
-                Binary Heaps And Trie
+              <a aria-label="Sorting" class="post-link" href="/2020/03/31/Sorting.html">
+                Sorting
               </a>
             </h1>
             
@@ -277,18 +278,24 @@ push된 recursion function들을 하나씩 pop하면서 실행한다.
 
 <div class="post-info">
     <p class="meta">
-      March 22, 2020
+      March 31, 2020
     </p></div>
 
           </header>
           
               <div class="excerpt">
                   
-                     Binary Heaps
+                     Sorting
 
-Tree의 한 종류
+우리말로 “정렬”로 데이터를 정렬하는 것이다.
 
-규칙 : 위 층보다 작은 숫자가 위치한다. 만약 밑에 부모보다 큰 수가 자식에 오면 자리가 교체된다.
+Sorting은 데이터의 규모가 커질 수록 중요해진다. 작은 데이터일 경우엔 언어에 내장된 메소드를 이용하면되지만 데이터가 10억 규모가 되면 이야기가 달라진다.
+
+(이를 위해 wikipedia에는 수많은 sorting 알고리즘이 있지만 이것은 advanced 알고리즘으로 여기선 기초만 다룬다.)
+
+데이터 규모가 커지면 커질수록 Data Handle에 cost가 기하급수적으로 오르기 때문에 큰 기업들에선 Sorting을 매우 중요하게 생각하며, 같은 이유로 interview에서도 마찬가지로 중요한 주제이다.
+
+직접 scratch로 coding할 일은 없지만 상황에 따라 각 sorting algorithm의 장단점을 따져서 가장 적절한 것을 선택해서 쓸 줄 알아야한다.
 
 
                   
@@ -302,8 +309,8 @@ Tree의 한 종류
         <span>
           <header>
             <h1>
-              <a aria-label="Algorithms" class="post-link" href="/2020/03/22/Algorithms.html">
-                Algorithms
+              <a aria-label="Java Note" class="post-link" href="/2020/03/30/Java.html">
+                Java Note
               </a>
             </h1>
             
@@ -311,21 +318,16 @@ Tree의 한 종류
 
 <div class="post-info">
     <p class="meta">
-      March 22, 2020
+      March 30, 2020
     </p></div>
 
           </header>
           
               <div class="excerpt">
                   
-                     Algorithms
+                     What is this for?
 
-Algorithm이란 간단히 process들의 step으로 computer에게 우리가 원하는 동작을 명령하는 것이다.
-
-Data Structures + Algorithms = Programs
-
-위 수식에서 Algorithm은 Data structure를 이용해 특정 동작을 할 수 있게 해준다.
-
+Java에 대한 까먹기 쉬운 skill들을 모아 놓는다.
 
                   
               </div>
@@ -338,8 +340,8 @@ Data Structures + Algorithms = Programs
         <span>
           <header>
             <h1>
-              <a aria-label="Trees" class="post-link" href="/2020/03/20/Trees.html">
-                Trees
+              <a aria-label="Graphs" class="post-link" href="/2020/03/30/Graphs.html">
+                Graphs
               </a>
             </h1>
             
@@ -347,26 +349,20 @@ Data Structures + Algorithms = Programs
 
 <div class="post-info">
     <p class="meta">
-      March 20, 2020
+      March 30, 2020
     </p></div>
 
           </header>
           
               <div class="excerpt">
                   
-                     Trees
+                     Graphs
 
-Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다.
+Graph는 현실을 구현하는데 가장 유용한 Data Structure이다.(그렇기에 Scailing이 가장 어렵다.)
 
-Rules
+World Wide Web, SNS 등의 모두 Graph로 되어 있고 실제로도 사용하고 있다.
 
-
-  모든 Parent node는 최대 2개의 child를 가질 수 있다.
-  Parent node보다 좌측의 node는 Parent보다 항상 작다.
-  Parent node보다 우측의 node는 Parent보다 항상 크다.
-
-
-대표적인 예가 바로 윈도우의 파일 구조이다.
+Neo4j라는 회사가 Graph 형태 Database를 제공한다고 한다.
 
 
                   
@@ -392,7 +388,7 @@ Rules
     </div>
 
     <div class="page_number">
-        1 / 5
+        1 / 6
     </div>
 
     <div class="next">
@@ -407,7 +403,7 @@ Rules
         
         <!-- >> -->
         <a aria-label="다음페이지"
-        href="/blog/page5" class="button">
+        href="/blog/page6" class="button">
             <span><i class="fa fa-angle-double-right"></i></span>
         </a>
         

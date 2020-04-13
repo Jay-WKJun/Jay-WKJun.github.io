@@ -1,0 +1,324 @@
+I"�p<h1 id="searching">Searching</h1>
+
+<p>검색은 실생활에서도 자주 사용하는 것으로 Sorting보다는 훨씬 자주 접한다.</p>
+
+<!--more-->
+
+<h1 id="linear-search">Linear search</h1>
+
+<p>처음부터 하나씩 확인해가며 찾는 search 방법. 따라서 O(n)이다.</p>
+
+<h1 id="binary-search">Binary search</h1>
+
+<p>중간값을 골라서 찾는 값과 비교, 찾는 값이 중간값보다 오른쪽이면 왼쪽 모두 버리고 반대도 마찬가지이다. 혹은 값이 크거나 작거나를 비교해서 진행할 수도 있다. 따라서 O(log (n))</p>
+
+<p>이것은 Binary search Tree와 동일한 원리로 검색이 이루어진다. 따라서 sorting되어 있을 때 가장 빠르다(O(log (n)))는 점도 똑같다.</p>
+
+<h1 id="traversal">Traversal</h1>
+
+<p>Graph와 Tree의 데이터구조에서 모든 원소들(n)을 들를 때 Traversal이라고 한다. 모든 원소를 거치기 때문에 O(n)이다.</p>
+
+<p>visualGo의 Traversal Animation</p>
+
+<p>https://visualgo.net/en/dfsbfs?slide=1</p>
+
+<h2 id="breath-first-search">Breath First Search</h2>
+
+<p>이것은 가로로 훑는 방법으로 Tree일땐 왼쪽에서 오른쪽으로~ 밑으로 내려가서 끝까지 반복이다.</p>
+
+<p>DFS보다 많은 메모리가 필요하다. 이유는 한 level의 node를 모두 저장해야 하기 때문이다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>pros</th>
+      <th>cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Shotest path</td>
+      <td>More Memory</td>
+    </tr>
+    <tr>
+      <td>Closer Nodes</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>pros의 말은 root node에서 가장 가깝다는 말이다.</p>
+
+<p>shortest path는 모든 level의 node를 확인하고 가기 때문에 어떤 node까지 가는데 가장 최적화 된 path를 찾을 수 있다는 것이다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">BreadthFirstSearch</span><span class="p">(){</span>
+    <span class="kd">let</span> <span class="nx">currentNode</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">list</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">let</span> <span class="nx">queue</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">);</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+      <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+      <span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="nx">BreadthFirstSearchR</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">queue</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="kd">const</span> <span class="nx">currentNode</span> <span class="o">=</span> <span class="nx">queue</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+    <span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">left</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">queue</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">.</span><span class="nx">right</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">BreadthFirstSearchR</span><span class="p">(</span><span class="nx">queue</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="depth-first-search">Depth First Search</h2>
+
+<p>세로로 훑는 방법으로 끝까지 내려갔다가 올라와서 훑고 반복이다. 이것도 주로 왼쪽부터 시작한다.</p>
+
+<p>BFS보다 적은 메모리가 든다. 이유는 각 level의 모든 child들을 가지고 있을 필요가 없기 때문이다.(필요할때 child를 찾아가면 됨.) Space complexity는 깊이 끝까지 찾기 때문에 O(depth)이다.(code를 보면 알 수 있다.)</p>
+
+<p>DFS를 시작할 땐, inorder(왼 중 오), preorder(중 왼 오), postorder(왼 오 중)의 방법이 있다.</p>
+
+<p>preorder는 tree의 모양대로 정렬이 되어있기 때문에 tree를 재정렬할 떄 매우 유용하다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//     9</span>
+<span class="c1">//  4     20</span>
+<span class="c1">//1  6  15  170</span>
+
+<span class="nx">InOrder</span> <span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span> <span class="p">,</span><span class="mi">20</span> <span class="p">,</span><span class="mi">170</span><span class="p">]</span>
+<span class="nx">PreOrder</span> <span class="o">-</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">170</span><span class="p">]</span>
+<span class="nx">PostOrder</span> <span class="o">-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>pros</th>
+      <th>cons</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Less Memory</td>
+      <td>can get slow</td>
+    </tr>
+    <tr>
+      <td>Does path exist?</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Target이 존재하는지, target까지의 path가 존재하는지 깊게 들어가기 때문에 빠르게 찾을 수 있다.</p>
+
+<p>Tree와 Graph는 매우 깊기때문에 전체 검색 속도가 느릴 수 있다.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">DFTPreOrder</span><span class="p">(</span><span class="nx">currentNode</span><span class="p">,</span> <span class="nx">list</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">traversePreOrder</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="p">[]);</span>
+  <span class="p">}</span>
+  <span class="nx">DFTPostOrder</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">traversePostOrder</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="p">[]);</span> 
+  <span class="p">}</span>
+  <span class="nx">DFTInOrder</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">traverseInOrder</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">root</span><span class="p">,</span> <span class="p">[]);</span>
+  <span class="p">}</span>
+
+
+<span class="kd">function</span> <span class="nx">traversePreOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">list</span><span class="p">){</span>
+  <span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traversePreOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traversePreOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">traverseInOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">list</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traverseInOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traverseInOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">traversePostOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">list</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traversePostOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">left</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">traversePostOrder</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">right</span><span class="p">,</span> <span class="nx">list</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">list</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h1 id="validate-binary-search-tree">Validate Binary Search Tree</h1>
+
+<p>interview에서 자주 묻는 질문이다. binary search tree가 규칙대로 되어있는가를 확인하는 것이다. 보통 BFS가 유용하다.</p>
+
+<p>https://leetcode.com/problems/validate-binary-search-tree/</p>
+
+<h1 id="graph-traversals">Graph Traversals</h1>
+
+<h2 id="bfs-dfs">BFS, DFS</h2>
+
+<p>Tree는 Graph의 한 종류이므로 같은 원리로 Traversal을 할 수 있다.</p>
+
+<p>중요한건 BFS와 DFS의 쓰임인데 Graph는 실생활과 밀접한 관련이 있는 데이터 구조이기 때문에, 실제로도 많이 사용되고 있다.</p>
+
+<h2 id="bfs-in-graph">BFS in Graph</h2>
+
+<p>BFS - Shortest path</p>
+
+<p>ex) Amazon의 recommendation system, Facebook의 현재 가장 가까운 친구, Google map의 길찾기</p>
+
+<h2 id="dfs-in-graph">DFS in Graph</h2>
+
+<p>DFS - Check to see if it exists, maze를 풀어내는 것과 같다.</p>
+
+<h1 id="dijkstra--bellman---ford-algorithms">Dijkstra &amp; Bellman - Ford Algorithms</h1>
+
+<p>둘 다 weighted graph에서 shortest path를 찾는 알고리즘으로 효율적이며 각자 특징이 있다.</p>
+
+<p>Dijkstra - negative edge가 있으면 사용 불가능, Bellman - Ford보다 더 효율적이다.</p>
+
+<p>Bellman - Ford - negative weight가 있어도 사용 가능, Dijkstra비해 complexity가 비효율적(worst case O(n^2))</p>
+
+<h1 id="self-implement">self implement</h1>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+	<span class="nc">Node</span> <span class="n">left</span><span class="o">,</span> <span class="n">right</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+
+	<span class="nc">Node</span><span class="o">(</span><span class="kt">int</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">right</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BSTLevelOrderTraversal</span> <span class="o">{</span>
+
+	<span class="kd">static</span> <span class="nc">Queue</span><span class="o">&lt;</span><span class="nc">Node</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayDeque</span><span class="o">&lt;&gt;();</span>
+
+	<span class="kd">static</span> <span class="kt">void</span> <span class="nf">levelOrder</span><span class="o">(</span><span class="nc">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">// Write your code here</span>
+
+		<span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+
+		<span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+		<span class="o">}</span>
+
+		<span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+		<span class="o">}</span>
+
+		<span class="n">levelOrder</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">());</span>
+
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">Node</span> <span class="nf">insert</span><span class="o">(</span><span class="nc">Node</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span> <span class="k">new</span> <span class="nf">Node</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+			<span class="nc">Node</span> <span class="n">cur</span><span class="o">;</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">data</span> <span class="o">&lt;=</span> <span class="n">root</span><span class="o">.</span><span class="na">data</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">cur</span> <span class="o">=</span> <span class="n">insert</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+				<span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+			<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+				<span class="n">cur</span> <span class="o">=</span> <span class="n">insert</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">data</span><span class="o">);</span>
+				<span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">=</span> <span class="n">cur</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">depthFirstSearch</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+
+		<span class="n">depthFirstSearch</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+		<span class="n">depthFirstSearch</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">depthFirstSearchIn</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+		
+		<span class="c1">//System.out.println(++count);</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="n">depthFirstSearchIn</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+		<span class="n">depthFirstSearchIn</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">depthFirstSearchPost</span><span class="o">(</span><span class="nc">Node</span> <span class="n">node</span><span class="o">)</span> <span class="o">{</span>
+
+		<span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span><span class="o">;</span>
+		<span class="o">}</span>
+		<span class="n">depthFirstSearchPost</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+		<span class="n">depthFirstSearchPost</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">data</span> <span class="o">+</span> <span class="s">" "</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+		<span class="nc">Node</span> <span class="n">root</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+		<span class="kt">int</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="o">{</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span> <span class="o">};</span>
+
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">root</span> <span class="o">=</span> <span class="n">insert</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+		<span class="o">}</span>
+
+		<span class="c1">//   3</span>
+		<span class="c1">//  2   5</span>
+		<span class="c1">// 1   4 7</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"BFS"</span><span class="o">);</span>
+		<span class="n">levelOrder</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+		
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"DFS preorder"</span><span class="o">);</span>
+		<span class="n">depthFirstSearch</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+		
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"DFS inorder"</span><span class="o">);</span>
+		<span class="n">depthFirstSearchIn</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+		
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"DFS postorder"</span><span class="o">);</span>
+		<span class="n">depthFirstSearchPost</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+:ET

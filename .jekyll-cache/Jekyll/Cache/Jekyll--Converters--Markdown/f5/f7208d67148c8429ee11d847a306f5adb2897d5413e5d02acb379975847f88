@@ -1,0 +1,9 @@
+I"M<h1 id="graphs">Graphs</h1>
+
+<p>Graph는 현실을 구현하는데 가장 유용한 Data Structure이다.(그렇기에 Scailing이 가장 어렵다.)</p>
+
+<p>World Wide Web, SNS 등의 모두 Graph로 되어 있고 실제로도 사용하고 있다.</p>
+
+<p>Neo4j라는 회사가 Graph 형태 Database를 제공한다고 한다.</p>
+
+:ET

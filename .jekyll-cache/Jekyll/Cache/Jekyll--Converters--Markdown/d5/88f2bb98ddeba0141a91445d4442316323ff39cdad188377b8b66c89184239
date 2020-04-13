@@ -1,0 +1,7 @@
+I"�<h1 id="dynamic-programing">Dynamic programing</h1>
+
+<p>Dynamic programing은 optimization(죄적화) technique 중 하나로 caching(cache를 이용)을 하면 모두 dynamic programing이라 할 수 있다.</p>
+
+<p>하나의 problem을 작은 subproblem으로 쪼개고 subproblem을 하나씩 해결하고 그 solution을 cache에 저장해 나중에 똑같은 problem이 있을때 저장 된 것을 활용하는 방법이다.</p>
+
+:ET
