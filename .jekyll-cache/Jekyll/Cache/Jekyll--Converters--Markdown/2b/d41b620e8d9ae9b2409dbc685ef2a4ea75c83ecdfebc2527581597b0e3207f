@@ -1,0 +1,240 @@
+I"�V<h1 id="inhance-vb-code">inhance vb code</h1>
+
+<p>여기서는 vb의 성능 개선을 위한 내용을 다룹니다.</p>
+
+<!--more-->
+
+<h1 id="1">#1</h1>
+
+<p>엑셀의 모든 셋팅 값들을 FALSE처리하세요.</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">screenUpdateState</span> <span class="o">=</span> <span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span>
+<span class="n">statusBarState</span> <span class="o">=</span> <span class="n">Application</span><span class="p">.</span><span class="n">DisplayStatusBar</span>
+<span class="n">calcState</span> <span class="o">=</span> <span class="n">Application</span><span class="p">.</span><span class="n">Calculation</span>
+<span class="n">eventsState</span> <span class="o">=</span> <span class="n">Application</span><span class="p">.</span><span class="n">EnableEvents</span>
+<span class="n">displayPageBreakState</span> <span class="o">=</span> <span class="n">ActiveSheet</span><span class="p">.</span><span class="n">DisplayPageBreaks</span>
+ 
+<span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span> <span class="o">=</span> <span class="k">False</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">DisplayStatusBar</span> <span class="o">=</span> <span class="k">False</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">Calculation</span> <span class="o">=</span> <span class="n">xlCalculationManual</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">EnableEvents</span> <span class="o">=</span> <span class="k">False</span>
+<span class="n">ActiveSheet</span><span class="p">.</span><span class="n">DisplayPageBreaks</span> <span class="o">=</span> <span class="k">False</span> <span class="err">‘</span><span class="n">note</span> <span class="n">this</span> <span class="n">is</span> <span class="n">a</span> <span class="n">sheet</span><span class="o">-</span><span class="n">level</span> <span class="n">setting</span>
+</code></pre></div></div>
+
+<p>‘»개발 코드 부분«</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Application</span><span class="p">.</span><span class="n">ScreenUpdating</span> <span class="o">=</span> <span class="n">screenUpdateState</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">DisplayStatusBar</span> <span class="o">=</span> <span class="n">statusBarState</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">Calculation</span> <span class="o">=</span> <span class="n">calcState</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">EnableEvents</span> <span class="o">=</span> <span class="n">eventsState</span>
+<span class="n">ActiveSheet</span><span class="p">.</span><span class="n">DisplayPageBreaks</span> <span class="o">=</span> <span class="n">displayPageBreaksState</span>
+</code></pre></div></div>
+
+<p>​ScreenUpdating은 작업이 이루어 지는 동안 계속 화면이 그려질지에 대한 셋팅 값입니다. False 처리를 하면 그려지지 않다가 작업 이후에 한 꺼번에 그려집니다.</p>
+
+<p>DisplayStatusBar는 엑셀 아래 상태바에 값이 찍힐지 여부인데요. 이 부분은 전 크게 속도 향상은 느끼지는 못하는 것 같습니다.</p>
+
+<p>Calculation 셀들의 계산이 작업하는 동안 계속 이뤄 질지에 대한 속성인데요. 시트가 많을 수록 레퍼런스를 많이 참조할 수록  이 부분을 FALSE 처리해 놓으면 속도 향상은 꽤 있습니다.</p>
+
+<p>EnableEvents 이건 아시다시피 이벤트 실행 여부 입니다. 이것도 딸려 있는 이벤트들이 많다면 False 처리가 큰 도움이 됩니다.</p>
+
+<p>DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사용하지 않으나 속도 개선에 도움이 된다고 합니다.</p>
+
+<p>특별히 프로세싱중 화면에 보여줘야 하는 것이 아니라면 상태바에 현재 진행 상태를 표시하기위해 DisplayStatusBar만 True로 해 놓고 나머지 는 위 소스를 그대로 쓰시고 사용하시면 속도 향상에 도움을 보실거에요.</p>
+
+<h1 id="2">#2</h1>
+
+<p>두번 째, 대규모 단위의 범위를 LOOP를 돌려서 값을 변경 시키는 경우는</p>
+
+<p>바로 값을 꼽기 보다는 변수로 해당 범위를 받아서 메모리에 올려 값을 변경한 후에 Range의 값을 한 번에</p>
+
+<p>변경하세요.</p>
+
+<p>아래와 같이 말이죠.</p>
+
+<p>[느린 소스]</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">Dim</span> <span class="nv">DataRange</span> <span class="n">as</span> <span class="n">Range</span>
+    <span class="k">Dim</span> <span class="nv">Irow</span> <span class="n">as</span> <span class="kt">Long</span>
+    <span class="k">Dim</span> <span class="nv">Icol</span> <span class="n">as</span> <span class="kt">Integer</span>
+    <span class="k">Dim</span> <span class="nv">MyVar</span> <span class="n">as</span> <span class="kt">Double</span>
+    <span class="k">Set</span> <span class="n">DataRange</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span><span class="err">“</span><span class="n">A1</span><span class="p">:</span><span class="n">C10000</span><span class="err">”</span><span class="p">)</span>
+ 
+    <span class="k">For</span> <span class="n">Irow</span><span class="o">=</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">10000</span>
+      <span class="k">For</span> <span class="n">icol</span><span class="o">=</span><span class="mi">1</span> <span class="n">to</span> <span class="mi">3</span>
+        <span class="n">MyVar</span><span class="o">=</span><span class="n">DataRange</span><span class="p">(</span><span class="n">Irow</span><span class="p">,</span><span class="n">Icol</span><span class="p">)</span>  <span class="err">‘값을</span> <span class="err">읽어올</span> <span class="err">때</span> <span class="err">속도</span> <span class="err">지연</span>
+        <span class="k">If</span> <span class="n">MyVar</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="n">then</span>
+          <span class="n">MyVar</span><span class="o">=</span><span class="n">MyVar</span><span class="o">*</span><span class="n">Myvar</span> <span class="err">‘</span> <span class="n">Change</span> <span class="n">the</span> <span class="n">value</span>
+          <span class="n">DataRange</span><span class="p">(</span><span class="n">Irow</span><span class="p">,</span><span class="n">Icol</span><span class="p">)</span><span class="o">=</span><span class="n">MyVar</span>  <span class="err">‘값을</span> <span class="err">쓸</span> <span class="err">때</span> <span class="err">속도</span> <span class="err">지연</span>
+        <span class="k">End</span> <span class="k">If</span>
+      <span class="k">Next</span> <span class="n">Icol</span>
+    <span class="k">Next</span> <span class="n">Irow</span>
+</code></pre></div></div>
+
+<p>[빠른 소스]</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">Dim</span> <span class="nv">DataRange</span> <span class="ow">As</span> <span class="kt">Variant</span>
+    <span class="k">Dim</span> <span class="nv">Irow</span> <span class="ow">As</span> <span class="kt">Long</span>
+    <span class="k">Dim</span> <span class="nv">Icol</span> <span class="ow">As</span> <span class="kt">Integer</span>
+    <span class="k">Dim</span> <span class="nv">MyVar</span> <span class="ow">As</span> <span class="kt">Double</span>
+    <span class="n">DataRange</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="err">“</span><span class="n">A1</span><span class="p">:</span><span class="n">C10000</span><span class="err">”</span><span class="p">).</span><span class="n">Value</span> <span class="err">‘</span> <span class="err">여기서</span> <span class="err">한번에</span> <span class="err">읽어서</span> <span class="err">메모리로</span> <span class="err">올립니다</span><span class="p">.</span>
+ 
+    <span class="n">For</span> <span class="n">Irow</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">To</span> <span class="mi">10000</span>
+      <span class="k">For</span> <span class="n">Icol</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">To</span> <span class="mi">3</span>
+      <span class="n">MyVar</span> <span class="o">=</span> <span class="n">DataRange</span><span class="p">(</span><span class="n">Irow</span><span class="p">,</span> <span class="n">Icol</span><span class="p">)</span>
+      <span class="k">If</span> <span class="n">MyVar</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">Then</span>
+        <span class="n">MyVar</span><span class="o">=</span><span class="n">MyVar</span><span class="o">*</span><span class="n">Myvar</span> <span class="err">‘</span> <span class="n">Change</span> <span class="n">the</span> <span class="n">values</span> <span class="n">in</span> <span class="n">the</span> <span class="n">array</span>
+        <span class="n">DataRange</span><span class="p">(</span><span class="n">Irow</span><span class="p">,</span> <span class="n">Icol</span><span class="p">)</span> <span class="o">=</span> <span class="n">MyVar</span>
+      <span class="k">End</span> <span class="k">If</span>
+    <span class="k">Next</span> <span class="n">Icol</span>
+    <span class="k">Next</span> <span class="n">Irow</span>
+    <span class="n">Range</span><span class="p">(</span><span class="err">“</span><span class="n">A1</span><span class="p">:</span><span class="n">C10000</span><span class="err">”</span><span class="p">).</span><span class="n">Value</span> <span class="o">=</span> <span class="n">DataRange</span> <span class="err">‘여기서</span> <span class="err">결과</span> <span class="err">값을</span> <span class="err">셀로</span> <span class="err">연결합니다</span><span class="p">.</span>
+</code></pre></div></div>
+
+<p>데이터가 많지 않은 경우에는 큰 효과를 보지는 못합니다.</p>
+
+<p>작업을 많이 하시다 보면 아시게 되지만,</p>
+
+<p>프로그램이 도는 동안 화면(셀)에 어떠한 작업을 계속 한다는 건 속도 저하에 대단히 큰 영향을 주게 됩니다.</p>
+
+<h1 id="3">#3</h1>
+
+<p>세번 째, 다수의 Shape(도형)에 작업을 하는 경우에는 코드상에서 직접 Select를 하지 말아주세요.</p>
+
+<p>아래와 같이 말이죠.</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">For</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">To</span> <span class="n">ActiveSheet</span><span class="p">.</span><span class="n">Shapes</span><span class="p">.</span><span class="n">Count</span>
+       <span class="n">ActiveSheet</span><span class="p">.</span><span class="n">Shapes</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Select</span>
+       <span class="n">Selection</span><span class="p">.</span><span class="n">Text</span> <span class="o">=</span> <span class="err">“</span><span class="n">Hello</span><span class="err">”</span>
+    <span class="k">Next</span> <span class="n">i</span>
+</code></pre></div></div>
+
+<p>그렇다면 어떻게??</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">For</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">To</span> <span class="n">ActiveSheet</span><span class="p">.</span><span class="n">Shapes</span><span class="p">.</span><span class="n">Count</span>
+       <span class="n">ActiveSheet</span><span class="p">.</span><span class="n">Shapes</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">TextEffect</span><span class="p">.</span><span class="n">Text</span> <span class="o">=</span> <span class="err">“</span><span class="n">Hello</span><span class="err">”</span>
+    <span class="k">Next</span> <span class="n">i</span>
+</code></pre></div></div>
+
+<p>저같은 경우에는 이렇게 전체 Shape를 변경하는 일이 없어서..써보지는 않았습니다.</p>
+
+<p>한 두개씩 변경을 하는데.. 첫 번째 소스같이 구지… Select는 하지 않죠.</p>
+
+<h1 id="4">#4</h1>
+
+<p>네번째, 피벗 테이블도 업데이트 되지 않게 묶어 놓으세요.</p>
+
+<p>피벗 테이블의 이름을 알아야 겠죠.</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ActiveSheet</span><span class="p">.</span><span class="n">PivotTables</span><span class="p">(</span><span class="err">“</span><span class="n">PivotTable1</span><span class="err">”</span><span class="p">).</span><span class="n">ManualUpdate</span><span class="o">=</span><span class="k">True</span>
+<span class="err">‘개발</span> <span class="err">코드</span> <span class="err">부분</span>
+<span class="n">ActiveSheet</span><span class="p">.</span><span class="n">PivotTables</span><span class="p">(</span><span class="err">“</span><span class="n">PivotTable1</span><span class="err">”</span><span class="p">).</span><span class="n">ManualUpdate</span><span class="o">=</span><span class="k">False</span>
+</code></pre></div></div>
+
+<h1 id="5">#5</h1>
+
+<p>다섯 번째, 가급적 With 구분을 활용하세요.</p>
+
+<p>Select하고 Selection.XXX 해서 사용하지 말고. With문으로 쓰라는 건데.. 결과적으로 Select하지 말라는 겁니다.</p>
+
+<p>[With 구문 사용 전]</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Range</span><span class="p">(</span><span class="err">“</span><span class="n">A1</span><span class="err">”</span><span class="p">).</span><span class="n">Select</span>
+<span class="n">Selection</span><span class="p">.</span><span class="n">Font</span><span class="p">.</span><span class="n">Bold</span> <span class="o">=</span> <span class="k">True</span>
+<span class="n">Selection</span><span class="p">.</span><span class="n">Font</span><span class="p">.</span><span class="n">Italic</span> <span class="o">=</span> <span class="k">True</span>
+<span class="n">Selection</span><span class="p">.</span><span class="n">Font</span><span class="p">.</span><span class="n">Underline</span> <span class="o">=</span> <span class="n">xlUnderlineStyleSingle</span>
+</code></pre></div></div>
+
+<p>[With 구문 사용]</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">With</span> <span class="n">Range</span><span class="p">(</span><span class="err">“</span><span class="n">A1</span><span class="err">”</span><span class="p">).</span><span class="n">Font</span>
+    <span class="p">.</span><span class="n">Bold</span> <span class="o">=</span> <span class="k">True</span>
+    <span class="p">.</span><span class="n">Italic</span> <span class="o">=</span> <span class="k">True</span>
+    <span class="p">.</span><span class="n">Underline</span> <span class="o">=</span> <span class="n">xlUnderlineStyleSingle</span>
+<span class="k">End</span> <span class="k">With</span>
+</code></pre></div></div>
+<p>​</p>
+<h1 id="6">#6</h1>
+
+<p>여섯 번째, 공백 문자를 넣을 때는 “” 대신에 vbNullString을 쓰세요.</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tmpString</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="n">tmpString</span> <span class="o">=</span> <span class="n">vbNullString</span>
+</code></pre></div></div>
+
+<h1 id="7">#7</h1>
+
+<p>일곱 번째, 가급적 선언되어진 객체들은 메모리 해제를 시켜주세요.</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">Set</span> <span class="n">tmpObject</span> <span class="o">=</span> <span class="k">Nothing</span>
+</code></pre></div></div>
+
+<h1 id="8">#8</h1>
+
+<p>여덟번째, 소스는 가급적 한줄로 쓸 수 있다면 그렇게 해 주세요.</p>
+
+<p>[SLOW]</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">With</span> <span class="n">Selection</span>
+        <span class="p">.</span><span class="n">WrapText</span> <span class="o">=</span> <span class="k">True</span>
+        <span class="p">.</span><span class="n">ShrinkToFit</span> <span class="o">=</span> <span class="k">False</span>
+    <span class="k">End</span> <span class="k">With</span>
+</code></pre></div></div>
+
+<p>[FAST]</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">With</span> <span class="n">Selection</span>
+        <span class="p">.</span><span class="n">WrapText</span> <span class="o">=</span> <span class="k">True</span><span class="p">:</span> <span class="p">.</span><span class="n">ShrinkToFit</span> <span class="o">=</span> <span class="k">False</span>
+    <span class="k">End</span> <span class="k">With</span>
+</code></pre></div></div>
+
+<p>근데.. 이건.. 코드 가독성 때문에 전 가급적 두줄로 변경해서 쓰긴 합니다.</p>
+
+<p>퍼포먼스에 큰 영향을 주지 않아서도 그렇구요..  하지만 조금의 차이는 발생하니 참고로 알아 두세요.</p>
+
+<h1 id="9">#9</h1>
+
+<p>아홉번째, 불필요한 셀 복사 붙여 넣기는 피해주세요.</p>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Sheet1</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"A1:A200"</span><span class="p">).</span><span class="n">Copy</span>
+<span class="n">Sheet2</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"B1"</span><span class="p">).</span><span class="n">PasteSpecial</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">CutCopyMode</span> <span class="o">=</span> <span class="k">False</span>  
+
+<span class="n">Sheet1</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"A1:A200"</span><span class="p">).</span><span class="n">Copy</span> <span class="n">Destination</span><span class="p">:</span><span class="o">=</span> <span class="n">Sheet2</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"B1"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Sheet1</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"A1:A200"</span><span class="p">).</span><span class="n">Copy</span>
+<span class="n">Sheet2</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"B1"</span><span class="p">).</span><span class="n">PasteSpecial</span> <span class="n">xlPasteValues</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">CutCopyMode</span><span class="o">=</span><span class="k">False</span>
+
+<span class="n">Sheet2</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"B1:B200"</span><span class="p">).</span><span class="n">Value</span> <span class="o">=</span> <span class="n">Sheet1</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"A1:A200"</span><span class="p">).</span><span class="n">Value</span>
+</code></pre></div></div>
+
+<div class="language-vb highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">heet1</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"A1:A200"</span><span class="p">).</span><span class="n">Copy</span>
+<span class="n">Sheet2</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"B1"</span><span class="p">).</span><span class="n">PasteSpecial</span> <span class="n">xlPasteFormulas</span>
+<span class="n">Application</span><span class="p">.</span><span class="n">CutCopyMode</span><span class="o">=</span><span class="k">False</span>
+
+<span class="n">Sheet2</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"B1:B200"</span><span class="p">).</span><span class="n">Formula</span> <span class="o">=</span> <span class="n">Sheet1</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="s">"A1:A200"</span><span class="p">).</span><span class="n">Formula</span>
+</code></pre></div></div>
+
+<h1 id="10">#10</h1>
+
+<p>열번째, 가급적 엑셀에서 제공해주는 함수를 사용하세요. 같은 기능이라면 직접 만든 로직보다 속도가 훨씬 좋습니다.</p>
+
+<p>저도 처음에는 다른 언어와 같이 대부분 함수를 만들어서 사용했었는데요.</p>
+
+<p>기능이 같은 경우, 엑셀에서 제공해주는 함수를 썼을 때의 속도가 훨씬 빨랐습니다</p>
+
+<h1 id="11">#11</h1>
+
+<p>열한번째, For 구문 보다는 For Each 구문을 활용하세요.</p>
+
+<p>쭉… 여러가지를 나열해 보았습니다.</p>
+
+<p>첫번째 말씀드린 엑셀 셋팅값 처리는 개발 시 무조건 해주어야 하고,</p>
+
+<p>나머지 것들은 퍼포먼스 결과를 보면서 필요시에 사용해 주시면 됩니다. 각자 개발 스타일들이 있기 때문에</p>
+
+<p>꼭 모두 적용할 필요는 없다고 봅니다.</p>
+:ET

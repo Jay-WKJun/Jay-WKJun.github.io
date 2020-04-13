@@ -1,4 +1,242 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-13T23:40:55+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dev.JK Tech Note</title><subtitle>A website with blog posts and pages</subtitle><entry><title type="html">Dynamic programing</title><link href="http://localhost:4000/2020/04/05/Dynamic-Programing.html" rel="alternate" type="text/html" title="Dynamic programing" /><published>2020-04-05T00:00:00+09:00</published><updated>2020-04-05T00:00:00+09:00</updated><id>http://localhost:4000/2020/04/05/Dynamic-Programing</id><content type="html" xml:base="http://localhost:4000/2020/04/05/Dynamic-Programing.html">&lt;h1 id=&quot;dynamic-programing&quot;&gt;Dynamic programing&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-13T23:58:58+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Dev.JK Tech Note</title><subtitle>A website with blog posts and pages</subtitle><entry><title type="html">vba code technique</title><link href="http://localhost:4000/2020/04/13/vba-speed&memory-inhanceCodeTechnique.html" rel="alternate" type="text/html" title="vba code technique" /><published>2020-04-13T00:00:00+09:00</published><updated>2020-04-13T00:00:00+09:00</updated><id>http://localhost:4000/2020/04/13/vba-speed&amp;memory-inhanceCodeTechnique</id><content type="html" xml:base="http://localhost:4000/2020/04/13/vba-speed&amp;memory-inhanceCodeTechnique.html">&lt;h1 id=&quot;inhance-vb-code&quot;&gt;inhance vb code&lt;/h1&gt;
+
+&lt;p&gt;여기서는 vb의 성능 개선을 위한 내용을 다룹니다.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h1 id=&quot;1&quot;&gt;#1&lt;/h1&gt;
+
+&lt;p&gt;엑셀의 모든 셋팅 값들을 FALSE처리하세요.&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;screenUpdateState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ScreenUpdating&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;statusBarState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DisplayStatusBar&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;calcState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Calculation&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;eventsState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EnableEvents&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;displayPageBreakState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DisplayPageBreaks&lt;/span&gt;
+ 
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ScreenUpdating&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DisplayStatusBar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Calculation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlCalculationManual&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EnableEvents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DisplayPageBreaks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;note&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sheet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;level&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setting&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;‘»개발 코드 부분«&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ScreenUpdating&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;screenUpdateState&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DisplayStatusBar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;statusBarState&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Calculation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calcState&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EnableEvents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventsState&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DisplayPageBreaks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;displayPageBreaksState&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;​ScreenUpdating은 작업이 이루어 지는 동안 계속 화면이 그려질지에 대한 셋팅 값입니다. False 처리를 하면 그려지지 않다가 작업 이후에 한 꺼번에 그려집니다.&lt;/p&gt;
+
+&lt;p&gt;DisplayStatusBar는 엑셀 아래 상태바에 값이 찍힐지 여부인데요. 이 부분은 전 크게 속도 향상은 느끼지는 못하는 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;Calculation 셀들의 계산이 작업하는 동안 계속 이뤄 질지에 대한 속성인데요. 시트가 많을 수록 레퍼런스를 많이 참조할 수록  이 부분을 FALSE 처리해 놓으면 속도 향상은 꽤 있습니다.&lt;/p&gt;
+
+&lt;p&gt;EnableEvents 이건 아시다시피 이벤트 실행 여부 입니다. 이것도 딸려 있는 이벤트들이 많다면 False 처리가 큰 도움이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사용하지 않으나 속도 개선에 도움이 된다고 합니다.&lt;/p&gt;
+
+&lt;p&gt;특별히 프로세싱중 화면에 보여줘야 하는 것이 아니라면 상태바에 현재 진행 상태를 표시하기위해 DisplayStatusBar만 True로 해 놓고 나머지 는 위 소스를 그대로 쓰시고 사용하시면 속도 향상에 도움을 보실거에요.&lt;/p&gt;
+
+&lt;h1 id=&quot;2&quot;&gt;#2&lt;/h1&gt;
+
+&lt;p&gt;두번 째, 대규모 단위의 범위를 LOOP를 돌려서 값을 변경 시키는 경우는&lt;/p&gt;
+
+&lt;p&gt;바로 값을 꼽기 보다는 변수로 해당 범위를 받아서 메모리에 올려 값을 변경한 후에 Range의 값을 한 번에&lt;/p&gt;
+
+&lt;p&gt;변경하세요.&lt;/p&gt;
+
+&lt;p&gt;아래와 같이 말이죠.&lt;/p&gt;
+
+&lt;p&gt;[느린 소스]&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DataRange&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Irow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Long&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Icol&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Integer&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;MyVar&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C10000&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+    &lt;span class=&quot;k&quot;&gt;For&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;For&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;icol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;err&quot;&gt;‘값을&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;읽어올&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;때&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;속도&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;지연&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Myvar&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Change&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;  &lt;span class=&quot;err&quot;&gt;‘값을&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;쓸&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;때&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;속도&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;지연&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;End&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;Next&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Next&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;[빠른 소스]&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DataRange&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Variant&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Irow&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Long&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Icol&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Integer&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Dim&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;MyVar&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;As&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Double&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C10000&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;여기서&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;한번에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;읽어서&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;메모리로&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;올립니다&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+ 
+    &lt;span class=&quot;n&quot;&gt;For&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;To&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;For&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;To&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Then&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Myvar&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Change&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;array&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyVar&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;End&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Next&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Icol&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Next&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Irow&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C10000&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DataRange&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;‘여기서&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;결과&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;값을&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;셀로&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;연결합니다&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;데이터가 많지 않은 경우에는 큰 효과를 보지는 못합니다.&lt;/p&gt;
+
+&lt;p&gt;작업을 많이 하시다 보면 아시게 되지만,&lt;/p&gt;
+
+&lt;p&gt;프로그램이 도는 동안 화면(셀)에 어떠한 작업을 계속 한다는 건 속도 저하에 대단히 큰 영향을 주게 됩니다.&lt;/p&gt;
+
+&lt;h1 id=&quot;3&quot;&gt;#3&lt;/h1&gt;
+
+&lt;p&gt;세번 째, 다수의 Shape(도형)에 작업을 하는 경우에는 코드상에서 직접 Select를 하지 말아주세요.&lt;/p&gt;
+
+&lt;p&gt;아래와 같이 말이죠.&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;For&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;To&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Shapes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Count&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Shapes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Select&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;Selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Next&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그렇다면 어떻게??&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;For&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;To&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Shapes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Count&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Shapes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextEffect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Next&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;저같은 경우에는 이렇게 전체 Shape를 변경하는 일이 없어서..써보지는 않았습니다.&lt;/p&gt;
+
+&lt;p&gt;한 두개씩 변경을 하는데.. 첫 번째 소스같이 구지… Select는 하지 않죠.&lt;/p&gt;
+
+&lt;h1 id=&quot;4&quot;&gt;#4&lt;/h1&gt;
+
+&lt;p&gt;네번째, 피벗 테이블도 업데이트 되지 않게 묶어 놓으세요.&lt;/p&gt;
+
+&lt;p&gt;피벗 테이블의 이름을 알아야 겠죠.&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PivotTables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PivotTable1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ManualUpdate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;‘개발&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;코드&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;부분&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PivotTables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PivotTable1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ManualUpdate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;5&quot;&gt;#5&lt;/h1&gt;
+
+&lt;p&gt;다섯 번째, 가급적 With 구분을 활용하세요.&lt;/p&gt;
+
+&lt;p&gt;Select하고 Selection.XXX 해서 사용하지 말고. With문으로 쓰라는 건데.. 결과적으로 Select하지 말라는 겁니다.&lt;/p&gt;
+
+&lt;p&gt;[With 구문 사용 전]&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Select&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Font&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Font&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Italic&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Font&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Underline&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlUnderlineStyleSingle&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;[With 구문 사용]&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;With&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Font&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bold&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Italic&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Underline&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlUnderlineStyleSingle&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;End&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;With&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;​&lt;/p&gt;
+&lt;h1 id=&quot;6&quot;&gt;#6&lt;/h1&gt;
+
+&lt;p&gt;여섯 번째, 공백 문자를 넣을 때는 “” 대신에 vbNullString을 쓰세요.&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;tmpString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tmpString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vbNullString&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;7&quot;&gt;#7&lt;/h1&gt;
+
+&lt;p&gt;일곱 번째, 가급적 선언되어진 객체들은 메모리 해제를 시켜주세요.&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;Set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmpObject&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Nothing&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;8&quot;&gt;#8&lt;/h1&gt;
+
+&lt;p&gt;여덟번째, 소스는 가급적 한줄로 쓸 수 있다면 그렇게 해 주세요.&lt;/p&gt;
+
+&lt;p&gt;[SLOW]&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;With&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Selection&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WrapText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ShrinkToFit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;End&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;With&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;[FAST]&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;With&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Selection&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WrapText&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ShrinkToFit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;End&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;With&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;근데.. 이건.. 코드 가독성 때문에 전 가급적 두줄로 변경해서 쓰긴 합니다.&lt;/p&gt;
+
+&lt;p&gt;퍼포먼스에 큰 영향을 주지 않아서도 그렇구요..  하지만 조금의 차이는 발생하니 참고로 알아 두세요.&lt;/p&gt;
+
+&lt;h1 id=&quot;9&quot;&gt;#9&lt;/h1&gt;
+
+&lt;p&gt;아홉번째, 불필요한 셀 복사 붙여 넣기는 피해주세요.&lt;/p&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Sheet1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A1:A200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Sheet2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PasteSpecial&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CutCopyMode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;  
+
+&lt;span class=&quot;n&quot;&gt;Sheet1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A1:A200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Destination&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sheet2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Sheet1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A1:A200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Sheet2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PasteSpecial&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlPasteValues&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CutCopyMode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Sheet2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B1:B200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sheet1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A1:A200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-vb highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;heet1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A1:A200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Copy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Sheet2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PasteSpecial&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlPasteFormulas&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CutCopyMode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;False&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Sheet2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;B1:B200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Formula&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sheet1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A1:A200&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Formula&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;10&quot;&gt;#10&lt;/h1&gt;
+
+&lt;p&gt;열번째, 가급적 엑셀에서 제공해주는 함수를 사용하세요. 같은 기능이라면 직접 만든 로직보다 속도가 훨씬 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;저도 처음에는 다른 언어와 같이 대부분 함수를 만들어서 사용했었는데요.&lt;/p&gt;
+
+&lt;p&gt;기능이 같은 경우, 엑셀에서 제공해주는 함수를 썼을 때의 속도가 훨씬 빨랐습니다&lt;/p&gt;
+
+&lt;h1 id=&quot;11&quot;&gt;#11&lt;/h1&gt;
+
+&lt;p&gt;열한번째, For 구문 보다는 For Each 구문을 활용하세요.&lt;/p&gt;
+
+&lt;p&gt;쭉… 여러가지를 나열해 보았습니다.&lt;/p&gt;
+
+&lt;p&gt;첫번째 말씀드린 엑셀 셋팅값 처리는 개발 시 무조건 해주어야 하고,&lt;/p&gt;
+
+&lt;p&gt;나머지 것들은 퍼포먼스 결과를 보면서 필요시에 사용해 주시면 됩니다. 각자 개발 스타일들이 있기 때문에&lt;/p&gt;
+
+&lt;p&gt;꼭 모두 적용할 필요는 없다고 봅니다.&lt;/p&gt;</content><author><name></name></author><category term="VBA" /><summary type="html">inhance vb code 여기서는 vb의 성능 개선을 위한 내용을 다룹니다.</summary></entry><entry><title type="html">Dynamic programing</title><link href="http://localhost:4000/2020/04/05/Dynamic-Programing.html" rel="alternate" type="text/html" title="Dynamic programing" /><published>2020-04-05T00:00:00+09:00</published><updated>2020-04-05T00:00:00+09:00</updated><id>http://localhost:4000/2020/04/05/Dynamic-Programing</id><content type="html" xml:base="http://localhost:4000/2020/04/05/Dynamic-Programing.html">&lt;h1 id=&quot;dynamic-programing&quot;&gt;Dynamic programing&lt;/h1&gt;
 
 &lt;p&gt;Dynamic programing은 optimization(죄적화) technique 중 하나로 caching(cache를 이용)을 하면 모두 dynamic programing이라 할 수 있다.&lt;/p&gt;
 
@@ -1362,117 +1600,4 @@ console.log(2, memoized(5))
 
 &lt;p&gt;This name is used to indicate a somewhat messy place where memory can be allocated and deallocated at will. The data structure (as the Wikipedia link you reference points out) is quite different.&lt;/p&gt;
 
-&lt;p&gt;https://stackoverflow.com/questions/1699057/why-are-two-different-concepts-both-called-heap&lt;/p&gt;</content><author><name></name></author><category term="ComputerScience" /><category term="DataStructure" /><summary type="html">Binary Heaps Tree의 한 종류 규칙 : 위 층보다 작은 숫자가 위치한다. 만약 밑에 부모보다 큰 수가 자식에 오면 자리가 교체된다.</summary></entry><entry><title type="html">Trees</title><link href="http://localhost:4000/2020/03/20/Trees.html" rel="alternate" type="text/html" title="Trees" /><published>2020-03-20T00:00:00+09:00</published><updated>2020-03-20T00:00:00+09:00</updated><id>http://localhost:4000/2020/03/20/Trees</id><content type="html" xml:base="http://localhost:4000/2020/03/20/Trees.html">&lt;h1 id=&quot;trees&quot;&gt;Trees&lt;/h1&gt;
-
-&lt;p&gt;Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다.&lt;/p&gt;
-
-&lt;p&gt;Rules&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;모든 Parent node는 최대 2개의 child를 가질 수 있다.&lt;/li&gt;
-  &lt;li&gt;Parent node보다 좌측의 node는 Parent보다 항상 작다.&lt;/li&gt;
-  &lt;li&gt;Parent node보다 우측의 node는 Parent보다 항상 크다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;대표적인 예가 바로 윈도우의 파일 구조이다.&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h2 id=&quot;tree-terminology&quot;&gt;Tree Terminology&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Root : Tree의 가장 Top&lt;/li&gt;
-  &lt;li&gt;Child : 다른 node와 직접적으로 연결 된 node, 부모의 하위 개념이 된다.&lt;/li&gt;
-  &lt;li&gt;Parent : Child의 부모&lt;/li&gt;
-  &lt;li&gt;Siblings : 같은 부모를 가진 다른 Child node&lt;/li&gt;
-  &lt;li&gt;Leaf : Children이 없는 node&lt;/li&gt;
-  &lt;li&gt;Edge : 어떤 node와 다른 node의 연결&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;kinds-of-trees&quot;&gt;Kinds of Trees&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Trees&lt;/li&gt;
-  &lt;li&gt;Binary Trees&lt;/li&gt;
-  &lt;li&gt;Binary Search Trees&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;big-o-notation&quot;&gt;big O notation&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;methods&lt;/th&gt;
-      &lt;th&gt;big O notation&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;insert&lt;/td&gt;
-      &lt;td&gt;O(log N)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;search&lt;/td&gt;
-      &lt;td&gt;O(log N)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;delete&lt;/td&gt;
-      &lt;td&gt;O(log N)&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;pros--cons&quot;&gt;pros &amp;amp; cons&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;pros&lt;/th&gt;
-      &lt;th&gt;cons&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Better than O(n)&lt;/td&gt;
-      &lt;td&gt;No O(1) Operation&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Ordered&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Flexible size&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HTML DOM(Document Object Model)&lt;/li&gt;
-  &lt;li&gt;Network Routing&lt;/li&gt;
-  &lt;li&gt;abstract syntax tree&lt;/li&gt;
-  &lt;li&gt;AI(경우의 수 판단, 분석 시)&lt;/li&gt;
-  &lt;li&gt;OS’s Folder System&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;unbalanced-binary-search-tree&quot;&gt;Unbalanced Binary Search Tree(!!!)&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/IT_Pic/Unbalanced%20Binary%20search%20tree.png&quot; alt=&quot;Unbalanced vs Balanced&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;제대로 정렬되있지 않은 tree는 이런식으로 길게 늘어져 linked list와 같은 형태를 가지게 된다.&lt;/p&gt;
-
-&lt;p&gt;해결하는 방법은 길쭉한 line의 가운데 값을 root로 삼아 양 옆으로 데이터를 분산 하는 방법이다.&lt;/p&gt;
-
-&lt;p&gt;reference(AVL과 Red,Black의 작동원리를 애니메이션)&lt;/p&gt;
-
-&lt;p&gt;https://www.cs.usfca.edu/~galles/visualization/AVLtree.html&lt;/p&gt;
-
-&lt;p&gt;https://www.cs.usfca.edu/~galles/visualization/RedBlack.html&lt;/p&gt;
-
-&lt;h2 id=&quot;redblack-tree-avl-tree&quot;&gt;Red/Black tree, AVL tree&lt;/h2&gt;
-
-&lt;p&gt;이 두가지 tree Data structure는 너무 치우쳐 있다면 알아서 balance를 잡을 수 있도록 해주는 tree로서 tree가 길게 늘어지지 않게 한다.&lt;/p&gt;
-
-&lt;p&gt;3개가 한줄로 이루어져 있을 때, 그 가운데 값을 root로 두고 나머지를 양 옆으로 분산하여 tree구조의 balace를 맞춘다.&lt;/p&gt;</content><author><name></name></author><category term="ComputerScience" /><category term="DataStructure" /><summary type="html">Trees Parent Child 관계를 가진 데이터 구조로 Root Directory로 부터 내려간다. Rules 모든 Parent node는 최대 2개의 child를 가질 수 있다. Parent node보다 좌측의 node는 Parent보다 항상 작다. Parent node보다 우측의 node는 Parent보다 항상 크다. 대표적인 예가 바로 윈도우의 파일 구조이다.</summary></entry></feed>
+&lt;p&gt;https://stackoverflow.com/questions/1699057/why-are-two-different-concepts-both-called-heap&lt;/p&gt;</content><author><name></name></author><category term="ComputerScience" /><category term="DataStructure" /><summary type="html">Binary Heaps Tree의 한 종류 규칙 : 위 층보다 작은 숫자가 위치한다. 만약 밑에 부모보다 큰 수가 자식에 오면 자리가 교체된다.</summary></entry></feed>

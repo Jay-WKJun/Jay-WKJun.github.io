@@ -5,9 +5,9 @@ tags: [VBA]
 excerpt_separator: <!--more-->
 ---
 
-# inhance visual basic code
+# inhance vb code
 
-여기서는 visual basic의 성능 개선을 위한 내용을 다룹니다.
+여기서는 vb의 성능 개선을 위한 내용을 다룹니다.
 
 <!--more-->
 
@@ -15,7 +15,7 @@ excerpt_separator: <!--more-->
 
 엑셀의 모든 셋팅 값들을 FALSE처리하세요.
 
-```visual basic
+```vb
 screenUpdateState = Application.ScreenUpdating
 statusBarState = Application.DisplayStatusBar
 calcState = Application.Calculation
@@ -31,7 +31,7 @@ ActiveSheet.DisplayPageBreaks = False ‘note this is a sheet-level setting
  
 ‘>>개발 코드 부분<<
  
-```visual basic
+```vb
 Application.ScreenUpdating = screenUpdateState
 Application.DisplayStatusBar = statusBarState
 Application.Calculation = calcState
@@ -63,7 +63,7 @@ DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사�
 
 [느린 소스]
 
-```visual basic
+```vb
     Dim DataRange as Range
     Dim Irow as Long
     Dim Icol as Integer
@@ -83,7 +83,7 @@ DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사�
  
 [빠른 소스]
 
-```visual basic
+```vb
     Dim DataRange As Variant
     Dim Irow As Long
     Dim Icol As Integer
@@ -115,7 +115,7 @@ DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사�
 
 아래와 같이 말이죠.
 
-```visual basic
+```vb
     For i = 0 To ActiveSheet.Shapes.Count
        ActiveSheet.Shapes(i).Select
        Selection.Text = “Hello”
@@ -124,7 +124,7 @@ DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사�
  
 그렇다면 어떻게??
 
-```visual basic
+```vb
     For i = 0 To ActiveSheet.Shapes.Count
        ActiveSheet.Shapes(i).TextEffect.Text = “Hello”
     Next i
@@ -140,7 +140,7 @@ DisplayPageBreaks 페이지 나누기 기능을 끄는 것인데.. 전 잘 사�
 
 피벗 테이블의 이름을 알아야 겠죠.
 
-```visual basic
+```vb
 ActiveSheet.PivotTables(“PivotTable1”).ManualUpdate=True
 ‘개발 코드 부분
 ActiveSheet.PivotTables(“PivotTable1”).ManualUpdate=False
@@ -154,7 +154,7 @@ Select하고 Selection.XXX 해서 사용하지 말고. With문으로 쓰라는 �
 
 [With 구문 사용 전]
 
-```visual basic
+```vb
  Range(“A1”).Select
 Selection.Font.Bold = True
 Selection.Font.Italic = True
@@ -163,7 +163,7 @@ Selection.Font.Underline = xlUnderlineStyleSingle
 
 [With 구문 사용]
 
-```visual basic
+```vb
 With Range(“A1”).Font
     .Bold = True
     .Italic = True
@@ -175,7 +175,7 @@ End With
 
 여섯 번째, 공백 문자를 넣을 때는 "" 대신에 vbNullString을 쓰세요.
 
-```visual basic
+```vb
 tmpString = ""
 
 tmpString = vbNullString
@@ -185,7 +185,7 @@ tmpString = vbNullString
 
 일곱 번째, 가급적 선언되어진 객체들은 메모리 해제를 시켜주세요.
 
-```visual basic
+```vb
 Set tmpObject = Nothing
 ```
 
@@ -195,7 +195,7 @@ Set tmpObject = Nothing
 
 [SLOW]
 
-```visual basic
+```vb
     With Selection
         .WrapText = True
         .ShrinkToFit = False
@@ -204,7 +204,7 @@ Set tmpObject = Nothing
 
 [FAST]
 
-```visual basic
+```vb
     With Selection
         .WrapText = True: .ShrinkToFit = False
     End With
@@ -218,7 +218,7 @@ Set tmpObject = Nothing
 
 아홉번째, 불필요한 셀 복사 붙여 넣기는 피해주세요.
 
-```visual basic
+```vb
 Sheet1.Range("A1:A200").Copy
 Sheet2.Range("B1").PasteSpecial
 Application.CutCopyMode = False  
@@ -226,7 +226,7 @@ Application.CutCopyMode = False
 Sheet1.Range("A1:A200").Copy Destination:= Sheet2.Range("B1")
 ```
 
-```visual basic
+```vb
 Sheet1.Range("A1:A200").Copy
 Sheet2.Range("B1").PasteSpecial xlPasteValues
 Application.CutCopyMode=False
@@ -234,7 +234,7 @@ Application.CutCopyMode=False
 Sheet2.Range("B1:B200").Value = Sheet1.Range("A1:A200").Value
 ```
 
-```visual basic
+```vb
 heet1.Range("A1:A200").Copy
 Sheet2.Range("B1").PasteSpecial xlPasteFormulas
 Application.CutCopyMode=False
