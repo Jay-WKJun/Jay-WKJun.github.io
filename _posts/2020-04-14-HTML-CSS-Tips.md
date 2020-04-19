@@ -204,3 +204,60 @@ position: absolute를 주면 block의 영역을 모두 무시하고 browser를 �
 .tit h2 {font-size: 40px; color:#2c94c4; letter-spacing: 2px; padding: 5px 0; font-family: 'Nanum Brush Script', cursive;}
 .tit .btn {display: block; width: 60px; height: 60px; background: url(img/icon.png) no-repeat 0 -600px; position: absolute; right: 0; top: 5px;}
 ```
+
+## 복수 이름 지정
+
+아래의 html에서 column colX 라고 되어있는데 이는 class의 이름이 2개인 것이다.
+
+따라서 .column이로 지정했을 땐 class이름이 column이라고 되어 있는 모두에게 적용이 되고 .colX는 각자의 column에 적용된다.
+
+```css
+/* 컨텐츠 박스 요소 width = padding + margin + border */
+.cont {overflow: hidden; padding-top: 30px;}
+.cont .column {position: relative; float: left; width: 289px; height: 363px; margin: 0 30px 30px 0; padding-right: 30px;}
+.cont .col1 {border-right: 1px solid #c8c8c8;}
+.cont .col2 {border-right: 1px solid #c8c8c8;}
+.cont .col3 {margin-right: 0; padding-right: 0;}
+.cont .col4 {border-right: 1px solid #c8c8c8;}
+.cont .col5 {border-right: 1px solid #c8c8c8;}
+.cont .col6 {margin-right: 0; padding-right: 0;}
+```
+
+```html
+<div class="cont">
+                        <div class="column col1">
+                            <h3><span class="ico_img ir_pm">아이콘1</span><em class="ico_tit">Notice</em></h3>
+                            <p class="ico_desc">가장 웹 페이지에서 기본이 되는 게시판 유형입니다.</p>
+                        </div>
+                        <!-- //col1 -->
+                        <div class="column col2">
+                            <h3><span class="ico_img ir_pm">아이콘2</span><em class="ico_tit">Notice</em></h3>
+                            <p class="ico_desc">가장 웹 페이지에서 기본이 되는 게시판 유형입니다.</p>
+                        </div>
+                        <!-- //col2 -->
+                        <div class="column col3">
+                            <h3><span class="ico_img ir_pm">아이콘3</span><em class="ico_tit">Notice</em></h3>
+                            <p class="ico_desc">가장 웹 페이지에서 기본이 되는 게시판 유형입니다.</p>
+                        </div>
+                        <!-- //col3 -->
+                        <div class="column col4">
+                            <h3><span class="ico_img ir_pm">아이콘4</span><em class="ico_tit">Notice</em></h3>
+                            <p class="ico_desc">가장 웹 페이지에서 기본이 되는 게시판 유형입니다.</p>
+                        </div>
+                        <!-- //col4 -->
+                        <div class="column col5">
+                            <h3><span class="ico_img ir_pm">아이콘5</span><em class="ico_tit">Notice</em></h3>
+                            <p class="ico_desc">가장 웹 페이지에서 기본이 되는 게시판 유형입니다.</p>
+                        </div>
+                        <!-- //col5 -->
+                        <div class="column col6">
+                            <h3><span class="ico_img ir_pm">아이콘6</span><em class="ico_tit">Notice</em></h3>
+                            <p class="ico_desc">가장 웹 페이지에서 기본이 되는 게시판 유형입니다.</p>
+                        </div>
+</div>
+```
+## margin과 padding의 차이점
+
+margin은 block간의 여백을 주고 padding은 내부 구성품들 간의 여백을 준다.
+
+margin을 줄 경우 하얀 여백이 생기는 경우가 있다.
