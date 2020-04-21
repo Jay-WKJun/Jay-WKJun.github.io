@@ -261,3 +261,33 @@ position: absolute를 주면 block의 영역을 모두 무시하고 browser를 �
 margin은 block간의 여백을 주고 padding은 내부 구성품들 간의 여백을 준다.
 
 margin을 줄 경우 하얀 여백이 생기는 경우가 있다.
+
+## 컨텐츠 요소를 보이지 않게 하는 방법
+
+1. display: none (영역이 사라짐)
+2. visibility: hidden; -- visiblity: visible; (영역 유지)
+3. opacity: 0; -- opacity: 1; (영역 유지)
+4. width: 0; height:0; overflow:hidden;
+
+## marginal-right(left, bottom, top)를 -1로 해야되는 상황은?
+
+border의 2줄 효과를 한줄로 보이게 할 때 (서로 겹쳐서 1줄로 보이게 된다.)
+
+(신입이 알고있다면 조금은 놀라운 지식이다.)
+
+## text의 한줄 효과
+
+```css
+overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+```
+
+## 가상선을 이용하는 방법
+
+글자들을 구분해주는 가로선이나 세로선을 줄 때 그림이 아닌 css를 이용해 가상으로 선을 넣어줄 수 있다.
+
+```css
+/* li의 앞에 content는 넣지말고 backgraound로 색, width랑 height로 선 굵기, 길이를 정하고 위치를 정해준다음 적용한다. */
+.footer li:before {content: ''; width: 1px; height: 12px; background: #ccc; position: absolute; left: 0; top: 2px;}
+/*맨 첫번째 것은 생략하기 위해 추가한다.*/
+.footer li:first-child:before {width: 0; height: 0;}
+```
