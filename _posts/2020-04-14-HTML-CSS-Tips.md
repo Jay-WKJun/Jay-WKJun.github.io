@@ -29,7 +29,7 @@ excerpt_separator: <!--more-->
  /* 헤더 */
 .header {}
 /* header의 자식인 header-menu의 자식인 a tag, 부모자식 관계는 한칸씩 띄워서 표현(웬만하면 그냥쓰지말고 표현해주자) */
-.header .header-menu {text-align: right; }
+.header .header-menu {text-align: right;}
 .header .header-menu a {color: #fff; padding: 10px 0px 10px 13px; display: inline-block;}
 .header .header-menu a:hover {color: #666;}
 ```
