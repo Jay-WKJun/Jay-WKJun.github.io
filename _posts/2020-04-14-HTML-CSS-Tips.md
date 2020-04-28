@@ -291,3 +291,13 @@ overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 /*맨 첫번째 것은 생략하기 위해 추가한다.*/
 .footer li:first-child:before {width: 0; height: 0;}
 ```
+
+# Sass(SCSS) Study Timeline
+
+4/21(화) - orientation & introduction, container 완성
+
+clone target = 한국 산업은행 [https://www.kdblife.co.kr/]
+
+4/23(목) - header 완성
+
+4/28(화) - content1 완성
