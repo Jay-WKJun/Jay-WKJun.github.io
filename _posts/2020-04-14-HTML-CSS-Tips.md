@@ -303,3 +303,11 @@ clone target = 한국 산업은행 [https://www.kdblife.co.kr/]
 4/28(화) - content1 완성
 
 4/30(목) - content2 완성
+
+# Grid
+
+css에서 "dislay: grid" 를 쓰면 사용할 수 있으며 div안의 div들을 여러가지 구획으로 나눠서 위치를 자유자재로 다룰 수 있다.
+
+firefox에서 grid 개발 기능을 가장 잘 지원해준다.
+
+하지만! 최신 기술이므로 internet explorer같은 구식 browser에서는 지원하지 않기 때문에 주의해야한다.
