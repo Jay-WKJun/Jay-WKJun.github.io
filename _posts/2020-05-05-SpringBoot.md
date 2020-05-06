@@ -11,7 +11,7 @@ Spring Boot는 Spring의 설정들을 간편하게 설정할 수 있도록 나�
 
 <!--more-->
 
-# 용어 설명
+# 용어 설명 And Thories
 
 ## POM
 
@@ -23,12 +23,118 @@ parent tag : 이곳에서 dependency들의 version 기준을 정해준다. sprin
 
 spring starter web을 dependency에 추가했을 경우 1.4.0에 해당하는 starter web과 함께 starter web에 필요한 다른 dependency도 자동으로 받아온다.
 
+## What is REST?
+
+Representational State Transfer
+
+Definition = Architectural style for the web. REST specifies a set of constraints.
+
+- Client - Server : Server (service provider) should be different from a client (service consumer). Enables loose coupling and independent evolution of server and client as new technologies emerge.
+- Each service should be stateless.
+- Each Resource has a resource identifier.
+- It should be possible to cache response.
+- Consumer of the service may not have a direct connection to the Service Provider. Response might be sent from a middle layer cache.
+- A resource can have multiple representations. Resource can modified through a message in any of the these representations.
+
+## Request Methods
+
+- GET - Retrieve details of a resource
+- POST - Create a new resource
+- PUT - Update an existing resource
+- PATCH - Update part of a resource
+- DELETE - Delete a resource
+
+## Content Negotiation
+
+client(service requester)와 server(service provider)가 서로 소통하는 것으로 내가 받을 response와 server가 제공할 수 있는 request를 조율하고 server는 client의 request에 맞춰 response를 주는 negotiation같은 통신의 개념이다.
+
+여기서 406 error의 경우 "I cannot respond with your request"로 server가 client가 요청하는 데이터 형식에 respond할 수 없다는 에러이다.
+
 # About Spring
 
-## Component Scan
+## @Component Scan
 
 Spring은 아래의 Annotation이 붙은 class들을 scan후 bean으로 등록한다.
 
 @Repositoroy, @Component, @Controller(@RestController), @Service
 
 이때 main class에 @Componentscan("path")를 지정해주어야만 해당 path를 scan한다. 보통은 project의 root path를 scan하도록한다.
+
+## starter parent
+
+spring boot 에는 여러 spring boot starter xxxx 들이 많은데 spring boot starter parent를 pon.xml에서 설정해주면
+
+Dependency versioning
+
+Default plugins
+
+Java version
+
+을 통일해준다.
+
+## Auto Configuration
+
+Auto Configuration은 spring boot만의 특징적인 기능으로 spring에서 직접 등록해야했던 bean들을 자동으로 가져오도록 하는 기능이다.
+
+이미 검증된 기능들의 집합이기 때문에 이 모든 기능들이 서로 compatible하다.
+
+사용방법 : main class에 @EnableAutoConfiguration을 붙여줘야 사용이 가능하다.
+
+각 AutoConfigruation들은 필요한 상황에만 자신이 실행될 수 있도록 @Conditional, @Condition과 같은 annotation들로 설정이 되어있다.
+
+그 annotation 을 기반으로 필터링이 먼저 이뤄지고 필터링되지 않은 AutoConfigruation을 가지고 작업이 진행된다.
+
+## Debuging
+
+Auto configuration을 debug하는 방법이 있는데
+
+src/main/resources/application.properties 파일에 logging.level.org.springframework: DEBUG
+
+를 입력하고 실행하면 console에 auto configuration된 파일들을 debug한다. 각 파일들의 debug결과가 console에 출력된다.
+
+## customized dynamic configuration
+
+기존의 configuration을 override 했던것 처럼 내가 직접 작성하고 설정하는 configuration도 추가가 가능하다
+
+ 방법
+
+- name : "content" -> @Value("${name}") annotation 추가해서 Object선언(Autowired와 같은 기능이다.)
+- program argument에서 name="content" (argument가 properties보다 우선순위가 상위이다)
+- spring.config.location=classpath:/default.properties -> 즉 새로운 properties file을 만들어 추가한다.
+- placeholder를 사용한다.(name:"content"선언 후 ${name}으로 다른 configuration에 추가해준다.)
+- YAML로 properties의 내용을 대체할 수 있다.
+
+# spring boot plugins
+
+## jackson databind
+
+ default plugin 중에 하나, messsage converter로 HTML에 출력되거나 거꾸로 데이터를 받아 올때 Object -> JSON JSON ->Object의 기능을 한다.
+
+## spring developer tools
+
+얘가 없다면 console을 통해 server를 끄고 다시 실행해서 바뀐 것을 확인해야하지만
+
+dev tool을 통해 무언가 바뀐게 있다면 dynamic하게 적용하여 browser상에 적용해준다.
+
+추가 설명...
+
+- By default, any entry on the classpath that points to a folder will be monitored for changes.
+- These will not trigger restart - /META-INF/maven, /META-INF/resources ,/resources ,/static ,/public or /templates
+- Folders can be configured : spring.devtools.restart.exclude=static/,public/
+- Additional Paths : spring.devtools.restart.additional-paths(needed to be added in configuration)
+
+## spring boot actuator & HAL browser
+
+actuator - monitoring application for my REST service
+
+/env(실행환경확인), /metrics(memory와 연산처리 등의 정보), /trace, /dump, /shutdown, /beans(spring이 저장중인 모든 bean들 보기), / autoconfig(autoconfigure된 api들), /configprops, /mappings
+
+HAL browser - actuator의 UI
+
+http://localhost:8080/actuator/
+
+여러 configuration을 보고 application.properties에서 override해서 설정을 바꿀 수도 있다.
+
+## embedded servlet container
+
+원래는 war를 만들어서 Tomcat을 통해 배포해야하지만 spring boot에 내장된 servlet container와 Tomcat app server를 이용해 그렇게 하지 않아도 가능하다. war 대신 jar를 써서 web server를 여는것이다.
