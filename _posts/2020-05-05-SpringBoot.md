@@ -25,7 +25,7 @@ spring starter web을 dependency에 추가했을 경우 1.4.0에 해당하는 st
 
 ## What is REST?
 
-Representational State Transfer
+a.k.a Representational State Transfer
 
 Definition = Architectural style for the web. REST specifies a set of constraints.
 
