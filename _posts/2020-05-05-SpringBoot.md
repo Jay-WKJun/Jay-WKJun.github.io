@@ -104,6 +104,24 @@ src/main/resources/application.properties 파일에 logging.level.org.springfram
 - placeholder를 사용한다.(name:"content"선언 후 ${name}으로 다른 configuration에 추가해준다.)
 - YAML로 properties의 내용을 대체할 수 있다.
 
+## Profile 기능
+
+profile을 통해서 여러가지 properties 파일을 생성해놓고 필요에 따라 불러내주어 사용할 수 있다.
+
+profile Setting
+
+1. Using -Dspring.profiles.active=prod in VM Arguments
+2. spring.profiles.active=prod
+
+Using a profile (위에서 사용하겠다고 설정해준 profile만을 사용하게 된다. properties, bean도 마찬가지)
+
+- application-{profile-name}.properties
+- @Profile("profile-name") on a bean
+
+Usage (하나의 service를 property만 바꾸어 사용하는 곳 어디서든 사용이 가능하다)
+
+Configure Resources - Databases, Queues, External Services
+
 # spring boot plugins
 
 ## jackson databind
