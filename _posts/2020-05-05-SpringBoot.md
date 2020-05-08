@@ -122,6 +122,40 @@ Usage (하나의 service를 property만 바꾸어 사용하는 곳 어디서든 
 
 Configure Resources - Databases, Queues, External Services
 
+## Advanced Application Configuration
+
+Application Configuration을 YAML이나 .properties에 설정해 준 것을 Object를 통해 Bean으로 만들 수 있다.
+
+Type Safe이기 때문에 해당 value의 형태가 맞지 않다면 오류가 발생한다.
+
+ex) 만약 properties파일이 이렇게 설정 되어 있다면
+
+```yaml
+basic:
+    value:true
+    message:Welcome it's configuration Bean
+    number:200
+```
+
+Configuration을 받아올 Object를 만들어 @Component를 통해 이렇게 불러 올 수 있다.
+
+```java
+@Component
+@ConfigurationProperties("basic")
+public class BasicConfiguration{
+    //basic.value의 값을 가져온다.
+    private boolean value;
+    //basic.message의 값을 가져온다.
+    private String message;
+    //basic.number의 값을 가져온다.
+    private int number;
+
+    //gettter, setter 생략
+}
+```
+
+@Value("address")로도 가능하지만 이런식으로 Object를 통해 configuration value를 통째로 bean으로 만들수도 있다.
+
 # spring boot plugins
 
 ## jackson databind
