@@ -190,3 +190,9 @@ http://localhost:8080/actuator/
 ## embedded servlet container
 
 원래는 war를 만들어서 Tomcat을 통해 배포해야하지만 spring boot에 내장된 servlet container와 Tomcat app server를 이용해 그렇게 하지 않아도 가능하다. war 대신 jar를 써서 web server를 여는것이다.
+
+## JPA & h2 DataBase
+
+JPA는 DB와 통신하는 Repository의 기능을 가진 api이다. DataBase가 없이는 단독으로 사용이 불가능해서 보통 h2와 같이 쓰인다.
+
+h2 DataBase는 in memory DataBase로 프로그램이 켜지면 작동하고 꺼지면 모든 DB가 없어진다는게 특징이다. 처음 설정이 필요없어서 초보자들에게 연습용으로 유용하다. h2는 자신의 UI도 있다. 이 주소에서 console을 이용할 수 있다. [http://localhost:8080/h2-console]
