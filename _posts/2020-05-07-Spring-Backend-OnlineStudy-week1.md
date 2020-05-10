@@ -52,3 +52,29 @@ spring의 전체적인 흐름을 물어본다(앞단은 servlet으로부터 시�
 dispatcherservlet 하나만 servlet이 아니라 새로 만들수도 있다.
 
 application context는 하나가 아니라 hierachy하게 있다.
+
+------------------------------------------------------------
+
+# 20.05.10
+POST 등록까지 완료
+
+## 구현하면서...
+
+간만의 spring개발이고 boot는 처음이었으니 효율적인 코드와 구조 보다는
+
+과거의 배웠던 것을 되살리고 어떻게든 돌아가게만 할 수 있도록 만들기 위해 노력함.
+
+## 궁금한 점
+
+1. POST에서 어떻게 JSON의 data를 보낼 수 있는지...?
+2. 아직은 옛날방식인 Autowired를 사용하는데 seminar에서 봤던 constructor를 이용한 autowire하는 방법을 아직 잘 모르겠다.
+3. validation을 위한 @Entity와 @service에서 쓸 수 있는 여러가지 annotation이 있다고하는데 아직 잘 모르겠다.
+4. Mock서비스가 뭔가...?
+5. HTTP요청을 처리하는 컨트롤러에 사용하는 api들의 이름은?
+
+## 해야할 것
+
+- 하드코딩된 것들 정리
+- validation처리
+- mock service 공부
+- HTTP요청 처리 관련 공부와 구현
