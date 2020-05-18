@@ -53,6 +53,14 @@ dispatcherservlet 하나만 servlet이 아니라 새로 만들수도 있다.
 
 application context는 하나가 아니라 hierachy하게 있다.
 
+# spring security
+
+spring security는 크게 2가지 있다.
+
+Authentification(인증)
+
+Authorization(인가)
+
 ------------------------------------------------------------
 
 # 20.05.10
