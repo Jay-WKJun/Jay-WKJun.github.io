@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mixin repository
+title: SpringBoot
 tags: [FrameWork, Java, Spring, SpringBoot]
 excerpt_separator: <!--more-->
 ---

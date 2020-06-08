@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Mixin repository
+title: Spring Backend Study week1
 tags: [FrameWork, Java, Spring, SpringBoot, onlineStudy, springBackEnd, programmers]
 excerpt_separator: <!--more-->
 ---
