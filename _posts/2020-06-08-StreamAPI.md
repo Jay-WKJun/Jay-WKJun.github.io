@@ -9,6 +9,8 @@ excerpt_separator: <!--more-->
 
 Java 8에서 추가된 기능으로, stream 형태의 요소에 함수형 연산자를 지원해주는 클래스이다.
 
+<!--more-->
+
 요약하자면 아래 그림과 같다.
 
 ![StreamAPI]({{ "/assets/img/IT_Pic/streamApiExplain.jpg" | relative_url }})

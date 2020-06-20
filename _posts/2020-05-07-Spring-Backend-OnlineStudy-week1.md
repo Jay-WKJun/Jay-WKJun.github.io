@@ -9,6 +9,8 @@ excerpt_separator: <!--more-->
 
 드디어 스터디 시작이다.
 
+<!--more-->
+
 # class note
 
 ## SRP(단일 책임 원칙)

@@ -9,6 +9,8 @@ excerpt_separator: <!--more-->
 
 이곳에선 Front End 구현을 위해 쓸 수 있는 여러가지 기술, Library, plug-in 등의 모든 자료들을 담아 놓는 곳이다.
 
+<!--more-->
+
 # Font, Icons
 
 ## font awesome
