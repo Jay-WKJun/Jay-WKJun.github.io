@@ -19,9 +19,11 @@ HTML이 웹 페이지의 기본 구조를 담당하고, CSS가 디자인을 담�
 
 가장 성능이 좋고, 가장 많이 쓰이는 크롬 V8 엔진을 기반으로 작성!
 
+싱글 쓰레드 기반, 콜백 큐 사용
+
 ![ChromeV8Engine]({{ "/assets/img/aboutJavaScript/javaScriptEngine.png" | relative_url }})
 
-Parser : Lexical Analysis(코드의 의미를 이해하기 위해 token이라는 작은 단위들로 코드를 쪼개는 일)를 진행한다.
+Parser : Lexical Analysis(코드의 의미를 이해하기 위해 token이라는 작은 단위들로 코드를 쪼개는 일)를 진행한다. 작성한 High-level 코드가 Javascript Engine 안에서 Parser를 통해 syntax와 semantics가 맞는지 확인하고, 틀리면 error가 뜬다.
 
 AST : Abstract Syntax Tree의 약자로, parser에서 분해된 token들을 기반으로 나무 구조를 만든다.(ex. DOM Tree, CSSOM Tree가 구성되는 것과 비슷한 개념이다.)
 
