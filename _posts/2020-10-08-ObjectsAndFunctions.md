@@ -258,6 +258,83 @@ retirementIceland(1990);
 
 [https://poiemaweb.com/js-closure]
 
+## bind, call, Apply
+
+call, apply - 어떤 object의 있는 function을 다른 object에서도 그대로 사용할 수 있도록 가져와서 사용하는 것.(apply는 array같은 parameter를 전달할때 사용한다.)
+
+bind - function의 parameter가 정해져 있을 때, parameter를 사전에 미리 세팅하여 사용하는 것이 가능하다.(call method와는 달리 bind는 새로운 function을 생성해 그것을 실행시킨다.)
+
+```javascript
+
+var john = {
+    name: 'John',
+    age: 26,
+    job: 'teacher',
+    presentation: function(style, timeOfDay) {
+        if (style === 'formal') {
+            console.log('Good ' + timeOfDay + ', Ladies and gentlemen! I\'m ' +  this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
+        } else if (style === 'friendly') {
+            console.log('Hey! What\'s up? I\'m ' +  this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay + '.');
+        }
+    }
+};
+
+var emily = {
+    name: 'Emily',
+    age: 35,
+    job: 'designer'
+};
+
+john.presentation('formal', 'morning');
+
+//john에 들어있는 presentation method를 emily 객체에 복사해 그대로 사용한다.
+john.presentation.call(emily, 'friendly', 'afternoon');
+
+//call과 같은 기능을 수행한다.
+//john.presentation.apply(emily, ['friendly', 'afternoon']);
+
+//john 객체에 presentaion method를 bind하고 'friendly'라는 parameter 값을 style에 사전에 세팅하여
+//johnFriendly라는 변수명에 새로운 function으로 결합한다.
+var johnFriendly = john.presentation.bind(john, 'friendly');
+
+//사전에 세팅된 style을 제외한 timeofday만 넣어주면 실행된다.
+johnFriendly('morning');
+johnFriendly('night');
+
+//john객체의 presentation function을 emily객체에 붙이고 'formal'을 style에 사전에 세팅하여
+//emilyFormal라는 변수명에 새로운 function으로 결합한다.
+var emilyFormal = john.presentation.bind(emily, 'formal');
+emilyFormal('afternoon');
+
+
+// Another cool example
+var years = [1990, 1965, 1937, 2005, 1998];
+
+function arrayCalc(arr, fn) {
+    var arrRes = [];
+    for (var i = 0; i < arr.length; i++) {
+        arrRes.push(fn(arr[i]));
+    }
+    return arrRes;
+}
+
+function calculateAge(el) {
+    return 2016 - el;
+}
+
+function isFullAge(limit, el) {
+    return el >= limit;
+}
+
+var ages = arrayCalc(years, calculateAge);
+//자신과 같은 object에 bind하는 것이기에 this가 들어간다.
+//여기선 isFullAge function에 limit가 20이 사전에 세팅된다.
+var fullJapan = arrayCalc(ages, isFullAge.bind(this, 20));
+console.log(ages);
+console.log(fullJapan);
+
+```
+
 
 # 정리
 
