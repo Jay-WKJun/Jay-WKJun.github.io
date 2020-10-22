@@ -44,6 +44,38 @@ Execution Context는 Object와 연관되어 있고 구성은 다음 그림과 �
 
 변수는 undefined로 정의가 되어있다는 차이점이 있다.
 
+```javascript
+
+// functions
+//function declaration은 hoisting을 통해 실행 페이즈 전에 정의가 된다.
+calculateAge(1965);
+function calculateAge(year) {
+    console.log(2016 - year);
+}
+
+//이건 function declaration이 아니라 function expression이기 때문에 에러이다.
+// retirement(1956);
+var retirement = function(year) {
+    console.log(65 - (2016 - year));
+}
+
+// variables
+//var age가 정의되기 전이므로 hoisting으로 변수 선언문을 통해 undefined로 세팅이 먼저 된다.
+console.log(age);       //undefined
+var age = 23;
+
+function foo() {
+    //foo안의 age는 foo의 execution context의 VO안에 포함 된 것들을 사용한다.
+    console.log(age);   //undefined
+    var age = 65;
+    console.log(age);   //65
+}
+foo();
+//여기 age는 global execution context의 VO안에 포함 된 것들을 사용한다.
+console.log(age);       //23
+
+```
+
 ## Scope Chain
 
 
