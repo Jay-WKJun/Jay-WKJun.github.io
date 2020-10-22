@@ -32,6 +32,41 @@ Execution Context는 Object와 연관되어 있고 구성은 다음 그림과 �
 2. Execution Phase
     - 생선된 현재 Execution Context의 코드를 한줄 씩 읽어나간다.
 
+## Execution context stack
+
+Exectuion context는 정의가 아닌 function을 불럿을 때 stack에 쌓이게 된다.
+
+```javascript
+
+var name = 'John';
+
+function first(){
+    var a = 'Hello!';
+    //두번째
+    second();
+    var x = a + name;
+    //function에 모든게 진행되면 function은 return하고 stack에서 pop up 된다.
+}
+
+function second(){
+    var b = 'Hi!';
+    //세번째
+    third();
+    var z = b + name;
+}
+
+function third(){
+    var c = 'Hey!';
+    var z = c + name;
+}
+
+//첫번째 Execution context가 stack에 쌓임
+first();
+
+```
+
+![ExecutionStack]]({{ "/assets/img/aboutJavaScript/ExecutionStack.png" | relative_url }})
+
 ## Variable Object(VO)
 
 3가지 과정이 있고 마지막 두 과정을 'Hoisting'이라고 한다.
@@ -86,39 +121,87 @@ Lexical scoping : a function that is lexically within another function gets acce
 
 하지만 자식 function으로 거꾸로 접근할 수는 없다.
 
-![ExecutionContextObject]({{ "/assets/img/aboutJavaScript/ExecutionContextObject.png" | relative_url }})
+![scopeChain]({{ "/assets/img/aboutJavaScript/scopeChain.png" | relative_url }})
 
-# Execution context stack
+Exectuion Stack vs Scope Chain
 
-Exectuion context는 정의가 아닌 function을 불럿을 때 stack에 쌓이게 된다.
+execution stack은 function이 call된 순서대로 쌓이지만
+
+scope chain은 function이 쓰인 순서대로 적용이 된다.
+
+![ExecutionStackVSScopeChain]({{ "/assets/img/aboutJavaScript/ExecutionStackVSScopeChain.png" | relative_url }})
 
 ```javascript
-
-var name = 'John';
-
-function first(){
-    var a = 'Hello!';
-    //두번째
-    second();
-    var x = a + name;
-    //function에 모든게 진행되면 function은 return하고 stack에서 pop up 된다.
-}
-
-function second(){
-    var b = 'Hi!';
-    //세번째
-    third();
-    var z = b + name;
-}
-
-function third(){
-    var c = 'Hey!';
-    var z = c + name;
-}
-
-//첫번째 Execution context가 stack에 쌓임
+var a = 'Hello!';
 first();
 
+function first() {
+    var b = 'Hi!';
+    second();
+
+    function second() {
+        var c = 'Hey!';
+        //third function을 부를 수 있는 이유
+        //third는 hoisting되어 global execution context에 있기 때문에
+        //lexical하게 second가 접근할 수 있기 때문
+        third();
+    }
+}
+
+function third() {
+    var d = 'John';
+    //그러나 var c가 오류인 이유는 부모 function은 접근할 수 있지만 자식 function은 접근 할 수 없기 때문이다.
+    //console.log(c);
+    //a는 lexical하게 global execution context에서 가져 올 수 있고 d는 자신이 가지고 있다.
+    console.log(a+d);
+}
 ```
 
-![ExecutionStack]]({{ "/assets/img/aboutJavaScript/ExecutionStack.png" | relative_url }})
+## this
+
+The 'this' keyword is not assigned a value until a function where it is defined is actually called.
+
+```javascript
+//regular function은 global object에 붙어있어 그 안의 this는 global object를 가리킨다.
+
+//function calculateAge은 global object에 붙어있기 때문에 function calculateAge안의 this -> global object이다.
+calculateAge(1985);
+function calculateAge(year) {
+    console.log(2016 - year);
+    console.log(this);
+}
+
+var john = {
+    name: 'John',
+    yearOfBirth: 1990,
+    calculateAge: function() {
+        //john object가 이 method를 불럿으므로
+        //this -> john object
+        console.log(this);                      //john
+        console.log(2016 - this.yearOfBirth);   //26
+        
+        /*
+        !!!!!!!!!!!!!!!!!!!!!!!!!
+        john object의 method는 calculateAge이다.
+        calculateAge method안에 있는 innerFunction은 john object의 method가 아니므로
+        regular function이 되며 regular function의 this는 항상 window object를 가리킨다.
+        */
+        function innerFunction() {
+            console.log(this);                  //window
+        }
+        innerFunction();
+    }
+}
+
+john.calculateAge();
+
+var mike = {
+    name: 'Mike',
+    yearOfBirth: 1984
+};
+
+mike.calculateAge = john.calculateAge;
+//method를 부르는 object가 달라졌기 때문에 this는 달라진 object를 바라보게 된다.
+mike.calculateAge();                            //john, 26
+```
+
