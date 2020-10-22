@@ -78,7 +78,15 @@ console.log(age);       //23
 
 ## Scope Chain
 
+scoping answers the question "where can we access a certain variable?"
 
+각 function은 scope를 만든다. ES6에선 {}도 하나의 scope이다.
+
+Lexical scoping : a function that is lexically within another function gets access to the scope of the outer function(aka. parent function)
+
+하지만 자식 function으로 거꾸로 접근할 수는 없다.
+
+![ExecutionContextObject]({{ "/assets/img/aboutJavaScript/ExecutionContextObject.png" | relative_url }})
 
 # Execution context stack
 
