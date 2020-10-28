@@ -26,6 +26,8 @@ o.[[Prototype]] = Foo.prototype;
 //Foo 객체에 o객체를 접목하여 객체를 만든다.
 Foo.call(o);
 
+//////////////////////////////////////////////////////
+
 
 //Object.create() 함수의 내부 로직, 프로토타입 상속의 원리를 보여준다
 function create_object(o){
