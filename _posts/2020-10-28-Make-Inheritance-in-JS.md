@@ -71,3 +71,46 @@ Student.prototype = Person.prototype;
 
 # ES6 Classes
 
+ES6에 추가된 class syntax로 object를 만드는 방법
+
+주목할 점은 class의 간단한 extends방법으로
+
+- instance의 prototype을 부모 prototype object로 알아서 설정
+- 어긋날 수 있는 constructor를 올바르게 만들어진 class의 constructor를 바라보게 함
+
+을 알아서 해준다는 점이다. (전통적인 방법에선 수동으로 수정해주어야 했다.)
+
+```javascript
+class PersonCl{
+    constructor(firstName, birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+
+    calcAge(){
+        console.log(2037 - this.birthYear);
+    }
+}
+
+class StudentCl extends PersonCl{
+    constructor(firstName, birthYear, course){
+        //super는 반드시 가장 먼저 나와야한다.
+        //이유 : super를 통해 subclass와 연동하여 this를 올바르게 설정해주기 때문이다.
+        super(firstName, birthYear);
+        this.course = course;
+    }
+
+    introduce(){
+        console.log('My name is ${this.firstName} and I study ${this.course}');
+    }
+
+    //Overrride
+    calcAge(){
+        console.log('I born in ${this.birthYear}');
+    }
+}
+
+const martha = new StudentCl('martha', '2012', 'Computer Science');
+martha.introduce();         //'My name is martha and I study Computer Science
+martha.calcAge();           //I born in 2012
+```
