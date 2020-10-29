@@ -114,3 +114,39 @@ const martha = new StudentCl('martha', '2012', 'Computer Science');
 martha.introduce();         //'My name is martha and I study Computer Science
 martha.calcAge();           //I born in 2012
 ```
+
+# Object.create
+
+new 와의 특징은 constructor의 걱정을 할 필요가 없다는 것.
+
+object와 object를 그대로 잇는 것이기 때문
+
+```javascript
+const PersonProto = {
+    calcAge(){
+        console.log(2037 - this.birthYear);
+    },
+
+    init(firstName, birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    },
+};
+
+const steven = Object.create(PersonProto);
+
+//자신의 property가 하나도 없는 object와 그 prototype을 PersonProto로 가진 object생성
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function(firstName, birthYear, course){
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+}
+StudentProto.introduce = function(){
+    console.log('My name is ${this.firstName} and I study ${this.course}');
+}
+
+//자신의 property가 하나도 없는 object와 그 prototype을 StudentProto로 가진 object생성
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2010, 'Computer Science');
+jay.introduce();                                //My name is Jay and I study Computer Science
+```
