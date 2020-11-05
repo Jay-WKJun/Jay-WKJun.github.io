@@ -130,8 +130,8 @@ function Jay(){
 var me = new Jay();
 me.getMyName(); // My name is jay
 console.log(me instanceof Jay);     //false!!
-//Q. new를 하여 constructor를 발동하는 순간 function이 실행이 되는가? (function의 내용 자체가 생성자 그 자체?)
-//      실행되었다면 jay객체에서 person이 반환되고 me는 person객체가 된다.
+//Q. new를 하여 constructor를 발동하는 순간 function이 실행이 되는가?
+//      A. (function의 내용 자체가 생성자) 실행되었다면 jay객체에서 person이 반환되고 me는 person객체가 된다.
 //Q. function을 토대로 객체를 미리 만들어 놓은 prototype을 복사한게 instance면 function의 내용물들이 실행없이 그대로여야 하는것 아닌가?
 console.log(me instanceof Person);  //true
 ```
