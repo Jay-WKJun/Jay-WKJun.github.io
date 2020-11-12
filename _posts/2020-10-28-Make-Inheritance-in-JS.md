@@ -61,6 +61,10 @@ const mike = new Student('mike', 2020, 'computer science');
 mike.introduce();               //My name is mike and I study computer science
 ```
 
+call method에 대한 자세한 설명
+
+[https://webclub.tistory.com/394]
+
 ## 잘못된 예시
 
 아래처럼 설정하면 Student도 Person의 Prototype object를 바라보기 때문에 new하면 Person의 Object가 만들어진다.
