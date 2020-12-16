@@ -65,6 +65,8 @@ call method에 대한 자세한 설명
 
 [https://webclub.tistory.com/394]
 
+[https://velog.io/@rohkorea86/this-%EC%99%80-callapplybind-%ED%95%A8%EC%88%98-mfjpvb9yap]
+
 ## 잘못된 예시
 
 아래처럼 설정하면 Student도 Person의 Prototype object를 바라보기 때문에 new하면 Person의 Object가 만들어진다.
