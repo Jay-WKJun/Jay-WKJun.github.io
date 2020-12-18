@@ -141,7 +141,9 @@ item들의 positioning과 spanning
             첫번째줄 1,2번째 열 공간을 차지한다.
             */
             grid-row: 1 / 2;
+
             grid-column: 1 / 3;
+            grid-column: 1 / span 2;
         }
         &--3{
             /*spanning법칙
@@ -178,3 +180,45 @@ spnning법칙은 명시적인 것이 항상 우선순위를 가진다.
 Grid는 자동으로 붙여지는 줄번호가 있어 그것을 사용할 수 있지만 우리가 이름을 붙여줄 수 있다.
 
 Grid-line과 Grid-Area는 naming이 가능하다.
+
+- Grid-line
+
+```css
+/*Grid에 생성되는 라인에 이름을 각각 붙여준다. 띄어쓰면 이름을 여러개 줄 수 있다.*/
+.container{
+    grid-template-rows: [header-start] 100px [header-end box-start] 200px [box-end main-start] 400px [main-end footer-start] 100px [footer-end];
+    /*repeat시엔 col-start 1, col-start 2, col-start 3 처럼 연속된 number가 붙는다.*/
+    grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 200px [grid-end]; 
+}
+
+.header{
+    /*사용할 땐 line number대신 이렇게 사용*/
+    grid-row : header-start / header-end;
+    grid-column: col-start 1 / col-end 3;
+}
+```
+
+- grid-area
+
+item별로 이름을 지정한다. 모든 item에 직접 이름을 설정해줘야되서 큰 gird에선 비효율적이다.
+
+```css
+.container{
+    grid-template-rows: 100px 200px 400px 100px;
+    grid-template-columns: repeat(3, 3fr) 200px;
+    /*위에서 16개의 item이 나오도록 설정했으므로
+    area 이름도 정확히 16개가 되어야 한다.
+    .으로 빈 공간을 만들어 줄 수 있다.*/
+    grid-template-areas: "head head head ."
+                        "box box box side"
+                        "main main main side"
+                        "foot foot foot foot"
+}
+.header{
+    /*head에 해당하는 grid item area에 적용된다.*/
+    grid-area: head;
+}
+.sider{
+    grid-area: side;
+}
+```
