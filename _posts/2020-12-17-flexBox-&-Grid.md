@@ -282,3 +282,30 @@ length가 min과 max사이에 있도록 설정한다.
 
 ## auto-fit auto-fill
 
+- auto-fill
+
+```css
+.container{
+    width: 1000px;
+    display: grid;
+    /*100px 짜리 10개 열을 채워준다. (보통은 정해진 갯수만 채우고 끝)*/
+    grid-template-columns: repeat(auto-fill, 100px);
+}
+```
+
+- auto-fit
+
+반응형 개발에 매우매우매우매우 중요한 기능이다.
+
+```css
+.container{
+    width: 1000px;
+    display: grid;
+    /*item갯수와 주어진 크기에 맞추어 알아서 grid 열을 만들어준다.*/
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+```
+
+1fr로 화면을 꽉채운 상태에서 화면을 줄이면 100px가 되었을 때, 개행하여 새로운 줄에서 auto-fit하여 깔끔하게 만들어준다.
+
+따라서 이것 하나면 어떠한 화면 크기에서도 원하는 display형태를 얻을 수 있다.
