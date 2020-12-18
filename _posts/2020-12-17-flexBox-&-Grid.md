@@ -222,3 +222,63 @@ item별로 이름을 지정한다. 모든 item에 직접 이름을 설정해줘�
     grid-area: side;
 }
 ```
+
+## implicit Grid
+
+명시적인 grid범위를 넘어선 item이 있을 경우 알아서 grid를 추가해 item을 정렬해 넣는데 default는 row로 개행해서 추가해준다.
+
+```css
+.container{
+    /*이렇게 설정하면 초과한 item들이 오른쪽에 정렬되어 추가된다.*/
+    grid-auto-flow:column;
+    /*이렇게 자동으로 추가된 grid의 크기도 설정할 수 있다.
+    .5fr은 5fr의 half를 뜻한다*/
+    grid-auto-columns: .5fr;
+}
+```
+
+## Aligning
+
+정렬엔 item정렬과 Grid Track 정렬이 있다.
+
+```css
+/*
+justify는 x축
+align은 y축
+
+item은 item의 align
+: 할당된 item공간안에서 item을 정렬한다.
+(self로 각 개별 item의 정렬을 override할 수 있다.)
+content는 track의 align
+: 전체 container 공간 안에서 Grid track을 정렬한다.
+*/
+
+.container{
+    justify-items: center / Stretch / end / start;
+    align-items: center / Stretch / end / start;
+
+    justify-content: center / start / end / space-between / space-around / space-evenly;
+    align-content: center / start / end / space-between / space-around / space-evenly;
+}
+```
+
+## min-content max-content minmax()
+
+- min-content
+
+item의 content중에 가장 최소한의 length만을 가진다.
+
+("max apple" 이 있다면 개행시키고 apple만큼의 length를 가진다.)
+
+- max-content
+
+item의 content중에 가장 최대한의 length를 가진다.
+
+("max apple" 이 있다면 개행하지 않은 최대의 length를 가진다.)
+
+- minmax(min max)
+
+length가 min과 max사이에 있도록 설정한다.
+
+## auto-fit auto-fill
+
