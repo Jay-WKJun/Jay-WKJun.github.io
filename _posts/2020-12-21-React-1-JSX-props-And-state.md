@@ -21,6 +21,12 @@ props와 state가 변하면 DOM을 refresh한다.
 
 오로지 저 두개만이 trigger이다.
 
+## stateless vs stateful components
+
+최소한의 stateful component로 business logic을 표현하고
+
+잘게 쪼갠 stateless functional component(단순 출력)에 logic의 결과를 뿌려 표현하면 managable한 react app이 된다.
+
 # JSX
 
 React의 synthetic sugar로 HTML같은 markup 형태의 코드를 사용할 수 있다.
@@ -218,37 +224,63 @@ ref : https://medium.com/@yeon22/react-js-react-js%EC%9D%98-state-%EC%82%AC%EC%9
 
 ## state hook
 
-class component에 state property를 붙여 사용하던 기존 방식에 추가 된 기능으로 
+v.16.8 이후 class component에 state property를 붙여 사용하던 기존 방식에 추가 된 기능으로 
 
 functional component 안에 state property를 붙여 사용할 수 있게 되었다.
 
 하지만 class based에 비해 사용법과 특성들에 차이점이 있다.
 
 ```javascript
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Person from './person/person.js';
 
-class App extends Component {
-    //처음 초기화한 state를 변경하면 react가 감지해 re-rendering한다
-    state = {
+const App = (props) => {
+    //param으로 init한다.
+    //currentState = state초기값, function that allow us to update state = state를 update할 수 있는 function
+    //출력 Arr: (currentState, functionForTheUpdateState)
+    const [ personsState, setPersons ] = useState({
         persons: [
             {name: "woo", age: "30"},
             {name: "Lee", age: "40"},
             {name: "K", age: "23"}
-        ]
-    }
-  render() {
+        ],
+        otherState: "some other value"
+    });
+
+    //!!!!class state와의 중요한 차이점!
+    /*
+        class : 달라진것만 덮어쓰고 끝
+        function : 달라지면 전부 덮어쓴다. = otherState가 없어짐
+        (해결책으로 useState를 한번 더 불러 아예 별개의 state를 만든다.)
+    */
+    console.log(personsState);
+
+    //별개의 state와 해당 state를 갱신할 function이 만들어 졌다.
+    const [otherState, setOhterState] = useState('some other value');
+
+    switchNameHandler = () => {
+      //더이상 class가 아니므로 this.setState가 치환된다.
+      setPersons({
+          persons: [
+            {name: "kim", age: "445"},
+            {name: "park", age: "123"},
+            {name: "A", age: "7865"}
+          ]
+      })
+    };
+
+    //this.state -> personsState (function의 this는 windowObject)
     return (
       <div className="App">
         <h1>Hi, I'm a React App</h1>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].name} />
-        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >My hobbie : LOL</Person>
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+        <button onClick={switchNameHandler}>Switch Name</button>
+        <Person name={personsState.persons[0].name} age={personsState.persons[0].name} />
+        <Person name={personsState.persons[1].name} age={personsState.persons[1].age} >My hobbie : LOL</Person>
+        <Person name={personsState.persons[2].name} age={personsState.persons[2].age} />
       </div>
     );
-  }
 }
 
 export default App;
