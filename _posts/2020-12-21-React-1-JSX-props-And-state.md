@@ -156,6 +156,74 @@ class Person extends Component{
 
 React.js에서 유동적인 데이터를 사용할 때 state라는 것을 사용. (컴포넌트 내에 별도의 상태가 필요할 때)
 
+this.setState()를 통해 state를 갱신한다.
+
+주어진 데이터와 원래 데이터를 비교해 바뀐 부분만 갱신하고 re-rendering한다.
+
+```javascript
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import Person from './person/person.js';
+
+class App extends Component {
+    //처음 초기화한 state를 변경하면 react가 감지해 re-rendering한다
+    state = {
+        persons: [
+            {name: "woo", age: "30"},
+            {name: "Lee", age: "40"},
+            {name: "K", age: "23"}
+        ],
+        //persons만 갱신했으므로 얘는 그대로 있는다.
+        otherState: "some other value"
+    };
+
+    //Naming convention : ~~~Handler는 eventHandler를 뜻한다.
+    switchNameHandler = () => {
+      //console.log('Was clicked!!');
+      
+      //DON'T DO THIS : this.state.persons[0].name = "Kim"
+      //setState()를 통하지 않고 바꾸면 react가 인식을 못해 re-rendering이 되지 않는다.
+
+      //바뀐 부분만 갱신하고 re-rendering한다
+      this.setState({
+          persons: [
+            {name: "kim", age: "445"},
+            {name: "park", age: "123"},
+            {name: "A", age: "7865"}
+          ]
+      })
+    };
+
+  render() {
+      //JSX가 HTML이 아니라는 증거('C'에 주목!)
+      //HTML: onclick="methodName"
+      //JSX: onClick={methodName}
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <button onClick={this.switchNameHandler}>Switch Name</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].name} />
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} >My hobbie : LOL</Person>
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+ref : https://medium.com/@yeon22/react-js-react-js%EC%9D%98-state-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95-fb47327e685b
+
+## state hook
+
+class component에 state property를 붙여 사용하던 기존 방식에 추가 된 기능으로 
+
+functional component 안에 state property를 붙여 사용할 수 있게 되었다.
+
+하지만 class based에 비해 사용법과 특성들에 차이점이 있다.
+
 ```javascript
 import React, { Component } from 'react';
 import logo from './logo.svg';
@@ -185,13 +253,3 @@ class App extends Component {
 
 export default App;
 ```
-
-ref : https://medium.com/@yeon22/react-js-react-js%EC%9D%98-state-%EC%82%AC%EC%9A%A9%EB%B0%A9%EB%B2%95-fb47327e685b
-
-## state hook
-
-class에 state property를 붙여 사용하던 기존 방식에 추가 된 기능으로 
-
-function 안에 state property를 붙여 사용할 수 있게 되었다.
-
-하지만 class based에 비해 사용법과 특성들에 차이점이 있다.
