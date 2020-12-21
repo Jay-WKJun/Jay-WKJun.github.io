@@ -369,3 +369,32 @@ class App extends Component {
 
 export default App;
 ```
+
+## style 적용
+
+간단하게 2가지의 방법이 있다.
+
+1. 외부의 css를 import
+
+css를 import하면 webpack이 알아서 html에 적용해준다.
+
+2. inline styles
+
+JSX안에 style을 직접 설정해준다.
+
+```javascript
+render(){
+    const style = {
+        backgroundColor: 'white',
+        font: 'inherit',
+        border: '1px solid blue',
+        padding: '8px',
+        cursor: 'pointer'
+    }
+
+    return (
+        <div style={style}>
+        </div>
+    )
+}
+```
