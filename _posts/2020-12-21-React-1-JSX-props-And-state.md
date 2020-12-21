@@ -23,6 +23,8 @@ props와 state가 변하면 DOM을 refresh한다.
 
 ## stateless vs stateful components
 
+![component_Learning]({{ "/assets/img/aboutReact/component_Learning.png" | relative_url }})
+
 최소한의 stateful component로 business logic을 표현하고
 
 잘게 쪼갠 stateless functional component(단순 출력)에 logic의 결과를 뿌려 표현하면 managable한 react app이 된다.
@@ -99,6 +101,8 @@ class Cmp extends Component { render () { return <div>some JSX</div> } }
 ## props
 
 불러온 component에 parameter를 보낼 때 props에 모든 parameter를 property로 붙여 보내주게 된다.
+
+![props]({{ "/assets/img/aboutReact/props.png" | relative_url }})
 
 ```javascript
 //Person.js
@@ -227,6 +231,8 @@ ref : https://medium.com/@yeon22/react-js-react-js%EC%9D%98-state-%EC%82%AC%EC%9
 v.16.8 이후 class component에 state property를 붙여 사용하던 기존 방식에 추가 된 기능으로 
 
 functional component 안에 state property를 붙여 사용할 수 있게 되었다.
+
+![useState]({{ "/assets/img/aboutReact/useState.png" | relative_url }})
 
 하지만 class based에 비해 사용법과 특성들에 차이점이 있다.
 
