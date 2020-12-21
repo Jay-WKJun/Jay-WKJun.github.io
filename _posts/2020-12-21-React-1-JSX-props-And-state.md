@@ -285,3 +285,87 @@ const App = (props) => {
 
 export default App;
 ```
+
+## Passing method & binding
+
+일반 var 뿐만 아니라 method도 넘길 수 있고 해당 method에 param을 달아 보내는 방법도 여러가지이다.
+
+거꾸로 입력받은 것을 받아와 state를 update하는 것도 가능하다.
+
+```javascript
+//Person.js
+import React from "react";
+const person = ( props ) => {
+    //1. click으로 정해진 값으로 변환
+    //2. input의 입력한 값으로 화면의 값 변환
+    return (
+        <div>
+            <p onclick={props.click}>I'm a Person name : {props.name}, age : {props:age}!</p>;
+            <p>{props.children}</p>
+            <input type="text" onChange={props.changed}>
+        </div>
+    );
+};
+export default person;
+
+//App.js
+class App extends Component {
+    state = {
+        persons: [
+            {name: "woo", age: "30"},
+            {name: "Lee", age: "40"},
+            {name: "K", age: "23"}
+        ],
+        otherState: "some other value"
+    };
+
+    switchNameHandler = (newName) => {
+      this.setState({
+          persons: [
+            {name: newName, age: "445"},
+            {name: "dd", age: "123"},
+            {name: "A", age: "7865"}
+          ]
+      })
+    };
+
+    //input 이라는 event의 value를 받아 state를 갱신한다.
+    nameChangeHandler = (event) => {
+        this.setState({
+          persons: [
+            {name: "woo", age: "445"},
+            {name: event.target.value, age: "123"},
+            {name: "A", age: "7865"}
+          ]
+        })
+    };
+
+  render() {
+      //2가지 pram을 붙여 보내는 방법
+      //1. .bind사용(call은 즉시 실행이라 ㄴㄴ)
+      //2. 익명함수를 씌우고 Handler에 param을 넣어 보내주는 방법
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <button onClick={this.switchNameHandler}>Switch Name</button>
+        <Person 
+            name={this.state.persons[0].name} 
+            age={this.state.persons[0].name} 
+            click={() => this.switchNameHandler('Arthur')}
+        ></Person>
+        <Person 
+            name={this.state.persons[1].name} 
+            age={this.state.persons[1].age} 
+            click={this.switchNameHandler.bind(this, "Kim")}>My hobbie : LOL</Person>
+        <Person 
+            name={this.state.persons[2].name} 
+            age={this.state.persons[2].age} 
+            changed={this.nameChangeHandler}
+            />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
