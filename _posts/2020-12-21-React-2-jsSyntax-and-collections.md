@@ -1,7 +1,7 @@
 ---
 layout: post
-title: React 2 jsSyntax in React And Collection
-tags: [react, javascript, collection, list]
+title: React 2 jsSyntax in React And Collection, Error
+tags: [react, javascript, collection, list, error boundary]
 excerpt_separator: <!--more-->
 ---
 
@@ -73,3 +73,50 @@ JSX를 iterate하여 생성한 후, 변경되면 React 특유의 Virtual DOM이�
 이때, 필요한게 JSX에 key로 같은 key를 가진 JSX를 대조하여 다른것만 바꾸는데 이 key가 없다면 React는 모든 JSX를 처음부터 다시 그려서 넣는다.
 
 따라서 iterate로 그린 JSX에 key property는 중요하다.
+
+# Error Boundary
+
+v.16부터 Error Boundary라는 개념이 생겼다. 일종의 Try Catch같은 것으로 custom하게 error hanlding 할 수 있다.
+
+```javascript
+import React, { Component } from "react";
+
+class ErrorBoundary extends Component {
+    state = {
+        hasError: false,
+        errorMessage: ''
+    }
+
+    //얘가 catch와 같은 역할을 한다.
+    componentDidCatch = (error, info) => {
+        this.setState({hasError: true, errorMessage: error})
+    }
+
+    render() {
+        if(this.state.hasError){
+            return <h1>{this.state.errorMessage}</h1>;
+        }else{
+            //에러가 없다면 children을 내보내 정상적으로 흘러가게 한다.
+            return this.props.children
+        }
+    }
+}
+
+export default ErrorBoundary;
+```
+
+```javascript
+//App.js
+import ErrorBoundary from "./ErrorBoundary";
+
+render(){
+    return(
+        //에러가 없다면 children을 return하기 때문에 ErrorBoundary안의 것들을 정상적으로 출력한다.
+        <ErrorBoundary>
+            <div>
+                <h1>It works!</h1>
+            </div>
+        </ErrorBoundary>
+    )
+}
+```
