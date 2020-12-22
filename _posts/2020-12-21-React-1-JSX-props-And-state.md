@@ -313,7 +313,9 @@ const person = ( props ) => {
     );
 };
 export default person;
+``` 
 
+```javascript
 //App.js
 class App extends Component {
     state = {
