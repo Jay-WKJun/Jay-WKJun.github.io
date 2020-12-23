@@ -130,6 +130,8 @@ functional component의 hook으로 class-based component의 hook의 componentDid
 
 - render가 발생할 때 마다(componentDidMount: 초기, componentDUpdate: 매번) effect가 실행된다.
 
+- 한 component에 여러개의 useEffect()를 정의할 수 있다.(발동 조건에 따라 여러 useEffect를 정의해 동시에 사용할 수 있다.)
+
 - 두번째 pram에 Array를 넣어 안에 있는 data가 변경시에만 useEffect()가 발동하도록 할 수 있다. (빈 배열을 넣으면 실행시 1번, unmount시에 1번만 실행된다.)
 
 - effect 함수의 return 값이 있는 경우 hook의 cleanup 함수로 인식하고 다음 effect가 실행되기 전에 실행된다.  (componentWillUnmount는 컴포넌트가 사라지기 전에 한 번만 실행했지만, cleanup 함수는 새로운 effect 실행 전에 매번 호출된다는 차이가 있다.)
@@ -143,8 +145,52 @@ const testFunc = props => {
     useEffect(() => {
         console.log("[testFunc]'s useEffect...")
         alert("[testFunc]'s useEffect...");
+
+        //componentWillUnmount()에 대응
+        return () => {
+            console.log("[testFunc]'s clean up work in useEffect()")
+        };
+
         //props의 persons가 변경되었을 때만 useEffect()가 발동
     }, [props.persons])
-}
 
+    //useEffect는 여러개를 정의할 수 있어 발동조건에 따라 여러 useEffect를 한번에 사용할 수 있다.
+    useEffect(() => {
+        console.log("2nd [testFunc]'s useEffect...")
+    })
+}
+```
+
+# Optimazation (Automatically)
+
+component 성능 최적화
+
+class-based component hook - shouldComponentUpdate()
+
+## React.memo()
+
+functional component hook - React.memo()
+
+shouldComponentUpdate()는 직접 조건을 설정해줘야하지만 React.memo()는 자동이다.
+
+모든 props와 state의 변화를 감지해 re-render 실행 여부를 판단한다.
+
+```javascript
+//shouldComponentUpdate()처럼 props나 state가 변할 시에만 re-render(useEffect()실행)하도록 할 수 있다.
+export default React.memo(testFunc);
+```
+
+## PureComponent
+
+React.memo()처럼 class-based component에서도 자동으로 확인해주는 것이 있다.
+
+모든 props와 state의 변화를 감지해 re-render 실행 여부를 판단한다.
+
+```javascript
+import React, { Purecomponent } from 'react'
+
+//extends Component -> extends Purecomponent
+class TestCls extends Purecomponent {
+    .......
+}
 ```
