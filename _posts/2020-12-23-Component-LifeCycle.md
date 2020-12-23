@@ -89,3 +89,62 @@ render()에 포함된 자식 component의 creation lifecycle까지 모두 끝내
 # Update
 
 ![componentLifeCycleUpdate]({{ "/assets/img/aboutReact/componentLifeCycleUpdate.png" | relative_url }})
+
+props가 update될 때만 getDerivedStateFromProps()가 발동된다. 그 후부터는 setState()되었을 때랑 동일하다.
+
+## shouldComponentUpate(nextProps, nextState)
+
+이 method만의 특징!!
+
+<u><b>May cancel updating process!!</b></u>
+
+즉, React가 변화된 것을 감지해도 re-render를 하게 할 것이냐 멈추게 할 것이냐를 이곳에서 return하여 결정할 수 있다.
+
+적절히 막으면 App의 성능을 향상시킬 수 있다.
+
+(하지만 잘못 막으면 component를 망가뜨릴 수도 있다.)
+
+## render()
+
+그리고 Update Child Component props까지
+
+## getSnapshotBeforeUpdate(prevProps, prevState)
+
+이전의 props과 state를 input으로 받아 snapshot object를 자유롭게 configure하여 return한다.
+
+DOM이 업데이트 직전에 호출된다. (이 라이프 사이클은 많이 필요하지 않지만, 렌더링되는 동안 수동으로 스크롤 위치를 유지해야할 때와 같은 경우에는 유용할 수 있다)
+
+## componentDidUpdate()
+
+컴포넌트 업데이트 직전에서 호출되는 메소드다. 새로운 props 또는 state가 반영되기 직전 새로운 값들을 받는다.
+
+create때와 마찬가지로 여러 side-effect 요청들을 모두 여기서 할 수 있다.
+
+마찬가지로 this.setState()를 sync하게 사용하면 무한 루프가 일어나게 되므로 사용하면 안된다.
+
+# useEffect()
+
+functional component의 hook으로 class-based component의 hook의 componentDidUpdate(), componentDidMount(), componentWillUnmount()와 대응한다.
+
+## control
+
+- render가 발생할 때 마다(componentDidMount: 초기, componentDUpdate: 매번) effect가 실행된다.
+
+- 두번째 pram에 Array를 넣어 안에 있는 data가 변경시에만 useEffect()가 발동하도록 할 수 있다. (빈 배열을 넣으면 실행시 1번, unmount시에 1번만 실행된다.)
+
+- effect 함수의 return 값이 있는 경우 hook의 cleanup 함수로 인식하고 다음 effect가 실행되기 전에 실행된다.  (componentWillUnmount는 컴포넌트가 사라지기 전에 한 번만 실행했지만, cleanup 함수는 새로운 effect 실행 전에 매번 호출된다는 차이가 있다.)
+
+```javascript
+import React, { useEffect } from 'react'
+
+const testFunc = props => {
+    //기동 가장 처음에는 반드시 한번은 발동된다.
+    //!!! 두번째 pram에 Array를 넣어 안에 있는 data가 변경시에만 useEffect()가 발동하도록 할 수 있다.
+    useEffect(() => {
+        console.log("[testFunc]'s useEffect...")
+        alert("[testFunc]'s useEffect...");
+        //props의 persons가 변경되었을 때만 useEffect()가 발동
+    }, [props.persons])
+}
+
+```
