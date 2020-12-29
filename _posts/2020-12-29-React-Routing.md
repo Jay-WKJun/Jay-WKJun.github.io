@@ -17,6 +17,20 @@ React는 하나의 HTML에 각 주소에 Routing된 Component들을 통해 새�
 
 ![ReactRouting]({{ "/assets/img/aboutReact/ReactRouting.PNG" | relative_url }})
 
+## server와 React의 통신 원리
+
+![RoutingAndtheServer]({{ "/assets/img/aboutReact/RoutingAndtheServer.PNG" | relative_url }})
+
+Server의 (모든 404Error 포함), routing을 설정한 <b>"base path"의 "index.html"</b>로 연결하여 보여준다.
+
+basepath를 설정해도 맞지 않는 경우가 있으니 basepath의 index.html을 바라보도록 따로 설정해줘야하는 경우도 있다.
+
+```javascript
+//basepath설정 방법
+<BrowserRouter basename="/react">
+</BrowserRouter>
+```
+
 ```javascript
 //별도로 install이 필요
 npm install --save react-router react-router-dom
