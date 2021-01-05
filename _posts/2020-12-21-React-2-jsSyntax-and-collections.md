@@ -64,7 +64,7 @@ render(){
 
 # Deal with Lists
 
-![ListAndKey]({{ "/assets/img/aboutReact/ListAndKey.png" | relative_url }})
+![ListAndKey]({{ "/assets/img/aboutReact/ListAndKey.PNG" | relative_url }})
 
 중요!!
 

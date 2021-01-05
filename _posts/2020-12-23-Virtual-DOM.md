@@ -15,7 +15,7 @@ React 내부 원리와 주의해야 할 점들 모음
 
 React의 가장 큰 특징으로 DOM에 변화를 줄 시 Virtual DOM을 render하고 Real DOM과 차이점을 비교해 변한 곳만 갱신한다.
 
-![HowReactUpdateDOM]({{ "/assets/img/aboutReact/HowReactUpdateDOM.png" | relative_url }})
+![HowReactUpdateDOM]({{ "/assets/img/aboutReact/HowReactUpdateDOM.PNG" | relative_url }})
 
 # Redering Adjacent JSX Elements
 

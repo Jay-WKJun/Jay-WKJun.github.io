@@ -15,7 +15,7 @@ React의 Component들에는 특정 LifeCylcle이 존재한다.
 
 이러한 생명주기 안에서는 특정 시점에 자동으로 호출되는 메서드가 있는데, 이를 영어론 <b>LifeCycle Hooks</b> 혹은 <b>라이프 사이클 이벤트</b>라고 한다.
 
-![componentLifeCycleTotal]({{ "/assets/img/aboutReact/componentLifeCycleTotal.png" | relative_url }})
+![componentLifeCycleTotal]({{ "/assets/img/aboutReact/componentLifeCycleTotal.PNG" | relative_url }})
 
 ad. v.16이후로 functional component에서 useState를 이용한 state이용이 가능해졌지만 아직까지 LifeCycle Hooks은 이용할 수 없다.<u>(only Class-based component)</u>
 
@@ -36,15 +36,15 @@ v16.3 이전과 이후로 크게 달라졌다.
 - componentWillUpdate 대체 메서드 추가 getSnapshotBeforeUpdate
 - componentDidCatch 컴포넌트 에러 핸들링 API 추가
 
-![componentLifeCycleAfter16]({{ "/assets/img/aboutReact/componentLifeCycleAfter16.png" | relative_url }})
+![componentLifeCycleAfter16]({{ "/assets/img/aboutReact/componentLifeCycleAfter16.PNG" | relative_url }})
 
 ## v.16.3 이전
 
-![componentLifeCycleBefore16]({{ "/assets/img/aboutReact/componentLifeCycleBefore16.png" | relative_url }})
+![componentLifeCycleBefore16]({{ "/assets/img/aboutReact/componentLifeCycleBefore16.PNG" | relative_url }})
 
 # Creation
 
-![componentLifeCycleCreation]({{ "/assets/img/aboutReact/componentLifeCycleCreation.png" | relative_url }})
+![componentLifeCycleCreation]({{ "/assets/img/aboutReact/componentLifeCycleCreation.PNG" | relative_url }})
 
 ## constructor(props)
 
@@ -88,7 +88,7 @@ render()에 포함된 자식 component의 creation lifecycle까지 모두 끝내
 
 # Update
 
-![componentLifeCycleUpdate]({{ "/assets/img/aboutReact/componentLifeCycleUpdate.png" | relative_url }})
+![componentLifeCycleUpdate]({{ "/assets/img/aboutReact/componentLifeCycleUpdate.PNG" | relative_url }})
 
 props가 update될 때만 getDerivedStateFromProps()가 발동된다. 그 후부터는 setState()되었을 때랑 동일하다.
 
