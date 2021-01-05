@@ -25,11 +25,11 @@ Grids : 특정 2차원 공간에 요소들을 정렬하는 기능
 
 훨씬 적은 코드로도 반응형 디자인을 구현할 수 있어 가독성이 높고 보이는 디자인도 깔끔하다.
 
-![flexBoxConcept]({{ "/assets/img/aboutCSS/flexBoxConcept.png" | relative_url }})
+![flexBoxConcept]({{ "/assets/img/aboutCSS/flexBoxConcept.PNG" | relative_url }})
 
 FlexBox의 concept
 
-![flexBoxPropertyOverview]({{ "/assets/img/aboutCSS/flexBoxPropertyOverview.png" | relative_url }})
+![flexBoxPropertyOverview]({{ "/assets/img/aboutCSS/flexBoxPropertyOverview.PNG" | relative_url }})
 
 FlexBox의 Property
 
@@ -81,7 +81,7 @@ default: 0, 1로 설정하면 줄어들지 않고 화면크기가 작아지면 �
 
 ![conceptOfGrid]({{ "/assets/img/aboutCSS/conceptOfGrid.PNG" | relative_url }})
 
-![GridOverview]({{ "/assets/img/aboutCSS/GridOverview.png" | relative_url }})
+![GridOverview]({{ "/assets/img/aboutCSS/GridOverview.PNG" | relative_url }})
 
 ## grid basic setting
 

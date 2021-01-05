@@ -13,7 +13,7 @@ CSS의 작동 원리에 대해서 알아본다.
 
 # When its Load up
 
-![WhenCSSLoadedUp]({{ "/assets/img/aboutCSS/WhenCSSLoaded.png" | relative_url }})
+![WhenCSSLoadedUp]({{ "/assets/img/aboutCSS/WhenCSSLoaded.PNG" | relative_url }})
 
 # How CSS is Parsed
 
@@ -27,7 +27,7 @@ user가 가지고 있는 개별 css정보
 
 author는 내가 써서 제공하는 css정보
 
-![CSSTip]({{ "/assets/img/aboutCSS/CSSTip.png" | relative_url }})
+![CSSTip]({{ "/assets/img/aboutCSS/CSSTip.PNG" | relative_url }})
 
 ```html
 <nav id="nav">
@@ -70,7 +70,7 @@ hover하는 순간 Element에 하나가 더 추가 되어 specificify 우선순�
 
 모든 크기 단위는 결국 pixel로 변환되어 적용된다.
 
-![CSSValueCalculation]({{ "/assets/img/aboutCSS/CSSValueCalculation.png" | relative_url }})
+![CSSValueCalculation]({{ "/assets/img/aboutCSS/CSSValueCalculation.PNG" | relative_url }})
 
 - em, rem
 
@@ -115,7 +115,7 @@ inherit시에는 20px * 150% = 30px로 적용되어 온다.
 
 ## box model
 
-![boxmodel]({{ "/assets/img/aboutCSS/boxmodel.png" | relative_url }})
+![boxmodel]({{ "/assets/img/aboutCSS/boxmodel.PNG" | relative_url }})
 
 여기서 box-sizing! 이란?
 
@@ -123,13 +123,13 @@ width와 height는 content의 pixel을 정하기 때문에 total length에 영�
 
 따라서
 
-![boxSizing]({{ "/assets/img/aboutCSS/boxSizing.png" | relative_url }})
+![boxSizing]({{ "/assets/img/aboutCSS/boxSizing.PNG" | relative_url }})
 
 box-sizing이라는 것을 사용해 total length를 조절할 수 있다.
 
 ## inline, block, inline-block
 
-![BlockTypes]({{ "/assets/img/aboutCSS/BlockTypes.png" | relative_url }})
+![BlockTypes]({{ "/assets/img/aboutCSS/BlockTypes.PNG" | relative_url }})
 
 { display: inline; } : 대표적으로 <span>이라는 태그의 성질로 content/text 크기만큼만 점유하고 동일 라인에 붙는다.
 '이 글씨는 두꺼운 효과를 주었다.'와 같이 text 내에 특정 부분에만 스타일을 간단히 줄때 많이 사용
