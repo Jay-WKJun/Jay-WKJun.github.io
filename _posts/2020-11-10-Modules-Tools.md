@@ -19,7 +19,7 @@ Module에서 Export 되는 것을 전부 public API라고 부른다.
 
 # Module식 개발
 
-![ModernJavascriptDevelopment]({{ "/assets/img/aboutJavaScript/ModernJacascriptDevelopment.png" | relative_url }})
+![ModernJavascriptDevelopment]({{ "/assets/img/aboutJavaScript/ModernJacascriptDevelopment.PNG" | relative_url }})
 
 # 과거 module
 
