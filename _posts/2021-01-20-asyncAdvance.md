@@ -7,7 +7,9 @@ excerpt_separator: <!--more-->
 
 # Asynchronous
 
-async에 대한 Memo
+async 관련해서 생각해볼 주제들, 추가설명들
+
+<!--more-->
 
 ## promise의 장점
 
