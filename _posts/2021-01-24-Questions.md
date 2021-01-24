@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Question stack overflow!
-tags: [question]
+tags: [question, questions]
 excerpt_separator: <!--more-->
 ---
 
@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 
 궁금한거 모음집...
 
-# parameter reassign problem
+## parameter reassign problem
 
 parameter reassign이 왜 optimization에 문제를...?
 
@@ -37,3 +37,19 @@ function f3(a) {
 function f4(a = 1) {
   // ...
 }
+
+## Do not include JavaScript filename extensions
+
+10.10 Do not include JavaScript filename extensions eslint: import/extensions
+
+Why? Including extensions inhibits refactoring, and inappropriately hardcodes implementation details of the module you're importing in every consumer.
+
+// bad
+import foo from './foo.js';
+import bar from './bar.jsx';
+import baz from './baz/index.jsx';
+
+// good
+import foo from './foo';
+import bar from './bar';
+import baz from './baz';
