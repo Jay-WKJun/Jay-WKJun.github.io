@@ -9,6 +9,8 @@ excerpt_separator: <!--more-->
 
 궁금한거 모음집...
 
+<!--more-->
+
 ## parameter reassign problem
 
 parameter reassign이 왜 optimization에 문제를...?
