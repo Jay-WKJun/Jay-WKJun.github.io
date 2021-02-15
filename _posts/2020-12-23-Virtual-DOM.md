@@ -21,11 +21,11 @@ React의 가장 큰 특징으로 DOM에 변화를 줄 시 Virtual DOM을 render�
 
 최상위 JSX tag를 나란히 하면 에러이기 때문에 이를 위한 여러가지 방법이 있다.
 
-1. Array
+- Array
 
 단점은 각 tag 들에 key를 필요로 한다는 점이다.
 
-2. Aux.js
+- Aux.js
 
 children을 바로 return 하는 외부 파일을 통해 나란히 나열된 여러 tag들을 한번에 return 할 수 있도록 해준다.
 
@@ -50,7 +50,7 @@ render(){
 }
 ```
 
-3. React.Fragment
+- React.Fragment
 
 React에서 제공하는 것을 사용한다.
 
@@ -68,7 +68,7 @@ render(){
 }
 ```
 
-4. HOC(Higher Order Component)
+- HOC(Higher Order Component)
 
 ```javascript
 //WithClass.js

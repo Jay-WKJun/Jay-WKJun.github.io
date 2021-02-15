@@ -21,9 +21,9 @@ ad. v.16이후로 functional component에서 useState를 이용한 state이용�
 
 ref.
 
-https://velog.io/@kyusung/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B5%90%EA%B3%BC%EC%84%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%99%80-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%EC%9D%B4%EB%B2%A4%ED%8A%B8#componentdidmount
+[https://velog.io/@kyusung/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B5%90%EA%B3%BC%EC%84%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%99%80-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%EC%9D%B4%EB%B2%A4%ED%8A%B8#componentdidmount]
 
-https://velopert.com/1130
+[https://velopert.com/1130]
 
 # version
 
@@ -36,11 +36,11 @@ v16.3 이전과 이후로 크게 달라졌다.
 - componentWillUpdate 대체 메서드 추가 getSnapshotBeforeUpdate
 - componentDidCatch 컴포넌트 에러 핸들링 API 추가
 
-![componentLifeCycleAfter16]({{ "/assets/img/aboutReact/componentLifeCycleAfter16.PNG" | relative_url }})
+![componentLifeCycleAfter16]({{ "/assets/img/aboutReact/componentLifeCycleAfter16.jpg" | relative_url }})
 
 ## v.16.3 이전
 
-![componentLifeCycleBefore16]({{ "/assets/img/aboutReact/componentLifeCycleBefore16.PNG" | relative_url }})
+![componentLifeCycleBefore16]({{ "/assets/img/aboutReact/componentLifeCycleBefore16.png" | relative_url }})
 
 # Creation
 
