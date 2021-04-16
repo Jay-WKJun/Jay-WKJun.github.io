@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Vanilla Coding 1st Project scheme
+title: Vanilla Coding 1st Project Timeline
 tags: [VanillaCoding, Project]
 excerpt_separator: <!--more-->
 ---
@@ -9,16 +9,14 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-# 소켓 룸
+# 4/16
 
-하나의 서버에서 여러 소켓 방을 두어 각자의 협업장을 둔다.
+- 합의점들
+  - git commit message 합의
+  - css classname convention 합의
+  - scss module => styled component 변경
 
-서버 룸 이름 - 만든 방의 _id를 소켓 방 이름으로 사용
-
-# 토큰
-
-jwt Token을 사용
-
-- AccessToken
-
-# 
+- 작업들
+  - 배경화면 레이아웃
+  - 로그인 레이아웃
+  - 메인 페이지 레이아웃
