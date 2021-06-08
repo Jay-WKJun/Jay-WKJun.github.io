@@ -3,7 +3,7 @@ layout: post
 title: Ninja Run
 img: "assets/img/portfolio/NinjaRun/ninja6_hanging_fit.png"
 date: May, 22 2021
-tags: [NinjaRun, Project]
+tags: [NinjaRun, Portfolio, Project]
 ---
 
 # 🐱‍👤Ninja Run

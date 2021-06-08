@@ -4,7 +4,7 @@ title: Cake
 feature-img: "assets/img/portfolio/cake.png"
 img: "assets/img/portfolio/cake.png"
 date: 24 April 2021
-tags: [Lorem, Ipsum, Portfolio]
+tags: [Gitcord, Portfolio, Project]
 ---
 
 # GitCord
