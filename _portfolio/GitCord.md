@@ -6,9 +6,9 @@ date: 24 April 2021
 tags: [Gitcord, Portfolio, Project]
 ---
 
-<p align="center"><img src="../assets/img/portfolio/GitCord/GitCordIntro.png"></p>
-
 # GitCord
+
+<p align="center"><img src="../assets/img/portfolio/GitCord/GitCordIntro.png" /></p>
 
 GitCord는 하나의 방에 여러 유저들이 모여 **실시간으로 음성, 화상으로 소통하며 코드를 작성할 수 있는 웹 어플리케이션입니다.**
 
@@ -25,7 +25,40 @@ GitCord는 하나의 방에 여러 유저들이 모여 **실시간으로 음성,
 3. 블루오션: 온라인 화상 플랫폼 중에서도 기존의 Zoom이나 다른 화상 플랫폼을 클론하기 보단 <u>**시중에 없는 아이템을 찾아 고민**</u>했고
 **Github나 Codepen같은 code editing 플랫폼을 <u>실시간</u>으로 함께 소통할 수 있는 플랫폼**이 있으면 좋겠다는 생각을 가지고 기획 되었습니다.
 
-## How to use
+# Features
+
+- 로컬 회원 가입 / 로그인 기능
+- 구글 소셜 로그인
+- 캠 기능 (방장만 가능)
+- 마이크 기능 및 음소거 기능
+  (모든 유저는 마이크 기능을 사용할 수 있으며, 방장은 마이크와 함께 캠을 끌 수 있습니다)
+- 코드 에디터 기능 (자바스크립트 지원)
+- 채팅 기능
+- 코드 저장하기 기능
+- 저장한 코드 불러오기 기능
+- 채팅 기능
+- 방 URL 클립보드 copy 기능
+- 화이트 보드 기능 (color picker & All clear 내장)
+
+# Demo
+
+## Enter Room
+
+<img src="../assets/img/portfolio/GitCord/loginAndEnterRoom.gif" />
+
+## Type Code & Chat
+
+<img src="../assets/img/portfolio/GitCord/typeCodeAndChat.gif" />
+
+## White Board
+
+<img src="../assets/img/portfolio/GitCord/whiteBoard.gif" />
+
+## Delete & Load code
+
+<img src="../assets/img/portfolio/GitCord/deleteAndLoadCode.gif" />
+
+# How to use
 
 Client
 ```
@@ -41,7 +74,7 @@ Server
   npm run dev
 ```
 
-## stack
+# stack
 
 Clinet
   - React
@@ -62,21 +95,6 @@ Server
   - mongoDB Atlas
   - mongoose
   - socket.io
-
-## Features
-
-- 로컬 회원 가입 / 로그인 기능
-- 구글 소셜 로그인
-- 캠 기능 (방장만 가능)
-- 마이크 기능 및 음소거 기능
-  (모든 유저는 마이크 기능을 사용할 수 있으며, 방장은 마이크와 함께 캠을 끌 수 있습니다)
-- 코드 에디터 기능 (자바스크립트 지원)
-- 채팅 기능
-- 코드 저장하기 기능
-- 저장한 코드 불러오기 기능
-- 채팅 기능
-- 방 URL 클립보드 copy 기능
-- 화이트 보드 기능 (color picker & All clear 내장)
 
 ## Deploy
 
@@ -182,4 +200,3 @@ Server
   4. localhost:4444에 실행 후 ngrok을 통한 port forwading -> http만 forwarding 됨으로 y-codemirror 서버 설정 실패
 
   5. 새로운 websocket 서버를 배포 (아직 시도 해보지 않음...)
-
