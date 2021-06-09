@@ -1,11 +1,13 @@
 ---
 layout: post
-title: Cake
-feature-img: "assets/img/portfolio/cake.png"
+title: GitCord
+feature-img: "assets/img/portfolio/GitCord/GitCordIntro.png"
 img: "assets/img/portfolio/cake.png"
 date: 24 April 2021
 tags: [Gitcord, Portfolio, Project]
 ---
+
+<p align="center"><img src="../assets/img/portfolio/GitCord/GitCordIntro.png"></p>
 
 # GitCord
 
