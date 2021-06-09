@@ -8,21 +8,21 @@ tags: [NinjaRun, Portfolio, Project]
 
 # 🐱‍👤Ninja Run
 
-<p align="center"><img src="./assets/img/portfolio/NinjaRun/ninja6_hanging_fit.png" width="100"></p>
+<p align="center"><img src="../assets/img/portfolio/NinjaRun/ninja6_hanging_fit.png" width="100"></p>
 
 ### Rope swing And Jump Over!
 
 스파이더맨 처럼 로프를 타고 장애물을 넘어가는 게임입니다!
 
-👉Deploy Address: https://www.ninjarun.fun/
+👉Deploy Address: <a href="https://www.ninjarun.fun/">https://www.ninjarun.fun/</a>
 
-👉Frontend Address: https://github.com/Jay-WKJun/ninjaRun
+👉Frontend Address: <a href="https://github.com/Jay-WKJun/ninjaRun">https://github.com/Jay-WKJun/ninjaRun</a>
 
-👉Backend Address: https://github.com/Jay-WKJun/ninjaRunBack
+👉Backend Address: <a href="https://github.com/Jay-WKJun/ninjaRunBack">https://github.com/Jay-WKJun/ninjaRunBack</a>
 
 ## Demo
 
-<img src="./assets/img/portfolio/NinjaRun/mainDemo.gif" />
+<img src="../assets/img/portfolio/NinjaRun/mainDemo.gif" />
 
 (게임화면의 일부를 촬영했습니다)
 
