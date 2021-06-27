@@ -17,7 +17,7 @@ React의 핵심 feature! Virtual DOM! 정말 기가막히게 빠른걸까??
 
 실제론 어떤 일부 DOM element를 한 번 변화시킨다고 했을 때,
 
-Virtual DOM없이 DOM에 직접 접근해서 바꾸는게 훨씬 빠르다고한다.
+Virtual DOM없이 DOM에 직접 접근해서 바꾸는게 훨씬 빠르다고 한다.
 
 ### reference
 
@@ -77,7 +77,7 @@ Virtual DOM은 브라우저 화면에 그려지는 Real DOM을 추상화한 객�
 
 대략 이런식으로 생겼다.
 
-```javascript
+```html
 // Real DOM
 <ul class="fruits">
     <li>Apple</li>
@@ -162,7 +162,7 @@ const cost = (reflow + repaint) * n
 
 ## 원리
 
-만약 10개 정도의 변화가 발생했다면, 10번 Real DOM 갱신을 하는 것이 아닌 변화들을 Virtual DOM에 모두 적용시키고 단 1번! Real DOM을 갱신하는 원리이다.
+만약 10개 정도의 변경사항이 있다면, 10번 Real DOM 갱신을 하는 것이 아닌 변경사항들을 Virtual DOM에 모두 적용시키고 단 1번! Real DOM을 갱신하는 원리이다.
 
 **즉, 바뀔때마다 Real Dom을 새로 그리는게 아닌, 일정 시간 혹은 횟수의 변화들을 모아서 단 1번만 re-render할 수 있도록 Optimization 해주는 것이다.**
 
@@ -179,9 +179,9 @@ const cost = (VDOM refresh) * n + (reflow + repaint)
 
 virtual DOM은 render할 필요가 없기 때문에 **reflow, repaint 과정이 필요없어** 훨씬 빠르게 갱신이 되고, 컴퓨터 자원도 훨씬 덜 소모한다.
 
-일정 시간동안 모인 변화들은 이제 Real Dom을 갱신할 준비가 되었다...!
+일정 시간동안 모인 변경사항들은 이제 Real Dom을 갱신할 준비가 되었다...!
 
-이제 Real DOM과 diffing하여 바꿀 곳을 확인하고 한번에 적용한다.
+이제 Old Virtual DOM과 diffing하여 바꿀 곳을 확인하고 Real DOM에 한번에 적용한다.
 
 # batching 자동화
 
@@ -209,9 +209,7 @@ virtual DOM은 render할 필요가 없기 때문에 **reflow, repaint 과정이 
 
 하지만 그럼에도 React를 사용하는 이유는
 
-**component의 재사용성**과 **깔끔한 코드 관리**
-
-**jsx와 Data flow의 직관성** 때문이 아닌가 싶다.
+**component의 재사용성**과 **깔끔한 코드 관리**, **jsx와 Data flow의 직관성** 때문이라고 생각한다.
 
 # 앞으로의 React
 
