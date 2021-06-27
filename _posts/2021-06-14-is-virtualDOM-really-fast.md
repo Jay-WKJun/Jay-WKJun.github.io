@@ -44,10 +44,18 @@ React도 결국엔 Real DOM을 update해야한다. 그 과정에서 Virtual DOM�
 DOM 수정 -> Render(reflow, repaint)
 
 2. React
-Virtual DOM 수정 -> Virtual DOM vs Real DOM (diffing) -> 바뀐 곳 Render(reflow, repaint)
+Virtual DOM 수정 -> Virtual DOM vs Virtual DOM (diffing) -> 바뀐 곳 Render(reflow, repaint)
 ```
 
 그렇다...! Render전에 Virtual DOM의 수정과 Diffing 과정이 추가되기 때문이다.
+
+### diffing algorithm reference
+
+[](https://minemanemo.tistory.com/120)
+
+[](https://yeoulcoding.tistory.com/147)
+
+[](https://dev.to/koolkishan/what-is-virtual-dom-how-virtual-dom-works-what-is-reconciliation-what-is-diffing-algorithm-what-makes-react-so-fast-327a)
 
 ## 그럼에도 React
 
@@ -65,7 +73,7 @@ Virtual DOM 수정 -> Virtual DOM vs Real DOM (diffing) -> 바뀐 곳 Render(ref
 
 본격적으로 이유를 알아보기 전에 Virtual DOM이 무엇인지 알아보자!
 
-Virtual DOM은 브루우저 화면에 그려지는 Real DOM을 추상화한 객체이다.
+Virtual DOM은 브라우저 화면에 그려지는 Real DOM을 추상화한 객체이다.
 
 대략 이런식으로 생겼다.
 
