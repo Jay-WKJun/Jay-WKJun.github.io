@@ -227,8 +227,8 @@ Browser들의 발전이나 Svelte의 출현을 보면
 
 # ref
 
-[](https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster)
+[https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster](https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster)
 
-[](https://svelte.dev/blog/virtual-dom-is-pure-overhead)
+[https://svelte.dev/blog/virtual-dom-is-pure-overhead](https://svelte.dev/blog/virtual-dom-is-pure-overhead)
 
-[](https://dev.to/karthikraja34/what-is-virtual-dom-and-why-is-it-faster-14p9)
+[https://dev.to/karthikraja34/what-is-virtual-dom-and-why-is-it-faster-14p9](https://dev.to/karthikraja34/what-is-virtual-dom-and-why-is-it-faster-14p9)
