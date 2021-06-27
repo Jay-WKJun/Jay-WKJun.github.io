@@ -53,13 +53,13 @@ Virtual DOM 수정 -> Virtual DOM vs Real DOM (diffing) -> 바뀐 곳 Render(ref
 
 ![whyReact]({{ "/assets/img/aboutReact/whyReact.png" | relative_url }})
 
-**그렇다면 왜 React를 계속 사용할까??**
+<u>그렇다면 왜 React를 계속 사용할까??</u>
 
 그 이유가 오늘 Post의 주제이다.
 
-1. 어떤 상황에서도 준수한 성능을 보여주기 때문이다.
+- **어떤 상황에서도 준수한 성능을 보여주기 때문이다.**
 
-2. 귀찮은 batching을 자동으로 해준다!
+- **귀찮은 batching을 자동으로 해준다!**
 
 # Virtual DOM
 
