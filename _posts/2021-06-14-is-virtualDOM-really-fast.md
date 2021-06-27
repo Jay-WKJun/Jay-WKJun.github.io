@@ -77,7 +77,7 @@ Virtual DOM은 브라우저 화면에 그려지는 Real DOM을 추상화한 객�
 
 대략 이런식으로 생겼다.
 
-```HTML
+```javascript
 // Real DOM
 <ul class="fruits">
     <li>Apple</li>
