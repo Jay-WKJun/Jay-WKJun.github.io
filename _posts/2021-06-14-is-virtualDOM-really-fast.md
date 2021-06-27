@@ -41,10 +41,10 @@ React도 결국엔 Real DOM을 update해야한다. 그 과정에서 Virtual DOM�
 
 ```
 1. Vanilla javascript
-DOM 수정 -> Render(reflow, repaint)
+DOM 수정 Event -> Render(reflow, repaint)
 
 2. React
-Virtual DOM 수정 -> New Virtual DOM vs Old Virtual DOM (diffing) -> 바뀐 곳 Render(reflow, repaint)
+DOM 수정 Event -> Virtual DOM 수정 -> New Virtual DOM vs Old Virtual DOM (diffing) -> 바뀐 곳 Render(reflow, repaint)
 ```
 
 그렇다...! Render전에 <u>Virtual DOM의 수정과 Diffing 과정이 추가</u>되기 때문이다.
