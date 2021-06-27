@@ -29,6 +29,10 @@ Virtual DOM없이 DOM에 직접 접근해서 바꾸는게 훨씬 빠르다고한
 
 (SVELTE 공식 게재글이니 한번 읽어보면 좋을 것 같습니다)
 
+[how exactly is reacts virtual dom faster, from stackoverflow](https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster)
+
+(Exactly하게 설명된 답변이 있습니다.)
+
 ## 왜...?
 
 React도 결국엔 Real DOM을 update해야한다. 그 과정에서 Virtual DOM이 끼기 때문이다.
@@ -65,7 +69,7 @@ Virtual DOM은 브루우저 화면에 그려지는 Real DOM을 추상화한 객�
 
 대략 이런식으로 생겼다.
 
-```
+```HTML
 // Real DOM
 <ul class="fruits">
     <li>Apple</li>
@@ -74,7 +78,7 @@ Virtual DOM은 브루우저 화면에 그려지는 Real DOM을 추상화한 객�
 </ul>
 ```
 
-```
+```javascript
 // Virtual DOM representation
 {
   type: "ul",
@@ -109,19 +113,19 @@ Virtual DOM은 브루우저 화면에 그려지는 Real DOM을 추상화한 객�
 
 ## VDOM의 목적
 
-VDOM의 목적은 state의 변화를 감지하고 그것을 re-render하는데에 있다.
+VDOM의 목적은 **state의 변화를 감지하고 그것을 re-render하는데에 있다.**
 
 이러한 Approach는 다른 framework에서 각기 다른 방법으로 접근했다.
 
-VDOM은 state의 변화와 DOM의 변화를 VDOM에 그대로 그리고 그것을 Real DOM과 비교해 바꾸는 방식으로 접근했다.
+VDOM은 state의 변화를 VDOM에 그대로 적용하고 그것을 Real DOM과 비교해 바꾸는 방식으로 접근했다.
 
 ### AngularJS의 "Dirty checking"
 
-한편, AngularJS에선 state를 만들면 해당 state의 "watcher"라는 일종의 Detector도 같이 만들게 된다.
+한편, AngularJS에선 state를 만들면 해당 state의 **"watcher"**라는 일종의 Detector도 같이 만들게 된다.
 
-이제 app에서 어떤 일이 벌어지면 모든 "watcher"를 탐색하여 state의 변화를 감지하고 그것을 re-render한다.
+이제 app에서 어떤 일이 벌어지면 <u>모든 "watcher"를 탐색</u>하여 state의 변화를 감지하고 그것을 re-render한다.
 
-이 때, 모든 "watcher"를 탐색하는 과정을 "Dirty checking"이라고 한다.
+이 때, 모든 "watcher"를 탐색하는 과정을 **"Dirty checking"**이라고 한다.
 
 (여기서 state가 많아진다면...? ㅎㅎ)
 
@@ -137,16 +141,16 @@ DOM을 갱신하는데 Virtual DOM이 끼어버리면 DOM 갱신이 느려지는
 
 하지만 그 변화가 100개... 1000개가 된다면...?
 
-cost가 기하급수적으로 늘어날 것이다...!
+<u>cost가 기하급수적</u>으로 늘어날 것이다...!
 
 특히, 가장 computer 자원을 많이 소모하는 reflow와 repaint를 변화마다 일일히 해버리게 될 것이다.
 
-```
+```javascript
 // Real DOM
-cost = (reflow + repaint) * n
+const cost = (reflow + repaint) * n
 ```
 
-하지만 virtual DOM은 그 변화가 많아져도 그 성능을 일정하게 유지해준다!
+하지만 **Virtual DOM은 그 변화가 많아져도 그 성능을 일정하게 유지해준다!**
 
 ## 원리
 
@@ -154,9 +158,9 @@ cost = (reflow + repaint) * n
 
 **즉, 바뀔때마다 Real Dom을 새로 그리는게 아닌, 일정 시간 혹은 횟수의 변화들을 모아서 단 1번만 re-render할 수 있도록 Optimization 해주는 것이다.**
 
-```
+```javascript
 // React
-cost = (VDOM refresh) * n + (reflow + repaint)
+const cost = (VDOM refresh) * n + (reflow + repaint)
 
 여기서 cost는 (VDOM refresh) <<<<<<<<<< (reflow + repaint)
 ```
@@ -165,9 +169,7 @@ cost = (VDOM refresh) * n + (reflow + repaint)
 
 (컴퓨터 자원의 소모는 [여러번의 reflow > 한번의 큰 reflow] 이다)
 
-virtual DOM은 render할 필요가 없기 때문에 reflow, repaint 과정이 필요없어 훨씬 빠르게 갱신이 되고, 컴퓨터 자원도 훨씬 덜 소모한다.
-
-(계속 강조하듯이, reflow, repaint 과정은 컴퓨터 자원을 가장 많이 소모하는 작업 중 하나이다.)
+virtual DOM은 render할 필요가 없기 때문에 **reflow, repaint 과정이 필요없어** 훨씬 빠르게 갱신이 되고, 컴퓨터 자원도 훨씬 덜 소모한다.
 
 일정 시간동안 모인 변화들은 이제 Real Dom을 갱신할 준비가 되었다...!
 
@@ -178,6 +180,8 @@ virtual DOM은 render할 필요가 없기 때문에 reflow, repaint 과정이 �
 ![AutomaticWrapping]({{ "/assets/img/gifs/automaticWrapping.gif" | relative_url }})
 
 사실 vanilla javascript로도 DOM 변경 사항들의 batching이 충분히 가능하다.
+
+(여기서 batching이란 변경 사항을 바로 적용하지 않고 모아두는 것을 말한다.)
 
 그렇다면 react를 쓸 이유가 없는데...?
 
@@ -215,8 +219,8 @@ Browser들의 발전이나 Svelte의 출현을 보면
 
 # ref
 
-(https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster)
+[](https://stackoverflow.com/questions/61245695/how-exactly-is-reacts-virtual-dom-faster)
 
-(https://svelte.dev/blog/virtual-dom-is-pure-overhead)
+[](https://svelte.dev/blog/virtual-dom-is-pure-overhead)
 
-(https://dev.to/karthikraja34/what-is-virtual-dom-and-why-is-it-faster-14p9)
+[](https://dev.to/karthikraja34/what-is-virtual-dom-and-why-is-it-faster-14p9)
