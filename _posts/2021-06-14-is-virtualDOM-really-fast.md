@@ -47,7 +47,7 @@ DOM 수정 -> Render(reflow, repaint)
 Virtual DOM 수정 -> New Virtual DOM vs Old Virtual DOM (diffing) -> 바뀐 곳 Render(reflow, repaint)
 ```
 
-그렇다...! Render전에 Virtual DOM의 수정과 Diffing 과정이 추가되기 때문이다.
+그렇다...! Render전에 <u>Virtual DOM의 수정과 Diffing 과정이 추가</u>되기 때문이다.
 
 ### diffing algorithm reference
 
