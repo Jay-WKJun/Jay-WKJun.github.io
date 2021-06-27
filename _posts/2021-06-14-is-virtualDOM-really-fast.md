@@ -51,11 +51,11 @@ DOM 수정 Event -> Virtual DOM 수정 -> New Virtual DOM vs Old Virtual DOM (di
 
 ### diffing algorithm reference
 
-[](https://minemanemo.tistory.com/120)
+[https://minemanemo.tistory.com/120](https://minemanemo.tistory.com/120)
 
-[](https://yeoulcoding.tistory.com/147)
+[https://yeoulcoding.tistory.com/147](https://yeoulcoding.tistory.com/147)
 
-[](https://dev.to/koolkishan/what-is-virtual-dom-how-virtual-dom-works-what-is-reconciliation-what-is-diffing-algorithm-what-makes-react-so-fast-327a)
+[https://dev.to/koolkishan/what-is-virtual-dom-how-virtual-dom-works-what-is-reconciliation-what-is-diffing-algorithm-what-makes-react-so-fast-327a](https://dev.to/koolkishan/what-is-virtual-dom-how-virtual-dom-works-what-is-reconciliation-what-is-diffing-algorithm-what-makes-react-so-fast-327a)
 
 ## 그럼에도 React
 
