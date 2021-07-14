@@ -35,7 +35,9 @@ Virtual DOM없이 DOM에 직접 접근해서 바꾸는게 훨씬 빠르다고 �
 
 ## 왜...?
 
-React도 결국엔 Real DOM을 update해야한다. 그 과정에서 Virtual DOM이 끼기 때문이다.
+그 과정에서 Virtual DOM이 끼기 때문이다.
+
+React도 결국엔 Real DOM을 update해야한다.
 
 간단히 수정과정을 도식화 해본 다면,
 
