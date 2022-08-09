@@ -18,7 +18,7 @@ excerpt_separator: <!--more-->
 
 npm으로 간단하게 설치해서 사용할 수 있는 react-code-editor 개발기입니다!
 
-**2022년 1월 ~ 3월 v.1 개발** 그리고 **4월 ~ 5월 v.2 개발**로 좀 늦은 후기이지만, 올려보겠습니다!
+**2022년 1월 ~ 3월 v.1 개발** 그리고 **4월 ~ 5월 v.2 개발**로 좀 늦은 후기이지만, 올려보겠습니다! 🙌
 
 링크와 사진 필요.
 
@@ -56,3 +56,107 @@ react-code-editor 라이브러리는 Visual Studio Code같은 현업에서도 �
 메모장이나 포스트 잇처럼 사용해주셨으면 하는 마음이었습니다. 😊
 
 (의도대로라면 chrome extension으로 확장도 가능하지 않을까?! 라는 생각도 있습니다.)
+
+## ⚙️ 차별화된 특징
+
+여러 code editor가 있지만 그 중에서도 가장 특별하고 유용한 기능을 생각했습니다! 🤩
+
+- custom theme, code syntax styling 기능
+
+사용자가 code-editor의 전체적인 테마와 code syntax들의 style을 적용할 수 있도록 지원하고 있습니다!
+
+아래는 customTheme을 적용한 데모입니다.
+
+![customThemeDemo]({{ "../assets/img/reactCodeEditor/custom_theme_demo.png" | relative_url }})
+
+```tsx
+import React from "react";
+import "./App.css";
+import CodeEditor, { addTheme } from "react-web-code-editor";
+
+/* this custom theme name is "customeTheme" */
+addTheme("customTheme", {
+  backgroundColor: "Black",
+  caretColor: "White",
+  textColor: "LightGreen",
+  keywords: {
+    boolean: "Pink",
+    number: "Yellow",
+    string: "Green",
+    comment: "Violet",
+    function: "White",
+    keyword: "Blue",
+    ["class-name"]: "LightCoral",
+    property: "MediumSeaGreen",
+    operator: "Cyan",
+    punctuation: "Red",
+
+    /* in Example, you can see upper style from this line has been applied */
+
+    prolog: "AliceBlue",
+    doctype: "Beige",
+    variable: "Wheat",
+    cdata: "Brown",
+    tag: "Olive",
+    constant: "DeepPink",
+    symbol: "Indigo",
+    deleted: "Blue",
+    selector: "DarkGreen",
+    ["attr-name"]: "ForestGreen",
+    char: "Ivory",
+    builtin: "Linen",
+    inserted: "MediumSpringGreen",
+    entity: "BurlyWood",
+    url: "RoyalBlue",
+    ["language-css"]: "AliceBlue",
+    style: "Chocolate",
+    /* you can use "Hex color code" */
+    atrule: "#a74a4a",
+    ["attr-value"]: "#000000",
+    /* you can use "rgb" or "rgba" code */
+    regex: "rgb(0,0,0)",
+    important: "rgba(167,74,74,0.6)",
+  },
+});
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        {/* now, you can use "customTheme" */}
+        <CodeEditor theme="customTheme" width="210px" height="210px" />
+      </header>
+    </div>
+  );
+}
+
+export default App;
+```
+
+그 외의 기능들은 라이브러리 [README](https://github.com/Jay-WKJun/react-web-code-editor)에서 자세히 소개하고 있습니다! 👈
+
+# 📚 개발 Log
+
+여기선 개발하면서 있었던 여러가지 이야기를 해보려고 합니다.
+
+## pre 태그
+
+> HTML <pre> 요소는 미리 서식을 지정한 텍스트를 나타내며, HTML에 작성한 내용 그대로 표현합니다. 텍스트는 보통 고정폭 글꼴을 사용해 렌더링하고, 요소 내 공백문자를 그대로 유지합니다. - MDN
+
+textArea를 통해 입력한 글자를 그대로 표현하기 위해 pre 태그를 활용했습니다.
+
+<div style="display: flex">
+
+<img src="../assets/img/reactCodeEditor/code_with_div.png">
+
+<img src="../assets/img/reactCodeEditor/code_with_pre.png">
+
+</div>
+
+TODO: (webpack -> rollup 적용기)
+
+(cjs와 esm의 설명, 왜 esm으로 할려고 했는지, tree shaking은 뭔지)
+
+(직접 적용해보니 이랬다는 후기)
+
+# 후기
