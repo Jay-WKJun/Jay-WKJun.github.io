@@ -1,6 +1,6 @@
 ---
 layout: post
-title: react-code-editor 개발기
+title: react-web-code-editor 개발기
 tags:
   [
     TypeScript,
@@ -16,11 +16,11 @@ tags:
 excerpt_separator: <!--more-->
 ---
 
-npm으로 간단하게 설치해서 사용할 수 있는 react-code-editor 개발기입니다!
+npm으로 간단하게 설치해서 사용할 수 있는 react-web-code-editor 개발기입니다!
 
 **2022년 1월 ~ 3월 v.1 개발** 그리고 **4월 ~ 5월 v.2 개발**로 좀 늦은 후기이지만, 올려보겠습니다! 🙌
 
-링크와 사진 필요.
+![npm_README]({{ "../assets/img/reactCodeEditor/npm_readme.png" | relative_url }})
 
 <!--more-->
 
@@ -133,7 +133,7 @@ function App() {
 export default App;
 ```
 
-그 외의 기능들은 라이브러리 [README](https://github.com/Jay-WKJun/react-web-code-editor)에서 자세히 소개하고 있습니다! 👈
+그 외의 기능들은 라이브러리 소개는 github repo의 [README](https://github.com/Jay-WKJun/react-web-code-editor)에서 자세히 소개하고 있습니다! 👈
 
 # 📚 개발 Log
 
@@ -144,6 +144,8 @@ export default App;
 > HTML <pre> 요소는 미리 서식을 지정한 텍스트를 나타내며, HTML에 작성한 내용 그대로 표현합니다. 텍스트는 보통 고정폭 글꼴을 사용해 렌더링하고, 요소 내 공백문자를 그대로 유지합니다. - MDN
 
 textArea를 통해 입력한 글자를 그대로 표현하기 위해 pre 태그를 활용했습니다.
+
+### div와 pre의 차이
 
 <div style="display: flex">
 
