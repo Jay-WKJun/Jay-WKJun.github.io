@@ -147,17 +147,48 @@ textArea를 통해 입력한 글자를 그대로 표현하기 위해 pre 태그�
 
 ### div와 pre의 차이
 
-<div style="display: flex">
-
-<img src="../assets/img/reactCodeEditor/code_with_div.png">
-
-<img src="../assets/img/reactCodeEditor/code_with_pre.png">
-
-</div>
+div  | pre
+------------- | -------------
+![div](../assets/img/reactCodeEditor/code_with_div.png)  | ![pre](../assets/img/reactCodeEditor/code_with_pre.png)
 
 TODO: (webpack -> rollup 적용기)
+## rollup.js 적용기
 
-(cjs와 esm의 설명, 왜 esm으로 할려고 했는지, tree shaking은 뭔지)
+react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
+
+하지만 v.2에서 rollup 🗞 으로 번들러를 교체하였는데요!
+
+그 이유와 rollup 적용기에 대해 말씀드리겠습니다! 🙌
+
+### ES Module과 Tree Shaking
+
+사용자는 제 라이브러리를 최대한 가볍게 사용하길 원합니다.
+
+따라서 사용자가 사용한 기능만 제공해주는 것이 가장 바람직합니다.
+
+여기서 **Tree Shaking**이라는 개념이 나옵니다.
+
+![treeShaking](../assets/img/reactCodeEditor/tree_shaking.png)
+
+Tree Shaking이란 나무를 흔들어 필요없는 낙엽을 떨어뜨리는 것처럼,
+
+사용되지 않는 코드를 번들에 포함시키지 않도록 하여 최대한 번들을 가볍게 하는 것을 말합니다.
+
+이 Tree Shaking은 ES Module을 통해 가능합니다.
+
+**ES Module**
+
+(cjs와 esm의 설명, 왜 esm으로 할려고 했는지)
+
+(esm의 static module structure와 cjs의 dynamic을 설명하고 뭐가 다른지 설명)
+
+https://exploringjs.com/es6/ch_modules.html#static-module-structure
+(+ what the static means!?)
+(위 설명을 통해 esm만 tree shaking이 가능한 이유 설명)
+(cjs는 왜 모든것을 불러와야 하는지 설명)
+(다른 사람들의 코드 tree shaking 결과를 좀 가져다 쓰자.)
+
+(webpack과 rollup의 차이를 들어 rollup이 esm을 지원해준다는 사실을 명시)
 
 (직접 적용해보니 이랬다는 후기)
 
