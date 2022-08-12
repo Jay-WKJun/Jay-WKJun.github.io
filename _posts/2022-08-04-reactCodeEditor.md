@@ -151,7 +151,6 @@ div  | pre
 ------------- | -------------
 ![div](../assets/img/reactCodeEditor/code_with_div.png)  | ![pre](../assets/img/reactCodeEditor/code_with_pre.png)
 
-TODO: (webpack -> rollup 적용기)
 ## rollup.js 적용기
 
 react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
@@ -160,7 +159,9 @@ react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
 
 그 이유와 rollup 적용기에 대해 말씀드리겠습니다! 🙌
 
-### ES Module과 Tree Shaking
+### Tree Shaking
+
+> It relies on the import and export statements in ES2015 to detect if code modules are exported and imported for use between JavaScript files. mdn/glossary/tree-shaking
 
 사용자는 제 라이브러리를 최대한 가볍게 사용하길 원합니다.
 
@@ -176,20 +177,90 @@ Tree Shaking이란 나무를 흔들어 필요없는 낙엽을 떨어뜨리는 �
 
 이 Tree Shaking은 ES Module을 통해 가능합니다.
 
-**ES Module**
+### ESModule
 
-(cjs와 esm의 설명, 왜 esm으로 할려고 했는지)
+Module 시스템은 여러가지 방식으로 구현되어 있습니다.
 
-(esm의 static module structure와 cjs의 dynamic을 설명하고 뭐가 다른지 설명)
+그 중 ES Module만이 Tree Shaking 방식인 것일까요??
 
-https://exploringjs.com/es6/ch_modules.html#static-module-structure
-(+ what the static means!?)
-(위 설명을 통해 esm만 tree shaking이 가능한 이유 설명)
-(cjs는 왜 모든것을 불러와야 하는지 설명)
-(다른 사람들의 코드 tree shaking 결과를 좀 가져다 쓰자.)
+그건 바로 ES Module이 **static module structure**이기 때문입니다.
 
-(webpack과 rollup의 차이를 들어 rollup이 esm을 지원해준다는 사실을 명시)
+(반면, CommonJS는 dynamic한 구조입니다.)
 
-(직접 적용해보니 이랬다는 후기)
+**static하다**는 것은 <u>각 module간의 import와 export가 compile time에 정해진다는 것을 의미합니다!</u>
+
+즉, 코드를 실행시켜보지 않아도, 어떤 module에서 무었을 가져왔는지, 코드만 보고 모두 상세하게 파악할 수 있다는 것입니다.
+
+빌드 전에 모듈들의 관계를 모두 파악할 수 있으니, 모듈에서 어떤 것이 쓰이고 어떤 것이 쓰이지 않는지까지 파악할 수 있습니다.
+
+따라서, 쓰이지 않는 코드는 빌드에 포함시키지 않을 수 있는 것이죠! (Tree Shaking!)
+
+```typescript
+import { debounce } from 'lodash';
+
+if (Math.random()) {
+  // 불가능!!
+  // import { debounce } from 'lodash';
+}
+```
+
+여기서, ES Module은 static module structure를 위해 import와 export를 반드시 module의 첫 부분에 지정해줘야합니다.
+
+그래야, 내가 작성한 코드를 실행해보지 않아도 모듈간의 관계를 파악할 수 있기 때문입니다.
+
+(조건부로 import할 수 있는 dynamic imports도 존재합니다!)
+
+### CommonJS
+
+반면, dynamic한 경우 코드를 실행시켜보지 않으면, 알 수 없다고 하는 것일까요??
+
+예제 코드를 보겠습니다.
+
+```typescript
+let someVar;
+if (Math.random()) {
+  someVar = require('foo');
+} else {
+  someVar = require('bar');
+}
+```
+
+조건부로 foo 모듈과 bar 모듈을 불러오고 있습니다.
+
+여기서 Math.random 함수를 실행해보지 않고는 어떤 module을 불러와야 할지 모르기 때문에, foo와 bar 모듈 모두를 불러올 수 밖에 없습니다.
+
+### Webpack을 교체한 이유
+
+**webpack은 강력한 번들러이지만, 교체한 이유는 ES Module 형식의 번들을 rollup.js가 더 안정적으로 지원해주기 때문입니다.**
+
+그리고 관련 plugin도 rollup.js가 더 풍부합니다!
+
+아쉽지만, 글을 쓰는 2022년 8월 현재 webpack은 ES Module 형태로 번들해주는 기능이 experimental입니다.
+
+(https://webpack.kr/configuration/output/#type-module)
+
+![webpackModuleMode](../assets/img/reactCodeEditor/webpackModuleMode.png)
+
+## rollup plugins
+
+Tree shaking을 위해 적용한 몇가지 plugin들을 소개합니다.
+
+(rollup plugin들 소개)
+
+(직접 적용해보니 이랬다는 후기와 그림들)
 
 # 후기
+
+## ref
+
+https://exploringjs.com/es6/ch_modules.html#static-module-structure
+
+https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/
+
+https://so-so.dev/web/tree-shaking-module-system/
+
+https://web.dev/commonjs-larger-bundles/
+
+https://bitsofco.de/what-is-tree-shaking/
+
+https://flaviocopes.com/es-modules/
