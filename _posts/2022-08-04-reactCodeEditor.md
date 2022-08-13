@@ -38,6 +38,10 @@ npm으로 간단하게 설치해서 사용할 수 있는 react-web-code-editor �
 
 따라서, 이번 기회에 모두가 사용할 수 있는 라이브러리 형태의 코드 에디터를 만들기로 결정했습니다. 🙌
 
+아래는 당시 개발했었던 GitCord입니다.
+
+![gitCord]({{ "../assets/img/reactCodeEditor/gitCord.png" | relative_url }})
+
 ## 그 외, 개발 목표!
 
 그 외에도 코드 에디터 라이브러리 개발을 통해 얻고자 하는 것들이 있었습니다.
