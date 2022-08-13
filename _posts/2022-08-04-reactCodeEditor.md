@@ -310,7 +310,33 @@ webpack에서 rollup으로 교체하면서 minify와 terser plugin, peer depende
 
 ### bundle 크기의 변화
 
+webpack | rollup with small bundle
+------------- | -------------
+![webpack]({{ "../assets/img/reactCodeEditor/webpack_result.gif" | relative_url }}) | ![rollup]({{ "../assets/img/reactCodeEditor/rollup_result.gif" | relative_url }})
+
+### Tree Shaking 테스트
+
+간단한 cra 프로젝트에 적용해봤습니다.
+
+addTheme 함수 미포함 | addTheme 함수 포함
+------------- | -------------
+![noAddTheme]({{ "../assets/img/reactCodeEditor/without_function.gif" | relative_url }}) | ![addTheme]({{ "../assets/img/reactCodeEditor/with_function.gif" | relative_url }})
+
 # 후기
+
+생애 첫 라이브러리 프로젝트여서 굉장히 뜻깊었습니다. 👍
+
+(이제 드디어 저도 오픈소스 생태계에 기여했다는 느낌?!)
+
+정말 많은 것들을 고민할 수 있던 기회였고 또 많을 것을 배운 경험이었다고 생각합니다.
+
+1. 코드 캡슐화와 결합 및 응집도에 대해 고민하고 배울 수 있었던 시간이었습니다.
+
+  보통 서비스를 개발하다보면, 서비스 코드 맥락에 맞춰 객체나 함수의 설계를 하게 될 때가 있습니다. (무의식적으로 그렇게 되는 것 같습니다,,, ㅎ)
+
+  하지만, 그렇게 되면, 서비스 맥락 이외에선 사용할 수 없는 코드가 되어버립니다. 좋지 않은 코드이죠.
+
+  그런 점에서 라이브러리는 그 어떤 맥락에도 구애받지 않고 오로지 라이브러리의 기능만을 집중해 코드를 응집시키고, 어디서든 사용할 수 있도록 라이브러리의 함수들을 추상화하는 것에 집중할 수 있었던 것 같습니다!
 
 ## ref
 
