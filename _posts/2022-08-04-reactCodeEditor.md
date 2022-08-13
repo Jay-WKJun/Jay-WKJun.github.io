@@ -20,6 +20,10 @@ npm으로 간단하게 설치해서 사용할 수 있는 react-web-code-editor �
 
 **2022년 1월 ~ 3월 v.1 개발** 그리고 **4월 ~ 5월 v.2 개발**로 좀 늦은 후기이지만, 올려보겠습니다! 🙌
 
+[npm Link](https://www.npmjs.com/package/react-web-code-editor)
+
+[github Link](https://github.com/Jay-WKJun/react-web-code-editor)
+
 ![npm_README]({{ "../assets/img/reactCodeEditor/npm_readme.png" | relative_url }})
 
 <!--more-->
