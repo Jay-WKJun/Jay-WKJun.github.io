@@ -149,7 +149,7 @@ textArea를 통해 입력한 글자를 그대로 표현하기 위해 pre 태그�
 
 div  | pre
 ------------- | -------------
-![div](../assets/img/reactCodeEditor/code_with_div.gif)  | ![pre](../assets/img/reactCodeEditor/code_with_pre.gif)
+![div]({{ "../assets/img/reactCodeEditor/code_with_div.gif" | relative_url }}) | ![pre]({{ "../assets/img/reactCodeEditor/code_with_pre.gif" | relative_url }})
 
 ## rollup.js
 
@@ -161,7 +161,7 @@ react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
 
 ### Tree Shaking
 
-> It relies on the import and export statements in ES2015 to detect if code modules are exported and imported for use between JavaScript files. mdn/glossary/tree-shaking
+> It relies on the import and export statements in ES2015 to detect if code modules are exported and imported for use between JavaScript files. - mdn/glossary/tree-shaking
 
 사용자는 제 라이브러리를 최대한 가볍게 사용하길 원합니다.
 
@@ -169,7 +169,7 @@ react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
 
 여기서 **Tree Shaking**이라는 개념이 나옵니다.
 
-![treeShaking](../assets/img/reactCodeEditor/tree_shaking.webp)
+![treeShaking]({{ "../assets/img/reactCodeEditor/tree_shaking.webp" | relative_url }})
 
 Tree Shaking이란 나무를 흔들어 필요없는 낙엽을 떨어뜨리는 것처럼,
 
@@ -237,9 +237,9 @@ if (Math.random()) {
 
 아쉽지만, 글을 쓰는 2022년 8월 현재 webpack은 ES Module 형태로 번들해주는 기능이 experimental입니다.
 
-(https://webpack.kr/configuration/output/#type-module)
+[https://webpack.kr/configuration/output/#type-module](https://webpack.kr/configuration/output/#type-module)
 
-![webpackModuleMode](../assets/img/reactCodeEditor/webpack_module_mode.png)
+![webpackModuleMode]({{ "../assets/img/reactCodeEditor/webpack_module_mode.png" | relative_url }})
 
 ## rollup.js 적용기
 
@@ -269,7 +269,7 @@ rollup-plugin-typescript2는 번들링 중에 TypeScript로 작성된 코드를 
 
 ### 플러그인 순서 이슈
 
-![rollupTypeScriptError](../assets/img/reactCodeEditor/rollup_typescirpt_error.png)
+![rollupTypeScriptError]({{ "../assets/img/reactCodeEditor/rollup_typescirpt_error.png" | relative_url }})
 
 이슈가 또 터졌습니다...! 🤯
 
@@ -304,7 +304,11 @@ peer-dependency를 적용함으로서,
 
 ## rollup 교체 후 비교
 
-(직접 적용해보니 이랬다는 후기와 그림들)
+webpack에서 rollup으로 교체하면서 minify와 terser plugin, peer dependency를 통해 bundle의 크기를 줄이기 위해 노력했습니다.
+
+그리고 가장 중요한 사용자의 project에서 적절히 Tree Shaking되는지 확인 해보겠습니다!
+
+### bundle 크기의 변화
 
 # 후기
 
