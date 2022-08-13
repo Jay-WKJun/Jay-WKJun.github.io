@@ -149,9 +149,9 @@ textArea를 통해 입력한 글자를 그대로 표현하기 위해 pre 태그�
 
 div  | pre
 ------------- | -------------
-![div](../assets/img/reactCodeEditor/code_with_div.png)  | ![pre](../assets/img/reactCodeEditor/code_with_pre.png)
+![div](../assets/img/reactCodeEditor/code_with_div.gif)  | ![pre](../assets/img/reactCodeEditor/code_with_pre.gif)
 
-## rollup.js 적용기
+## rollup.js
 
 react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
 
@@ -169,7 +169,7 @@ react-web-code-editor v.1의 번들러는 webpack 🗳이었습니다.
 
 여기서 **Tree Shaking**이라는 개념이 나옵니다.
 
-![treeShaking](../assets/img/reactCodeEditor/tree_shaking.png)
+![treeShaking](../assets/img/reactCodeEditor/tree_shaking.webp)
 
 Tree Shaking이란 나무를 흔들어 필요없는 낙엽을 떨어뜨리는 것처럼,
 
@@ -229,7 +229,7 @@ if (Math.random()) {
 
 여기서 Math.random 함수를 실행해보지 않고는 어떤 module을 불러와야 할지 모르기 때문에, foo와 bar 모듈 모두를 불러올 수 밖에 없습니다.
 
-### Webpack을 교체한 이유
+### Webpack을 rollup으로 교체한 이유
 
 **webpack은 강력한 번들러이지만, 교체한 이유는 ES Module 형식의 번들을 rollup.js가 더 안정적으로 지원해주기 때문입니다.**
 
@@ -239,13 +239,70 @@ if (Math.random()) {
 
 (https://webpack.kr/configuration/output/#type-module)
 
-![webpackModuleMode](../assets/img/reactCodeEditor/webpackModuleMode.png)
+![webpackModuleMode](../assets/img/reactCodeEditor/webpack_module_mode.png)
 
-## rollup plugins
+## rollup.js 적용기
 
-Tree shaking을 위해 적용한 몇가지 plugin들을 소개합니다.
+본격적으로 rollup.js 적용기를 말씀드려보겠습니다.
 
-(rollup plugin들 소개)
+rollup에서 몇가지 plugin들을 사용했었는데, 적용 과정에서 몇가지 issue가 있었습니다!
+
+### plugin-node-resolve
+
+가장 첫번째로 만난 **"'react' 모듈을 찾을 수 없습니다."** 에러! (아쉽게도 자료화면이 없네요...ㅠ)
+
+plugin-node-resolve로 해결했습니다.
+
+rollup은 import 'react'에서 'react'라는 절대경로 방식의 path 설정을 이해하지 못합니다.
+
+따라서, 이런 node_modules안에 있는 3rd-party dependency들을 모두 resolve한 후에 본격적인 번들링이 진행돼야하는데, plugin-node-resolve가 [Node resolution 알고리즘](https://nodejs.org/api/modules.html#modules_all_together)을 통해 이 역할을 수행해 줍니다.
+
+(external이라는 Rollup config를 통해서도 할 수 있지만,,,,,,, 플러그인 개발자님 감사합니다. 🙏)
+
+여기서 resolve한다는 것은 node resolution 알고리즘을 통해 코드에서 import한 3rd-party dependency들을 하나로 모아주고, rollup에게 'react' 모듈을 어떻게 찾을 수 있는지 알려주는 것을 말합니다.
+
+### rollup-plugin-typescript2 & @rollup/plugin-commonjs
+
+rollup-plugin-typescript2는 번들링 중에 TypeScript로 작성된 코드를 .tsconfig를 이용해 JavaScript 코드로 변환해줍니다.
+
+@rollup/plugin-commonjs는 commonjs로 된 module을 Rollup이 이해할 수 있는 ES6로 바꿔주는 플러그인 입니다.
+
+### 플러그인 순서 이슈
+
+![rollupTypeScriptError](../assets/img/reactCodeEditor/rollup_typescirpt_error.png)
+
+이슈가 또 터졌습니다...! 🤯
+
+에러 메세지를 읽어보니, commonjs 플러그인에서 내보내는 에러입니다.
+
+.d.ts 파일을 찾을 수 없다고 하네요. 🥲
+
+**원인은 플러그인의 순서 였습니다.**
+
+typescript 플러그인에선 TypeScript 변환과 함께, tsconfig 옵션에 따라 d.ts 파일도 만들어 줍니다.
+
+하지만, typescript 플러그인을 먼저 실행하지 않고, commonjs 플러그인을 먼저 실행하니 d.ts 파일이 없어 코드를 더 이상 못읽게 된 것입니다.
+
+차례대로 코드를 읽는 특성상 플러그인의 순서에도 주의를 해야겠습니다. 🥲
+
+### peer dependency와 plugin
+
+해당 라이브러리를 사용하는 사람들은 반드시 React를 사용해야 하기 때문에, 라이브러리의 크기를 줄이기 위해서, React와 React-DOM을 peer dependency로 설정했습니다.
+
+또한, styled-components도 peer-dependency로 설정했습니다.
+
+peer-dependency를 적용함으로서,
+
+- 라이브러리를 더욱 가볍게 할 수 있게 됐고,
+- 사용자가 사용하는 dependency들과의 불필요한 충돌을 막을 수 있게 되었습니다.
+
+하지만, peer-dependency만 설정한다고 해서 rollup이 자동으로 bundle에서 제외시켜주지는 않습니다.
+
+따라서, **rollup-plugin-peer-deps-external**를 사용했습니다.
+
+이 플러그인은 peer-dependency에 적용된 dependency들을 자동으로 번들에서 제외시켜주는 플러그인 입니다.
+
+## rollup 교체 후 비교
 
 (직접 적용해보니 이랬다는 후기와 그림들)
 
