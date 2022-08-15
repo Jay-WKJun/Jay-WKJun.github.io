@@ -320,7 +320,7 @@ webpack에서 rollup으로 교체하면서 minify와 terser plugin, peer depende
 
 webpack | rollup with small bundle
 ------------- | -------------
-![webpack]({{ "../assets/img/reactCodeEditor/webpack_result.gif" | relative_url }}) | ![rollup]({{ "../assets/img/reactCodeEditor/rollup_result.gif" | relative_url }})
+![webpack]({{ "../assets/img/reactCodeEditor/webpack_result.png" | relative_url }}) | ![rollup]({{ "../assets/img/reactCodeEditor/rollup_result.png" | relative_url }})
 
 ### Tree Shaking 테스트
 
@@ -328,7 +328,7 @@ webpack | rollup with small bundle
 
 addTheme 함수 미포함 | addTheme 함수 포함
 ------------- | -------------
-![noAddTheme]({{ "../assets/img/reactCodeEditor/without_function.gif" | relative_url }}) | ![addTheme]({{ "../assets/img/reactCodeEditor/with_function.gif" | relative_url }})
+![noAddTheme]({{ "../assets/img/reactCodeEditor/without_function.png" | relative_url }}) | ![addTheme]({{ "../assets/img/reactCodeEditor/with_function.png" | relative_url }})
 
 # 후기
 
