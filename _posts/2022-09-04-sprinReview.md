@@ -127,11 +127,23 @@ excerpt_separator: <!--more-->
 
 ## 구체적이고 명확히 볼 수 있어야 이해할 수 있다.
 
-레퍼런스를 모으고, 구체적으로 서비스를 만들어가는 과정에서 시각적 자료의 힘을 깨달았습니다.
+레퍼런스를 모으고, 구체적으로 서비스를 만들어가는 과정에서 **시각적 자료의 힘**을 깨달았습니다.
 
 팀원중에서 와이어 프레임과 시각적 툴로 깔끔하고 명확하게 시각적 자료를 준비해오신 분들이 더 간단한 설명으로 명확히 팀원들을 이해 시켰고 팀원들의 호응을 더 많이 받았기 때문입니다.
 
-깔끔하게 준비한 사진...
+(우기의 wireFrame, 저 캥거루 캐릭터가 저희 링쿠니 마스코트의 전신이 되었습니다! 👍)
+
+| ![ugi_wireframe]({{ "../assets/img/sprintReview/ugi_wireframe.png" | relative_url }}) | ![ugi_wireframe2]({{ "../assets/img/sprintReview/ugi_wireframe2.png" | relative_url }})
+
+(태태의 wireframe, 귀여운 캐릭터와 함께 모든 컴포넌트들이 한 눈에 들어옵니다!)
+
+![tete_wireframe]({{ "../assets/img/sprintReview/tete_wireframe.png" | relative_url }})
+
+(로베의 wireframe, 템플릿들을 적절히 조합해, 최단시간에 시각적으로 보기좋고 명확한 와이어 프레임을 만들었습니다!)
+
+평소 익숙하지 않은 것들에 대해 수고를 덜어줄 수 있는 것들을 잘 찾아놓는 것도 좋은 것 같습니다...!
+
+| ![robe_wireframe]({{ "../assets/img/sprintReview/robe_wireframe.png" | relative_url }}) | ![robe_wireframe2]({{ "../assets/img/sprintReview/robe_wireframe2.png" | relative_url }})
 
 ## 책임지지 않는 의견은 의미가 없다.
 
@@ -151,7 +163,7 @@ Notion같은 멀티 태그 방식과 전통적인 Tree구조의 카테고리 방
 
 최종적으론 멀티 태그 방식과 카테고리 방식이 절충된 훌륭한 결과물이 나왔습니다. 👍
 
-결과물 gif...
+![linkuni_demo]({{ "../assets/img/sprintReview/linkuni_demo.png" | relative_url }})
 
 이전까지는 모두 평등한 상태로 시간을 들인 치열한 토론을 통해 가장 최선을 고르는 것이 최고라고 생각했습니다.
 
@@ -169,11 +181,15 @@ lint 규칙과 branch 제한 설정 등의 협업 규칙 시스템은 복잡하�
 
 뒤늦게나마 8월 4일(토) 밤을 꼬박 세워 프로젝트에 lint + prettier를 적용해 코드 스타일을 통일했습니다.
 
-적용된 lint 사진...
+![lint]({{ "../assets/img/sprintReview/lint.png" | relative_url }})
 
 거기에 PR description에 익숙하지 않은 팀원을 위해 PR template을 만들어 형식에 대한 고민하지 없이 자세한 description을 쓸 수 있도록 했습니다.
 
-PR template 사진...
+![PR_template]({{ "../assets/img/sprintReview/PR_template.png" | relative_url }})
+
+(template대로 멋지게 PR description을 작성해주신 쿠니스의 "로베" 👍)
+
+| ![good_pr]({{ "../assets/img/sprintReview/good_pr.png" | relative_url }}) | ![good_pr]({{ "../assets/img/sprintReview/good_pr2.png" | relative_url }})
 
 ### 코드의 일관성을 지킨다는 것.
 
@@ -183,7 +199,9 @@ Lint를 적용하기 전엔 분명 같은 코드인데 다른 코드 스타일�
 
 후에, Lint를 적용하고 코드 스타일이 통일 되어 conflict가 확연하게 줄었고, 덕분에 다른 코드 리뷰와 피쳐 개발에 집중 할 수 있었습니다.
 
-conflict 사진...
+(conflict와 사투를 벌였던 commit 기록 ㅎㅎ)
+
+![conflict]({{ "../assets/img/sprintReview/conflict.png" | relative_url }})
 
 ### 중요한 협업 규칙은 시스템으로 강제되어야 하고, 팀원들이 사용하기 편리해야 한다.
 
@@ -191,9 +209,9 @@ git으로 처음 협업해보는 팀원 중에 PR이 익숙치 않아 main 브�
 
 치명적이진 않았지만, rebase와 그에 따른, conflict로 시간이 많이 지체됐었습니다.
 
-점령된 master 사진 넣기...
+(너무 무분별하게 push되는 것을 막기 위해 restiction을 두었습니다.)
 
-conflict난 기록 넣기...
+![branchrule]({{ "../assets/img/sprintReview/branchrule.png" | relative_url }})
 
 또한, 문제가 발생할 때마다, 협업 규칙을 다시 설명하고 해결 해줬었는데, lint와 규칙을 설정함으로 이 설명을 시스템에 위임하여 커뮤니케이션 비용이 크게 줄어든 다는 사실을 깨달았습니다.
 
