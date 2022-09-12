@@ -167,7 +167,7 @@ Notion같은 멀티 태그 방식과 전통적인 Tree구조의 카테고리 방
 
 최종적으론 멀티 태그 방식과 카테고리 방식이 절충된 훌륭한 결과물이 나왔습니다. 👍
 
-![linkuni_demo]({{ "../assets/img/sprintReview/linkuni_demo.png" | relative_url }})
+![linkuni_demo]({{ "../assets/img/sprintReview/linkuni_demo.gif" | relative_url }})
 
 이전까지는 모두 평등한 상태로 시간을 들인 치열한 토론을 통해 가장 최선을 고르는 것이 최고라고 생각했습니다.
 
