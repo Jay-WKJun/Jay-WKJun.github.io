@@ -1,0 +1,137 @@
+---
+layout: post
+title: Image resize with Lambda@edge (feat.AWS-SDK v.3)
+tags: [lambda, lambda edge, aws, aws-sdk, image-resize, image, serverless]
+excerpt_separator: <!--more-->
+---
+
+# Lambda@edge를 이용한 Image resize 시스템 개발기
+
+서비스 성능 개선에 필요한 image resize 시스템을 개발해보았습니다!
+
+- AWS Lambda@edge, (Runtime Env: Node v.16)
+- sharp
+- aws-sdk v.3
+
+<!-- 이미지 추가 -->
+
+<!--more-->
+
+# Image resize
+
+Image resize는 원본 이미지를 원하는 크기와 형식(jpeg, png, webp 등)에 맞게 조절하는 것을 말합니다.
+
+## Image resize가 왜 필요한가요?
+
+서비스 기능 중에 사용자들의 그림 파일을 올릴 수 있는 기능이 있습니다.
+
+주로, 스마트폰의 그림들을 많이 올리게 되는데, iPhone13을 기준으로 사진을 알아보면,
+
+세로로 찍었을 때, 보통 3.5MB 정도의 용량에 3024 x 4032 픽셀 크기에 12MP의 해상도를 가지고 있습니다.
+
+해당 이미지가 3024 x 4032 픽셀 크기에 꽉 채워져 표현된다면, 선명하게 보여지겠지만, **보통 서비스가 표현되는 브라우저는 그정도로 크게 표현되는 경우는 거의 없습니다.**
+
+또한, **3.5MB나 되는 무거운 용량의 이미지를 Internet 통신을 통해 전부 받아오려면 많은 시간이 소요됩니다.**
+
+이미지를 받아오기 까지, 그 내용을 보지 못하는 사용자의 입장에선 이건 굉장히 불편할 수 있습니다.
+
+**따라서, 대용량 이미지를 적절한 크기로 줄여주는 것이 좋을 것 같습니다!**
+
+# 여러가지 image resize 방법들
+
+<!-- 각 방법들 이미지 추가 -->
+
+현 회사의 서비스에선 AWS S3를 이용해 이미지 같은 static asset들을 저장하고 있습니다.
+
+여기서 여러가지 Image resize 방법들을 생각해볼 수 있습니다.
+
+## 원본 이미지를 저장할 때, resize해서 보내기
+
+사용자에게 원본 이미지를 받아서 client에서 resizing한 후, AWS S3에 저장하는 방법입니다.
+
+브라우저의 HTML 환경에선 \<canvas\>를 이용해 image를 resize할 수 있습니다.
+
+간편하게 HTML2Canvas라는 라이브러리를 이용할 수도 있습니다.
+
+하지만 아래와 같은 문제가 있습니다.
+
+- 원본 이미지의 부재
+
+이 경우엔, **원본 이미지를 아예 잃어버리기 때문에, 훗날 서비스의 변동으로 다른 크기와 해상도의 이미지를 제공해야 할 때, 문제가 될 수 있습니다.**
+
+- 클라이언트 성능 저하 및 UX 저하
+
+유연한 대응을 위해 여러 size의 이미지로 변환해 보낼 수 있지만, **클라이언트의 computing 자원을 소모하게 되고, 통신량 또한 많아져 사용자의 불편을 초래할 수 있습니다.**
+
+## AWS serverless 서비스 이용하기
+
+AWS S3는 AWS serverless 서비스들의 트리거가 됩니다.
+
+따라서, AWS S3를 update하거나 접근 등등의 S3에 발생할 수 있는 여러 event들에, AWS Lambda나 AWS Lambda@edge같은 serverless 서비스들을 연동하여 사용할 수 있습니다.
+
+### AWS Lambda로 여러 size의 이미지로 변환해 저장
+
+S3에 원본 이미지 저장한 후에, 원본 이미지를 가지고 여러 size의 이미지로 변환해 저장하는 방법입니다.
+
+AWS Lambda@edge가 나오기 전에 많은 기업들에서 이용하던 방법입니다.
+
+- S3 저장 용량과 과금
+
+클라이언트의 자원을 뺏지 않고, 원본 이미지도 지킬 수 있지만, **S3에 저장하는 용량이 크게 늘어납니다.**
+
+AWS S3의 요금 책정은 기본적으로 저장된 용량에 기반합니다.
+
+따라서, 저장된 용량이 많아지면 많아질수록 과금이 커질 수 밖에 없습니다.
+
+- 유연하지 못한 resizing
+
+또한, 정해놓은 size 정책 이외의 image가 필요하게 되면 문제가 될 수 있습니다.
+
+원본 이미지를 저장 할 때, Lambda를 통해서 만들어 놓은 image만 사용해야 하기 때문입니다.
+
+이외의 image가 필요하다면 수동으로 직접 resizing 해야합니다.
+
+# AWS Lambda@edge
+
+AWS Lambda@edge는 Amazon CloudFront에서만 실행되는 특별한 AWS Lambda라고 할 수 있습니다.
+
+<!-- 이용가능한 trigger 설명과 표 붙이기 그리고 이미지 추가 -->
+
+## Amazon CloudFront?
+
+
+
+## AWS Lambda@edge를 이용한 이유
+
+
+
+# Image resize 시스템 개발기
+
+
+
+## sharp 라이브러리 로컬 테스트
+
+
+
+## Lambda@edge 통신 로직 이해하기
+
+
+
+## aws-sdk v.3
+
+문제 response가 달랐다.
+
+### v.2와는 뭔가가 다른데?
+
+
+
+## CI/CD pipeline
+
+AWS Code Pipeline
+
+# 결과!
+
+
+# Refs
+
+
