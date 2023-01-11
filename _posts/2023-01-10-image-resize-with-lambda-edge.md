@@ -13,7 +13,7 @@ excerpt_separator: <!--more-->
 - sharp
 - aws-sdk v.3
 
-<!-- 이미지 추가 -->
+<!-- 짤 추가 -->
 
 <!--more-->
 
@@ -35,11 +35,11 @@ Image resize는 원본 이미지를 원하는 크기와 형식(jpeg, png, webp �
 
 이미지를 받아오기 까지, 그 내용을 보지 못하는 사용자의 입장에선 이건 굉장히 불편할 수 있습니다.
 
+<!-- 짤 추가 -->
+
 **따라서, 대용량 이미지를 적절한 크기로 줄여주는 것이 좋을 것 같습니다!**
 
 # 여러가지 image resize 방법들
-
-<!-- 각 방법들 이미지 추가 -->
 
 현 회사의 서비스에선 AWS S3를 이용해 이미지 같은 static asset들을 저장하고 있습니다.
 
@@ -52,6 +52,8 @@ Image resize는 원본 이미지를 원하는 크기와 형식(jpeg, png, webp �
 브라우저의 HTML 환경에선 \<canvas\>를 이용해 image를 resize할 수 있습니다.
 
 간편하게 HTML2Canvas라는 라이브러리를 이용할 수도 있습니다.
+
+![client-resizing]({{ "../assets/img/imageResizeLambdaEdge/client-image-resize.png" | relative_url }})
 
 하지만 아래와 같은 문제가 있습니다.
 
@@ -77,6 +79,8 @@ S3에 원본 이미지 저장한 후에, 원본 이미지를 가지고 여러 si
 
 AWS Lambda@edge가 나오기 전에 많은 기업들에서 이용하던 방법입니다.
 
+![on-the-fly]({{ "../assets/img/imageResizeLambdaEdge/on-the-fly.png" | relative_url }})
+
 - S3 저장 용량과 과금
 
 클라이언트의 자원을 뺏지 않고, 원본 이미지도 지킬 수 있지만, **S3에 저장하는 용량이 크게 늘어납니다.**
@@ -97,11 +101,11 @@ AWS S3의 요금 책정은 기본적으로 저장된 용량에 기반합니다.
 
 AWS Lambda@edge는 Amazon CloudFront에서만 실행되는 특별한 AWS Lambda라고 할 수 있습니다.
 
+![lambda@edge]({{ "../assets/img/imageResizeLambdaEdge/lambda@edge.png" | relative_url }})
+
+기본적으로 위의 flow를 따르지만, 다른 방법이 있습니다.
+
 <!-- 이용가능한 trigger 설명과 표 붙이기 그리고 이미지 추가 -->
-
-## Amazon CloudFront?
-
-
 
 ## AWS Lambda@edge를 이용한 이유
 
@@ -127,13 +131,11 @@ AWS Lambda@edge는 Amazon CloudFront에서만 실행되는 특별한 AWS Lambda�
 
 
 
-## CI/CD pipeline
-
-AWS Code Pipeline
-
 # 결과!
 
 
 # Refs
 
+[Amazon S3 트리거를 사용하여 썸네일 이미지 생성 by AWS Official](https://docs.aws.amazon.com/ko_kr/lambda/latest/dg/with-s3-tutorial.html)
 
+[AWS Lambda@Edge에서 실시간 이미지 리사이즈 & WebP 형식으로 변환 by 당근마켓](https://medium.com/daangn/lambda-edge%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EB%8A%94-on-the-fly-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%A6%AC%EC%82%AC%EC%9D%B4%EC%A7%95-f4e5052d49f3)
