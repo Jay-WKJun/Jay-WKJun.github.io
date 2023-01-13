@@ -324,17 +324,29 @@ Lambda@edge는 AWS Lambda와는 다르게 몇가지 제한 사항이 있습니�
 
 구체적으로는 첫 image 로딩시간은 이전보다 길어졌지만, 그 이후의 로딩은 확실히 개선된 것이 확인 됐습니다!
 
+라이트 하우스 평가, 이미지 크기 적절하게 설정하기 **23.27s -> 2.96s**
+
 ![lighthouse-no-resize]({{ "../assets/img/ImageResizeLambdaEdge/lighthouse-no-resize.png" | relative_url }}) | ![lighthouse-resize]({{ "../assets/img/ImageResizeLambdaEdge/lighthouse-resize.png" | relative_url }})
+
+동일한 그림의 네트워크를 비교했을 때, **3.0MB 1190ms -> 273kB 78ms**
 
 ![network-no-resize]({{ "../assets/img/ImageResizeLambdaEdge/network-no-resize.png" | relative_url }}) | ![network-resize]({{ "../assets/img/ImageResizeLambdaEdge/network-resize.png" | relative_url }})
 
 # 후기
 
-클라이언트 성능 개선의 문제이기 때문에, 직접 개선해보겠다고 기세좋게 시작했지만, 복잡한 클라우드 세계에 처음엔 압도되었습니다. 😣
+## 문제를 더욱 큰 범위에서도 해결할 수 있게 되었습니다.
+
+클라이언트 성능 개선의 문제이기 때문에, 직접 개선해보겠다고 기세좋게 시작했지만, 복잡하고 거대한 클라우드 세계에 처음엔 압도되었습니다. 😣
 
 하지만, 클라우드를 이해하고 활용해보면서, 서비스 문제해결의 범위를 클라이언트 코드라는 작은 범위에서 서버와 인프라의 범위까지 크게 확장할 수 있었던 귀중한 경험이었다고 생각합니다. 🙌
 
-정말 유익하고 재밌는 경험이었습니다!
+## 필요한 것을 개발하는 경험
+
+또한, 팀에서 정말 필요한 것을 만들고 보람을 느꼈습니다. 😁
+
+![show-image-resize]({{ "../assets/img/ImageResizeLambdaEdge/show-image-resize.png" | relative_url }})
+
+![reply-from-team]({{ "../assets/img/ImageResizeLambdaEdge/reply-from-team.png" | relative_url }})
 
 감사합니다!
 
