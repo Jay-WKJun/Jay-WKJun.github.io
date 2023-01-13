@@ -7,13 +7,13 @@ excerpt_separator: <!--more-->
 
 # Lambda@edge를 이용한 Image resize 시스템 개발기
 
+![image-resize-main]({{ "../assets/img/ImageResizeLambdaEdge/Resize-images-main.jpeg" | relative_url }})
+
 서비스 성능 개선에 필요한 image resize 시스템을 개발해보았습니다! 🤩
 
 - AWS Lambda@edge, (Runtime Env: Node v.16)
 - sharp
 - aws-sdk v.3
-
-![image-resize-main]({{ "../assets/img/imageResizeLambdaEdge/Resize-images-main.jpeg" | relative_url }})
 
 <!--more-->
 
@@ -35,7 +35,7 @@ Image resize는 원본 이미지를 원하는 크기와 형식(jpeg, png, webp �
 
 이미지를 받아오기 까지, 그 내용을 제대로 보지 못하는 사용자의 입장에선 이건 굉장히 불편할 수 있습니다. 🤬
 
-![load-image-partially]({{ "../assets/img/imageResizeLambdaEdge/load-image-partially.gif" | relative_url }})
+![load-image-partially]({{ "../assets/img/ImageResizeLambdaEdge/load-image-partially.gif" | relative_url }})
 
 **따라서, 대용량 이미지를 적절한 크기로 줄여주는 것이 좋을 것 같습니다!**
 
@@ -105,7 +105,7 @@ AWS Lambda@edge는 Amazon CloudFront에서만 실행되는 특별한 AWS Lambda�
 
 S3 - CloudFront - Client의 흐름을 더 자세히 펼쳐보면 다음과 같습니다.
 
-![lambda@edge]({{ "../assets/img/imageResizeLambdaEdge/cloudfront-events-that-trigger-lambda-functions.png" | relative_url }})
+![lambda@edge]({{ "../assets/img/ImageResizeLambdaEdge/cloudfront-events-that-trigger-lambda-functions.png" | relative_url }})
 
 여기서 **Origin response** 부분에 image resize를 위한 Lambda@edge를 발동시키도록 설정했습니다.
 
@@ -143,11 +143,63 @@ on-the-fly 방식에선 S3에도 저장되고, CloudFront에도 저장이 되는
 
 기본적으로 Amazon 공식 예시가 잘 돼있어 많이 참고가 되었습니다!
 
-다만, aws-sdk v.2 기준으로 코드가 되어있기 때문에, 최신 aws-sdk v.3에 맞춘 수정이 필요했습니다.
+다만, [aws-sdk v.2](https://www.npmjs.com/package/aws-sdk) 기준으로 코드가 되어있기 때문에, 최신 [aws-sdk v.3](https://github.com/aws/aws-sdk-js-v3)에 맞춘 수정이 필요했습니다.
 
 (aws-sdk v.2는 2023년부터 maintain 상태에 도입한다고 하여 v.3를 도입했습니다.)
 
+직접적인 image resize엔 [sharp](https://www.npmjs.com/package/sharp) 라이브러리를 이용했습니다.
+
+## 로컬 테스트
+
+Lambda@edge 함수 작성에 앞서 로컬 테스트를 진행했습니다.
+
+먼저 Local에서 sharp 라이브러리를 이용해 Image를 변환해보았습니다.
+
+2.7MB, 5192 x 5192 이미지를 194KB, 1200 x 1200로 변환하는데 성공했습니다.
+
+![imageResizeLocal]({{ "../assets/img/ImageResizeLambdaEdge/image-resize-test-local.png" | relative_url }})
+
+## aws-sdk v.3
+
+그 다음 직접 S3에 접근하여 이미지를 가져와 resizing을 테스트했습니다.
+
+하지만, aws-sdk v.3의 body는 aws-sdk v.2와는 다르게 ReadableStream 객체가 내려오기 때문에, aws-sdk v.2를 이용한 Amazon 공식 예제를 그대로 활용하면 문제가 발생할 수 있습니다. (2023.1.10 예제 기준)
+
+IDE에서 인식하는 S3Body의 Type
+
+![s3Type]({{ "../assets/img/ImageResizeLambdaEdge/s3Type.png" | relative_url }})
+
+실제 S3 response의 body
+
+![s3Body]({{ "../assets/img/ImageResizeLambdaEdge/s3Body.png" | relative_url }})
+
+ReadableStream 객체를 활용할 때 처럼 대응하면 해결됩니다.
+
+전 아래와 같은 코드로 해결하였습니다.
+
 ```typescript
+// 이 변수 안에 Image 데이터가 들어있습니다.
+const actualBodyData = await streamToString(s3Response.Body);
+function streamToString(stream: any): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+      const chunks: any[] = [];
+      stream.on("data", (chunk: any) => chunks.push(chunk));
+      stream.on("error", reject);
+      stream.on("end", () => resolve(Buffer.concat(chunks)));
+  });
+}
+```
+
+## 최종 코드
+
+Lambda@edge에 update된 code는 다음과 같습니다!
+
+```typescript
+import type { CloudFrontResponse, CloudFrontResponseCallback, CloudFrontResponseEvent, Context } from 'aws-lambda';
+import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import querystring from 'querystring';
+import sharp from 'sharp';
+
 type SizeParameter = 'l' | 'm' | 's';
 
 const client = new S3Client({ region: 'ap-northeast-2' }) as S3Client;
@@ -240,25 +292,51 @@ function streamToString(stream: any): Promise<Buffer> {
 }
 ```
 
-## 로컬 테스트
-
-Lambda@edge 함수 작성에 앞서 로컬 테스트를 진행했습니다.
-
-### sharp 라이브러리
-
-
-
-## aws-sdk v.3
-
-문제 response가 달랐다.
-
 # Lambda@edge 사용시 유의 사항과 몇가지 개발 팁
 
+Lambda@edge는 AWS Lambda와는 다르게 몇가지 제한 사항이 있습니다.
 
+[Restrictions on edge functions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html)
+
+- **us-east-1(N. Virginia) 리전에서 생성된 Lambda만 Lambda@edge로 deploy가 가능합니다.**
+
+- **Lambda@edge에서 S3로의 IAM 접근 권한이 필요합니다.**
+
+  AWS의 모든 Service들은 각각의 IAM을 가지고 이것을 통해 각 서비스들이 상호작용 할 수 있습니다.
+
+  Lambda@edge에서 Image를 S3에서 가져 올 때 S3에 접근하기 위한 적절한 IAM 설정이 필요합니다.
+
+- **[Lambda Layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) 사용 불가**
+
+  node_modules같은 직접 작성한 코드 이외의 dependency들을 Lambda Layer라는 것을 통해 Lambda에 적용할 수 있습니다.
+
+  그러면 Lambda 자체의 용량을 크게 줄일 수 있고, AWS Console에서도 Lambda 코드를 직접 수정할 수 있어, Lambda의 유지보수가 간편해집니다.
+
+  하지만, Lambda@edge는 Lambda Layer 사용이 불가합니다.
+
+아래는 직접적인 Lambda@edge 제한사항은 아니지만, 주의해야할 사항입니다.
+
+- **Lambda@edge에서 queryString을 CloudFront에서 넘겨받고 싶다면 설정이 필요합니다.**
 
 # 결과!
 
+리사이즈 결과 라이트 하우스 평가에서 의미있는 개선이 있었습니다!
 
+구체적으로는 첫 image 로딩시간은 이전보다 길어졌지만, 그 이후의 로딩은 확실히 개선된 것이 확인 됐습니다!
+
+![lighthouse-no-resize]({{ "../assets/img/ImageResizeLambdaEdge/lighthouse-no-resize.png" | relative_url }}) | ![lighthouse-resize]({{ "../assets/img/ImageResizeLambdaEdge/lighthouse-resize.png" | relative_url }})
+
+![network-no-resize]({{ "../assets/img/ImageResizeLambdaEdge/network-no-resize.png" | relative_url }}) | ![network-resize]({{ "../assets/img/ImageResizeLambdaEdge/network-resize.png" | relative_url }})
+
+# 후기
+
+클라이언트 성능 개선의 문제이기 때문에, 직접 개선해보겠다고 기세좋게 시작했지만, 복잡한 클라우드 세계에 처음엔 압도되었습니다. 😣
+
+하지만, 클라우드를 이해하고 활용해보면서, 서비스 문제해결의 범위를 클라이언트 코드라는 작은 범위에서 서버와 인프라의 범위까지 크게 확장할 수 있었던 귀중한 경험이었다고 생각합니다. 🙌
+
+정말 유익하고 재밌는 경험이었습니다!
+
+감사합니다!
 
 # Refs
 
