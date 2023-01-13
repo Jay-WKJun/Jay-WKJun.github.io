@@ -53,7 +53,7 @@ Image resize는 원본 이미지를 원하는 크기와 형식(jpeg, png, webp �
 
 간편하게 HTML2Canvas라는 라이브러리를 이용할 수도 있습니다.
 
-![client-resizing]({{ "../assets/img/imageResizeLambdaEdge/client-image-resize.png" | relative_url }})
+![client-resizing]({{ "../assets/img/ImageResizeLambdaEdge/client-image-resize.png" | relative_url }})
 
 하지만 아래와 같은 문제가 있습니다.
 
@@ -79,7 +79,7 @@ S3에 원본 이미지 저장한 후에, 원본 이미지를 가지고 여러 si
 
 AWS Lambda@edge가 나오기 전에 많은 기업들에서 이용하던 방법입니다.
 
-![on-the-fly]({{ "../assets/img/imageResizeLambdaEdge/on-the-fly.png" | relative_url }})
+![on-the-fly]({{ "../assets/img/ImageResizeLambdaEdge/on-the-fly.png" | relative_url }})
 
 - S3 저장 용량과 과금
 
@@ -101,7 +101,7 @@ AWS S3의 요금 책정은 기본적으로 저장된 용량에 기반합니다.
 
 AWS Lambda@edge는 Amazon CloudFront에서만 실행되는 특별한 AWS Lambda라고 할 수 있습니다.
 
-![lambda@edge]({{ "../assets/img/imageResizeLambdaEdge/lambda@edge.png" | relative_url }})
+![lambda@edge]({{ "../assets/img/ImageResizeLambdaEdge/lambda@edge.png" | relative_url }})
 
 S3 - CloudFront - Client의 흐름을 더 자세히 펼쳐보면 다음과 같습니다.
 
@@ -144,6 +144,99 @@ on-the-fly 방식에선 S3에도 저장되고, CloudFront에도 저장이 되는
 기본적으로 Amazon 공식 예시가 잘 돼있어 많이 참고가 되었습니다!
 
 다만, aws-sdk v.2 기준으로 코드가 되어있기 때문에, 최신 aws-sdk v.3에 맞춘 수정이 필요했습니다.
+
+```typescript
+type SizeParameter = 'l' | 'm' | 's';
+
+const client = new S3Client({ region: 'ap-northeast-2' }) as S3Client;
+
+type BodyChangedCloudFrontResponse = CloudFrontResponse & { body?: any; bodyEncoding?: string };
+
+exports.handler = async (event: CloudFrontResponseEvent, context: Context, callback: CloudFrontResponseCallback) => {
+  const { request, response } = event.Records[0].cf;
+
+  // 이미지가 존재하는지 체크
+  if (response.status !== '404') {
+    const params = querystring.parse(request.querystring);
+
+    // 파라미터 가져오기,,, parameter: l, m, s
+    const sizeParam = params.size as SizeParameter;
+    const width = getWidthFromSizeParam(sizeParam);
+
+    // size라는 파라미터가 없으면 그냥 원본을 보낸다.
+    if (!sizeParam || !width) {
+      callback(null, response);
+      return;
+    }
+
+    // 타입 확장
+    const extendedResponse = response as BodyChangedCloudFrontResponse;
+
+    // 이미지 path 가져오기 ex) /community/968/acynxoag9jcxpxle
+    const s3ObjectKey = request.uri;
+
+    // S3에 접근하기 위한 S3 원래 도메인 주소 가져오기
+    const s3DomainName = request.origin?.s3?.domainName;
+    const bucketName = s3DomainName?.split('.')[0];
+
+    try {
+      // S3 접근 config 및 명령 객체 생성
+      // @ts-ignore
+      const command = new GetObjectCommand({ Bucket: bucketName, Key: s3ObjectKey });
+      // S3에서 이미지 파일 가져오기
+      const data = await client.send(command);
+
+      // ref: https://github.com/aws/aws-sdk-js-v3/issues/1877
+      // V.3의 Body 내용이 다르기 때문에 반드시 변환을 해주어야합니다.
+      const actualBodyData = await streamToString(data.Body);
+
+      // 리사이징
+      const resizedImage = await sharp(actualBodyData).resize(width, null).rotate().withMetadata().toBuffer();
+
+      // 응답 교체
+      extendedResponse.status = '200';
+      extendedResponse.body = resizedImage.toString('base64');
+      extendedResponse.bodyEncoding = 'base64';
+      extendedResponse.headers = {};
+      extendedResponse.headers['content-type'] = [{ key: 'Content-Type', value: 'image/*' }];
+
+      // 교체된 응답 전송
+      callback(null, extendedResponse as CloudFrontResponse);
+    } catch (err) {
+      console.error(err);
+      callback(null, response);
+    }
+  } else {
+    // 이미지가 없으면 그대로 응답을 돌려준다.
+    callback(null, response);
+  }
+};
+
+function getWidthFromSizeParam(sizeParam: SizeParameter) {
+  if (sizeParam === 'l') {
+    return 1500;
+  }
+
+  if (sizeParam === 'm') {
+    return 1000;
+  }
+
+  if (sizeParam === 's') {
+    return 1000;
+  }
+
+  return null;
+}
+
+function streamToString(stream: any): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+      const chunks: any[] = [];
+      stream.on("data", (chunk: any) => chunks.push(chunk));
+      stream.on("error", reject);
+      stream.on("end", () => resolve(Buffer.concat(chunks)));
+  });
+}
+```
 
 (aws-sdk v.2는 2023년부터 maintain 상태에 도입한다고 합니다.)
 
