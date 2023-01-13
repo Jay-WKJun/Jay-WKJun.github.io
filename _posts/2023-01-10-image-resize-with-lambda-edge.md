@@ -145,6 +145,8 @@ on-the-fly 방식에선 S3에도 저장되고, CloudFront에도 저장이 되는
 
 다만, aws-sdk v.2 기준으로 코드가 되어있기 때문에, 최신 aws-sdk v.3에 맞춘 수정이 필요했습니다.
 
+(aws-sdk v.2는 2023년부터 maintain 상태에 도입한다고 하여 v.3를 도입했습니다.)
+
 ```typescript
 type SizeParameter = 'l' | 'm' | 's';
 
@@ -237,8 +239,6 @@ function streamToString(stream: any): Promise<Buffer> {
   });
 }
 ```
-
-(aws-sdk v.2는 2023년부터 maintain 상태에 도입한다고 합니다.)
 
 ## 로컬 테스트
 
