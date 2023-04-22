@@ -61,26 +61,26 @@ Api가 없는 상황에서도 안정적으로 개발환경을 구축하고 복�
 
 페이먼츠 과제의 요구사항 중에 다음과 같은 사항이 있었고,
 
-- 각 input들의 조건에 따라 validation 체크
-- 유효한 값 입력시 다음 필드로 Input Focusing
+- **각 input들의 조건에 따라 validation 체크**
+- **유효한 값 입력시 다음 필드로 Input Focusing**
 
 페이먼츠 미션의 요구사항을 보고 생각했을 때, 각 input에 대응하는 state를 객체의 형태로 다룬 이유는 다음과 같습니다.
 
-1. 스스로 validation하는 state 객체
+- **스스로 validation하는 state 객체**
 
-  각 Input마다 각자의 validation 로직이 필요합니다.
+각 Input마다 각자의 validation 로직이 필요합니다.
 
-  따라서 객체로 함께 관리하면 컴포넌트에서 별도의 실행로직 없이 새롭게 값이 갱신될 때마다, 자동으로 validation 할 수 있어 **컴포넌트의 로직을 한층 깔끔하게 할 수 있을 것이라고 생각**했습니다.
+따라서 객체로 함께 관리하면 컴포넌트에서 별도의 실행로직 없이 새롭게 값이 갱신될 때마다, 자동으로 validation 할 수 있어 **컴포넌트의 로직을 한층 깔끔하게 할 수 있을 것이라고 생각**했습니다.
 
-2. invalid에 곧바로 대응해 focus할 수 있는 state 객체
+- **invalid에 곧바로 대응해 focus할 수 있는 state 객체**
 
-  Auto focus를 설계할 당시 invalid한 input을 찾아, focus하는 방법을 생각했습니다.
+Auto focus를 설계할 당시 invalid한 input을 찾아, focus하는 방법을 생각했습니다.
 
-  따라서, **invalid한 state 객체를 찾으면 해당 input Element에 곧바로 focus할 수 있도록** HTMLInputElement를 포함시켜두면 좋을 것 이라고 생각했습니다.
+따라서, **invalid한 state 객체를 찾으면 해당 input Element에 곧바로 focus할 수 있도록** HTMLInputElement를 포함시켜두면 좋을 것 이라고 생각했습니다.
 
-3. 컴포넌트의 로직을 깔끔하게 할 수 있을 것으로 기대했습니다.
+- **컴포넌트의 로직을 깔끔하게 할 수 있을 것으로 기대했습니다.**
 
-  input의 UI들은 비슷했기에, 구체적인 비즈니스 로직을 state 객체에 넣어두면 **공통 컴포넌트에 UI를 정의하고 객체를 주입해 간편하게 재사용할 수 있을 것**으로 기대했습니다.
+input의 UI들은 비슷했기에, 구체적인 비즈니스 로직을 state 객체에 넣어두면 **공통 컴포넌트에 UI를 정의하고 객체를 주입해 간편하게 재사용할 수 있을 것**으로 기대했습니다.
 
 ### state 객체 구현
 
@@ -569,11 +569,11 @@ export const CardNumberInput = memo(function CardNumberInput({
 
 ### 의존성 다이어그램
 
-![review_diagram]({{ "../assets/img/cleanCodeReact/review_diagram.gif" | relative_url }})
+![review_diagram]({{ "../assets/img/cleanCodeReact/review_diagram.png" | relative_url }})
 
 의존성 다이어그램을 그려보면 복잡한 구조가 한 눈에 보인다는 리뷰어님의 조언에 따라 다이어그램을 그려보았습니다.
 
-![diagram]({{ "../assets/img/cleanCodeReact/diagram.gif" | relative_url }})
+![diagram]({{ "../assets/img/cleanCodeReact/diagram.png" | relative_url }})
 
 다이어그램을 그려보니 복잡함이 한 눈에 들어왔고 조금씩 구조를 개선하기 위해 노력했습니다.
 
@@ -585,51 +585,51 @@ export const CardNumberInput = memo(function CardNumberInput({
 
 - **과거 service 객체를 받아오는 형태**
 
-  service 객체를 받아 매소드를 통해 직접 CardList를 받아오는 형태입니다.
+service 객체를 받아 매소드를 통해 직접 CardList를 받아오는 형태입니다.
 
-  사용자는 service 객체의 interface와 로직을 지켜 전달해주어야합니다. 매우 번거롭습니다. 😰
+사용자는 service 객체의 interface와 로직을 지켜 전달해주어야합니다. 매우 번거롭습니다. 😰
 
-  ```typescript
-  // service 객체를 받아 매소드를 통해 직접 CardList를 받아오는 형태입니다.
-  export interface Service<CardList> {
-    get(): Promise<CardList | null>;
-    post(newStore?: CardList | null): Promise<CardList | null>;
-  }
+```typescript
+// service 객체를 받아 매소드를 통해 직접 CardList를 받아오는 형태입니다.
+export interface Service<CardList> {
+  get(): Promise<CardList | null>;
+  post(newStore?: CardList | null): Promise<CardList | null>;
+}
 
-  export function useFetch<CardList>(service?: Service<CardList>) {}
-  ```
+export function useFetch<CardList>(service?: Service<CardList>) {}
+```
 
 - **state와 callback을 받는 형태**
 
-  custom hook이 아닌 Context Api를 감싼 component에서 그대로 받습니다.
+custom hook이 아닌 Context Api를 감싼 component에서 그대로 받습니다.
 
-  사용자는 cardList를 state로 직접 다루면서 내부 이벤트에 관여할 수 있는 콜백을 넣어줄 수 있습니다.
+사용자는 cardList를 state로 직접 다루면서 내부 이벤트에 관여할 수 있는 콜백을 넣어줄 수 있습니다.
 
-  훨씬 직관적이고 사용자에게 cardList를 다룰 권한이 넘어가 훨씬 자유롭게 사용할 수 있게 됐습니다. 🙌
+훨씬 직관적이고 사용자에게 cardList를 다룰 권한이 넘어가 훨씬 자유롭게 사용할 수 있게 됐습니다. 🙌
 
-  ```typescript
-  // custom hook이 아닌 Context Api를 감싼 component에서 그대로 받습니다.
-  function ApplicationProvider({
-    cardList = {},
-    onCardConfirm = (card, cardId) => {
-      console.log(`cardId : ${cardId}, card: ${card}`);
-    },
-    onCardDelete = (card, cardId) => {
-      console.log(`cardId : ${cardId}, card: ${card}`);
-    },
-    onCardUpdate = (card, cardId) => {
-      console.log(`cardId : ${cardId}, card: ${card}`);
-    },
-    onCardSubmit = (card, cardId) => {
-      console.log(`cardId : ${cardId}, card: ${card}`);
-    },
-    children,
-  }) {
-    const AppContextValue = { cardList, onCardConfirm, onCardUpdate, onCardDelete, onCardSubmit };
+```typescript
+// custom hook이 아닌 Context Api를 감싼 component에서 그대로 받습니다.
+function ApplicationProvider({
+  cardList = {},
+  onCardConfirm = (card, cardId) => {
+    console.log(`cardId : ${cardId}, card: ${card}`);
+  },
+  onCardDelete = (card, cardId) => {
+    console.log(`cardId : ${cardId}, card: ${card}`);
+  },
+  onCardUpdate = (card, cardId) => {
+    console.log(`cardId : ${cardId}, card: ${card}`);
+  },
+  onCardSubmit = (card, cardId) => {
+    console.log(`cardId : ${cardId}, card: ${card}`);
+  },
+  children,
+}) {
+  const AppContextValue = { cardList, onCardConfirm, onCardUpdate, onCardDelete, onCardSubmit };
 
-    return <ApplicationContext.Provider value={AppContextValue}>{children}</ApplicationContext.Provider>;
-  }
-  ```
+  return <ApplicationContext.Provider value={AppContextValue}>{children}</ApplicationContext.Provider>;
+}
+```
 
 # 너와 나와 우리를 위한 클린코드
 
