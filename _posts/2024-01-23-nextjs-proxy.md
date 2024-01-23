@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Monotonic Stack
+title: Proxy in Next.js
 tags: [Frontend, nextjs, proxy, API, CORS, rewrite, redirect, forwarding]
 excerpt_separator: <!--more-->
 ---
@@ -115,6 +115,59 @@ Next.js에 어떤 요청이 오면, 다음과 같은 순서로 처리됩니다.
 
 이 순서를 잘 파악해서 사용하면 좋을 것 같습니다.
 
+### beforeFiles
+
+정적 파일들이 등록된 api를 확인하기 전에 proxy가 적용됩니다.
+
+아래와 같이 설정했다고 가정해보겠습니다.
+
+```javascript
+rewrites: async ()  => ({
+  beforeFiles: [{
+    source: '/test/:path*',
+    destination: '/proxy/:path*',
+  }],
+})
+```
+
+`/test`는 정적 컴포넌트가 있는 경로입니다.
+
+여기서 **`${url}/test`에 요청하면 `/test`에 등록된 정적 컴포넌트가 아닌 `/proxy`로 요청이 proxy됩니다.**
+
+### afterFiles
+
+정적 파일들이 등록된 api를 확인한 후에 proxy가 적용됩니다.
+
+```javascript
+rewrites: async ()  => ({
+  afterFiles: [{
+    source: '/test/:path*',
+    destination: '/proxy/:path*',
+  }],
+})
+```
+
+동일하게 `/test`는 정적 컴포넌트가 있는 경로고,`${url}/test`에 요청하면, `/proxy`로 요청이 proxy되지 않고, `/test`에 등록된 정적 컴포넌트가 응답됩니다.
+
+여기서 **`/test/[id]`와 같이 동적 경로가 등록되어 있다면, `/test/1`에 대한 요청은 `/proxy/1`로 proxy됩니다.**
+
+### fallback
+
+fallback은 정적 파일과 동적 경로가 등록된 api를 확인한 후에 proxy가 적용됩니다.
+
+```javascript
+rewrites: async ()  => ({
+  fallback: [{
+    source: '/test/:path*',
+    destination: '/proxy/:path*',
+  }],
+})
+```
+
+위와 동일한 가정하에, `{url}/test`, `{url}/test/[id]`로 요청하면, proxy되지 않습니다.
+
+오로지, **아무것도 등록되지 않은 api에 접근했을 떄만, fallback에 등록한 proxy가 적용됩니다.**
+
 # rewrite 활용
 
 Next.js 공식 홈페이지에서 여러가지 활용 방안을 소개하고 있습니다.
@@ -125,6 +178,9 @@ Next.js 공식 홈페이지에서 여러가지 활용 방안을 소개하고 있
   이것 또한 rewrite를 응용한 것 입니다.
 
 # Ref
+
+- https://nextjs.org/docs/app/api-reference/next-config-js/redirects
+- https://nextjs.org/docs/pages/api-reference/next-config-js/rewrites
 
 - https://www.cloudflare.com/ko-kr/learning/cdn/glossary/reverse-proxy/
 - https://inpa.tistory.com/entry/NETWORK-%F0%9F%93%A1-Reverse-Proxy-Forward-Proxy-%EC%A0%95%EC%9D%98-%EC%B0%A8%EC%9D%B4-%EC%A0%95%EB%A6%AC
