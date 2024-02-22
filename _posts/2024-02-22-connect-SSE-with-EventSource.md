@@ -206,7 +206,7 @@ network 탭에서 event type이 custom으로 바뀐 것을 확인할 수 있습�
 
 ![sse_custom_network]({{ "../assets/img/aboutInternet/sse_network_custom.png" | relative_url }})
 
-# EvnetSource의 한계와 polyfills
+# EventSource의 한계와 polyfills
 
 Web API로 주어지는 EventSource는 편리하지만, **GET 요청 밖에 안되는 점**, **header 수정이 안되는 점** 등의 한계가 있습니다.
 
