@@ -15,6 +15,8 @@ excerpt_separator: <!--more-->
 
 ![server-sent-events]({{ "../assets/img/aboutInternet/server-sent-events.avif" | relative_url }})
 
+<!--more-->
+
 # SSE(Server-Sent events)란?
 
 SSE(Server-Sent events)는 HTTP 기반으로, 서버의 데이터를 실시간으로 streaming하는 기술입니다.
