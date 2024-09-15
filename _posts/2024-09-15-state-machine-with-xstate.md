@@ -11,7 +11,7 @@ excerpt_separator: <!--more-->
 
 상태 하나가 추가되면 다른 상태들과의 관계를 고려해야하고, 그럼 상태 하나가 추가될 때마다 복잡도가 기하급수적으로 증가합니다.
 
-이런 복잡한 문제를 깔끔하게 해결하기 위해, Finite State Machine을 사용할 수 있습니다.
+이런 복잡한 문제를 깔끔하게 해결하기 위해, Finite State Machine을 사용해 보았습니다.
 
 ![statemachine]({{ "../assets/img/statemachine/statemachine.webp" | relative_url }})
 
