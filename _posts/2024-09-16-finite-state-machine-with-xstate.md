@@ -377,39 +377,60 @@ export const paymentLoadingMachine = createMachine({
 
 # Finite State Machine(w. XState) 후기
 
-후기...
+이번에 간단한 예시 상황을 만들고 XState로 코드를 리팩토링 해보면서 상태 머신의 장점과 단점을 경험했습니다.
 
-솔직히 처음 사용할 땐 굉장히 복잡했다. 메소드도 많고, 가능한 property도 많아서 익히는 데 시간이 걸렸다. 이런 학습 곡선은 단점이라고 생각한다.
+## 장점
 
-마치 리덕스처럼 무언가를 하기 위해 코드도 많이 작성해야하는 점도 복잡하고 번거로웠다.
+제가 느낀 **장점은 꽤 컷으며**, 상태 머신만으로도 웹 애플리케이션의 모든 상태를 관리할 수 있을 정도로 장점이 강력한 도구였다고 느꼈습니다.
 
-필요한 코드가 많은 만큼 하나의 상태 머신이 다루는 상태가 많아지면 코드가 비대해지고 복잡해질 수 있다. 즉, 상태 머신이 불필요하게 커지면 오히려 복잡도가 증가할 위험성도 있고, 상태 머신들이 서로 얽히면 상태 머신을 사용하지 않을 때보다 더더욱 복잡해질 수 있다.
+명확한 상태 표현으로 **협업에도 큰 도움**이 될 것 같다고 생각했습니다.
 
-따라서 상태 머신은 간결하게 유지하는 것이 중요하다고 생각한다.
+- 명확한 상태의 흐름과 상태간의 관계 표현으로 인한 가독성 향상.
+- 불가능한 상황을 방지하는 엄격한 규칙으로 인한 버그 방지.
 
-하지만, 한번 익숙해지면 상태 머신을 사용하는 것이 얼마나 편리하고 유지보수가 쉬운지 알 수 있었다.
+## 단점
 
-상태 머신만으로 애플리케이션의 모든 상태를 관리할 수 있을 정도로 강력하다고 생각한다.
+처음 경험해 본 FSM을 설계함에도 고려해야될 것이 많아 복잡했고, XState를 처음 사용할 때 쉽지 않았습니다.
 
-따라서, 상태 머신은 익히기는 조금 힘들지만, 그만한 가치는 충분하다고 생각한다.
+FSM을 구현하기 위한 메소드와 제약 사항 같은 옵션들이 정말 많아서, 이를 확인하고 익히는 데만 시간이 좀 걸렸습니다.
+
+이런 학습 비용은 FSM과 XState의 단점이라고 생각합니다.
+
+또한 마치 리덕스처럼 간단한 상태 머신을 만드는데도 필요한 코드가 많아 처음 상태 머신을 만들 때 조금 번거로웠습니다.
+
+필요한 코드가 많고 적용할 수 있는 옵션들이 만큼 설계가 잘못되어 여러 context가 얽히게 되면 상태 머신을 사용하지 않을 때보다 더 복잡해질 수 있다고 느꼈습니다.
+
+따라서 상태 머신은 Visualizer 툴등을 이용해 디버깅 및 관리하면서 간결하게 유지하는 것이 중요하다고 생각했습니다.
+
+- 상태 머신과 XState를 잘 활용하기 위해선 어느정도 학습 시간이 필요. (학습 비용 있음)
+  - 팀 간 노하후 공유로 어느정도 완화 가능.
+- redux처럼 상태 머신만을 위한 boilerplate 코드가 꽤 많이 필요하다.
+  - 스니펫 활용으로 생산성 향상 가능.
+- 상태 머신을 사용할 때는 상태 머신의 상태를 최대한 직관적이고 간결하게 유지하고, 상태 머신에 불필요한 context가 서로 얽히지 않도록 주의해야한다.
+  - Visualizer를 잘 활용하면 복잡한 상태 머신을 시각적으로 확인할 수 있어 디버깅과 리팩토링에 도움이 될 수 있다.
 
 # Conclusion
 
-XState에선 FSM 구현을 위해 제공하는 메소드와 기능들이 정말 많지만, 아직은 기본적인 기능들만 사용해보았다.
+XState에선 FSM 구현을 위해 제공하는 메소드와 기능들이 정말 많지만, 이번 포스팅에선 정말 기본적인 기능들만 사용해보았습니다.
 
-앞으로 계속해서 사용해보며 더 잘 활용해볼 수 있는 방법을 알아봐야겠다.
+아직 잘 모르는 기능과 옵션들도 많아 앞으로 계속해서 사용해보며 익혀나가야겠습니다. (필요하다면 후속 포스팅에서 이어나가보겠습니다.)
 
-상황에 따라 적절히 잘 사용하면 어떤 상황에서도 복잡한 상태관리를 깔끔하게 해결할 수 있는 충분히 강력한 도구라고 생각한다.
+처음에 익숙해지기는 어렵지만, 장점이 뚜렷하여 적절히 활용하면 점점 더 성장하고 복잡해지는 프로덕트 유지보수에 큰 도움이 될 것 같습니다.
+
+감사합니다. 🙏
 
 # ref
 
 - [XState](https://xstate.js.org/docs/)
-https://fe-developers.kakaoent.com/2022/220922-make-cart-with-xstate/
 
-https://geekyants.com/blog/introduction-to-state-machines-in-react-with-xstate
+- [자바스크립트로 만든 유한 상태 기계 XState - 카카오 엔터테인먼트](https://fe-developers.kakaoent.com/2022/220922-make-cart-with-xstate/)
 
-https://kyleshevlin.com/guidelines-for-state-machines-and-xstate/
+- [Introduction to State Machines in React with XState - GeekyAnts](https://geekyants.com/blog/introduction-to-state-machines-in-react-with-xstate)
 
-https://dev.to/gtodorov/sustainable-xstate-machines-2065
+- [Guidelines for State Machines and XState - Kyle Shevlin](https://kyleshevlin.com/guidelines-for-state-machines-and-xstate/)
 
-유한 상태 기계 - 위키피디아 https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%95%9C_%EC%83%81%ED%83%9C_%EA%B8%B0%EA%B3%84
+- [Sustainable xState machines - dev.to](https://dev.to/gtodorov/sustainable-xstate-machines-2065)
+
+- [유한 상태 기계 - 위키피디아](https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%95%9C_%EC%83%81%ED%83%9C_%EA%B8%B0%EA%B3%84)
+
+- [Testable XState-Machines: Combining XState with Dependency Inversion - Christoph Fricke](https://christoph.hashnode.dev/xstate-dependency-inversion)
