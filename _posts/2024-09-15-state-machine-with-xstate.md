@@ -56,11 +56,324 @@ XState는 JS / TS로 작성된 라이브러리로 State Machine을 정의하고,
 
 XState로 간단한 Finite State Machine을 구현해보기 위해 간단한 예시를 만들어 구현해보았습니다.
 
+## 예시 시나리오
+
 예시는 결제 진행으로 크게 1. 결제 준비 2. 결제 진행 단계로 나뉩니다.
 
 결제 준비 단계에선 비회원, 회원 상태를 가지고 있고, 비회원과 회원 상태에 따라 결제 준비 단계가 약간 다르게 진행됩니다.
 
 그리고 결제 진행 단계에선 비동기 처리 상태에 따라 상태와 UI가 변경되고 결제가 완료되면 종료됩니다.
+
+### Demo
+
+간단히 어떤 예시인지 완성된 데모를 살펴보겠습니다.
+
+non-member | member
+------------ | -------------
+![non-member]({{ "../assets/img/statemachine/non_member_example.gif" | relative_url }}) | ![member]({{ "../assets/img/statemachine/member_example.gif" | relative_url }})
+
+## 상태 머신이 없을 때
+
+먼저 상태 머신이 없을 때의 코드를 살펴보겠습니다.
+
+상태 머신이 상태를 관리하지 않기 때문에, 우선 상태를 선언해야 합니다. 필요한 상태는 다음과 같습니다.
+
+```tsx
+  // 회원인가 아닌가?
+  const [isMember, setIsMember] = useState(false);
+
+  // 동의절차는 정의된 순서 그대로 순차적으로 진행됩니다.
+  type AgreeProcess = 'user-info-input' | 'user-info-consent' | 'payment-consent' | 'payment';
+  // 동의 절차를 하나씩 순차적으로 하나씩 추가해서 보여줘야 함.
+  const [agreeProcess, setAgreeProcess] = useState<AgreeProcess | undefined>();
+```
+
+비회원이면 정보 입력을 위한 입력창을 띄워줍니다. 입력이 완료되면 회원과 동일한 동의 절차를 시작합니다.
+
+여기서 현재 state에 따라서 다음 절차를 파악하는 등, 동의 절차 state를 컴포넌트에서 모두 수동으로 관리해야합니다.
+
+```tsx
+  // 회원인 경우와 아닌 경우 시작하는 동의 절차 상태가 다름
+  <Button onClick={() => {
+    // 현재 상태에 따라 느슨하게 연결된 상태 변경 로직
+    if (isMember) {
+      setAgreeProcess('user-info-consent');
+    } else {
+      setAgreeProcess('user-info-input');
+    }
+  }}>
+    결제를 진행합니다.
+  </Button>
+```
+
+```tsx
+  // 상태에 따른 동의 절차 컴포넌트 추가
+  const agreeComponents: ReactNode[] = [];
+
+  if (!isMember) {
+    agreeComponents.push(
+      <InputContainer
+        key="user-info-input"
+        onClick={() => {
+          setAgreeProcess('user-info-consent');
+        }}
+      />
+    );
+  }
+
+  if (agreeProcess === 'user-info-consent') {
+    agreeComponents.push(
+      <div key="user-info-consent">
+        <FormControlLabel
+        control={
+          <Checkbox
+            onChange={(e) => {
+              const { checked } = e.target;
+              if (checked) {
+                setAgreeProcess('payment-consent');
+              }
+            }}
+            color="primary"
+          />
+        }
+        label="사용자 정보에 동의하시겠습니까?"
+        />
+      </div>
+    );
+  }
+
+  // 동일하게 진행...
+```
+
+결제 동의 절차가 끝나고 본격적으로 결제 요청이 시작되는 비동기 작업의 경우 아래와 같은 코드로 관리됩니다.
+
+```tsx
+// 결제 요청 여부
+  const [isFetched, setIsFetched] = useState(false);
+  // 비동기 결제를 요청하고 3초를 client에서 스스로 측정해서 보여줘야 함.
+  const [isLoading, setIsLoading] = useState(false);
+```
+
+동일하게 모든 상태 변화를 native 로직을 통해 관리합니다.
+
+```tsx
+  const handlePaymentButtonClick = useCallback(async () => {
+    // 모든 상태 변화를 수동으로 관리
+    setIsFetched(true);
+
+    const loadingTimer = setTimeout(() => {
+      setIsLoading(true);
+    }, 3000);
+
+    try {
+      await mockPaymentFetching(() => {
+        clearTimeout(loadingTimer);
+        setIsFetched(false);
+        setIsLoading(false);
+      });
+    } catch {
+      clearTimeout(loadingTimer);
+      setIsFetched(false);
+      setIsLoading(false);
+    }
+  }, []);
+
+  // 결제 시작 버튼
+  <Button variant='contained' onClick={() => {
+    handlePaymentButtonClick();
+  }}>결제 시작</Button>
+
+  // 결제 진행 상태 표시 모달
+  <Dialog open={isFetched}>
+    <Box>
+      <CircularProgress />
+      {isLoading ? <div style={{ color: 'red' }}>잠시만 기다려 주세요...</div> : <div>결제중...</div>}
+    </Box>
+  </Dialog>
+```
+
+상위 코드는 모든 상태관리 로직과 View가 한 곳에 모여있어 가독성 및 관리가 어렵습니다.
+
+또한, 엄격한 규칙없이 native 로직으로 느슨하게 관리하다보면, 코드의 의도를 알기도 어렵고 이로인해 잘못된 코드 수정으로 버그가 발생할 여지가 많아져 유지보수가 어려워집니다. (협업의 어려움 가중)
+
+## 상태 머신을 사용할 때
+
+이제 XState를 사용하여 상태 머신을 구현하고 상위 코드를 리팩토링해보겠습니다.
+
+먼저 결제 동의 절차를 위한 상태 머신을 정의합니다.
+
+```tsx
+export const paymentMachine = createMachine({
+  id: 'payment',
+  initial: 'Init',
+  context: {
+    // 이 사람이 회원인지 아닌지 기억한다.
+    isMember: false,
+  },
+  states: {
+    // !! : 명확한 상태 순서 정의
+    Init: {
+      on: {
+        next: [
+          {
+            // 회원일 때만 유저 동의 절차로 이동
+            guard: (context) => context.context.isMember,
+            target: 'UserInfoConsent',
+          },
+          {
+            // 비회원일 땐 유저 정보 입력으로 이동
+            guard: (context) => !context.context.isMember,
+            target: 'UserInfoInput',
+          },
+        ],
+        stay: {
+          target: 'Init',
+        },
+        setMember: {
+          actions: assign({
+            isMember: ({ context, event }) => event?.isMember ?? context.isMember
+          }),
+        }
+      },
+    },
+    UserInfoInput: {
+      on: { next: 'UserInfoConsent' },
+    },
+    UserInfoConsent: {
+      on: { next: 'PaymentConsent' },
+    },
+    PaymentConsent: {
+      on: { next: 'Payment' },
+    },
+    Payment: {
+      type: 'final',
+    },
+  },
+});
+```
+
+이제 상태 머신을 컴포넌트에 적용해보겠습니다.
+
+```tsx
+  import { useMachine } from '@xstate/react';
+
+  // !! : 필요한 여러 상태들이 컴포넌트에서 보이지 않음.
+  const [snapshot, send] = useMachine(paymentMachine, {});
+
+  const curState = snapshot.value;
+  const isMember = snapshot.context.isMember;
+
+  // 상태에 따른 동의 절차 컴포넌트 추가
+  const agreeComponents: ReactNode[] = [];
+
+  if (!isMember) {
+    agreeComponents.push(
+      <InputContainer
+        key="user-info-input"
+        onClick={() => {
+          console.log('click')
+          send({ type: 'next' })
+        }}
+      />
+    );
+  }
+
+  if (curState === 'UserInfoConsent') {
+    agreeComponents.push(
+      <div key="user-info-consent">
+        <FormControlLabel
+        control={
+          <Checkbox
+            color="primary"
+            onChange={(e) => {
+              const { checked } = e.target;
+              if (checked) {
+                // !!: 추상화 된 상태 머신 변환 메소드
+                send({ type: 'next' });
+              }
+            }}
+          />
+        }
+        label="사용자 정보에 동의하시겠습니까?"
+        />
+      </div>
+    );
+  }
+
+  // 동일하게 진행...
+```
+
+결제 요청 비동기 작업의 경우는 아래와 같이 변경됩니다.
+
+```tsx
+// 로딩표시를 위한 상태 머신으로 항상 재사용할 수 있도록 설계
+// 머신 종료 상태인 type: final을 적용하면 상태 머신 재사용이 힘듦.
+export const paymentLoadingMachine = createMachine({
+  id: 'payment',
+  initial: 'Init',
+  states: {
+    Init: {
+      on: { next: 'PaymentSend' },
+    },
+    PaymentSend: {
+      on: { next: 'Init' },
+      after: {
+        // !! : 내부적인 상태 전환을 컴포넌트에서 해줄 필요가 없음.
+        3000: 'Loading' // 3000ms (3초) 후 Loading으로 자동 전환
+      },
+    },
+    Loading: {
+      on: { next: 'Init' },
+    }
+  }
+});
+```
+
+상태 머신을 컴포넌트에 적용합니다.
+
+```tsx
+  // 결제 요청 했다고 가정하는 비동기 함수
+  async function mockPaymentFetching() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('done');
+        resolve('done');
+      }, 5000);
+    });
+  }
+
+  const [paymentLoadingSnapshot, paymentLoadingSend] = useMachine(paymentLoadingMachine, {});
+
+  const isFetched = paymentLoadingSnapshot.value !== 'Init';
+  const isLoading = paymentLoadingSnapshot.value === 'Loading';
+  const isDialogOpen = isFetched;
+
+  const handlePaymentButtonClick = useCallback(async () => {
+    if (isFetched) return;
+
+    // !! : 훨씬 간결해진 코드
+    paymentLoadingSend({ type: 'next' });
+    try {
+      await mockPaymentFetching();
+      paymentLoadingSend({ type: 'next' });
+    } catch {
+      paymentLoadingSend({ type: 'next' });
+    }
+  }, [isFetched, paymentLoadingSend]);
+
+  <Button variant='contained' onClick={() => {
+    handlePaymentButtonClick();
+  }}>결제 시작</Button>
+
+  <Dialog open={isDialogOpen}>
+    <Box>
+      <CircularProgress />
+      {isLoading ? <div style={{ color: 'red' }}>잠시만 기다려 주세요...</div> : <div>결제중...</div>}
+    </Box>
+  </Dialog>
+```
+
+상태 머신을 적용했을 때, 상태 머신의 엄격한 규칙으로 인해 코드의 의도가 더 명확해지고, 컴포넌트에서 상태를 다루는 여러 복잡한 로직들이 많이 사라졌습니다.
 
 # Finite State Machine(w. XState) 후기
 
@@ -69,6 +382,10 @@ XState로 간단한 Finite State Machine을 구현해보기 위해 간단한 예
 솔직히 처음 사용할 땐 굉장히 복잡했다. 메소드도 많고, 가능한 property도 많아서 익히는 데 시간이 걸렸다. 이런 학습 곡선은 단점이라고 생각한다.
 
 마치 리덕스처럼 무언가를 하기 위해 코드도 많이 작성해야하는 점도 복잡하고 번거로웠다.
+
+필요한 코드가 많은 만큼 하나의 상태 머신이 다루는 상태가 많아지면 코드가 비대해지고 복잡해질 수 있다. 즉, 상태 머신이 불필요하게 커지면 오히려 복잡도가 증가할 위험성도 있고, 상태 머신들이 서로 얽히면 상태 머신을 사용하지 않을 때보다 더더욱 복잡해질 수 있다.
+
+따라서 상태 머신은 간결하게 유지하는 것이 중요하다고 생각한다.
 
 하지만, 한번 익숙해지면 상태 머신을 사용하는 것이 얼마나 편리하고 유지보수가 쉬운지 알 수 있었다.
 
