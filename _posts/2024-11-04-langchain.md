@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Local AI Server with LangChain + Open source LLM
+title: Local LLM with LangChain
 tags: [AI, Python, AI app, LangChain, LLM, Local LLM, LLaMa3, open source, open source LLM]
 excerpt_separator: <!--more-->
 ---
@@ -25,7 +25,7 @@ context와 입출력 format을 더 자세히 제공할 수록 더 빠르게 구�
 
 여기서 LangChain이라는 툴이 유용하게 사용될 수 있습니다. LLM이 뇌라면 LangChain은 LLM의 손, 발, 눈, 코, 입이 되어줍니다.
 
-[LangChain - python](https://python.langchain.com/docs/introduction/)
+[LangChain](https://python.langchain.com/docs/introduction/)
 
 # Local LLM 실행 (w.Ollama)
 
@@ -37,7 +37,7 @@ LangChain 사용에 앞서 로컬에서도 LLM을 사용할 수 있는 방법을
 
 **LLM을 로컬에서 실행할 수 있도록 도와주는 툴입니다.** cli 툴로 개발자들에게 특히 유용하게 사용될 수 있는 툴입니다.
 
-[ollama.com](https://ollama.com/)
+[Ollama](https://ollama.com/)
 
 - Ollama에 등록된 LLM을 로컬에 pull 받습니다.
 
@@ -320,3 +320,5 @@ print(f'{res=}')
 - [랭체인의 개념과 이해](https://www.samsungsds.com/kr/insights/the-concept-of-langchain.html)
 - [랭체인이란 무엇인가?](https://www.samsungsds.com/kr/insights/what-is-langchain.html)
 - [랭체인(LangChain) 정리 (LLM 로컬 실행 및 배포 & RAG 실습)](https://velog.io/@kwon0koang/%EB%A1%9C%EC%BB%AC%EC%97%90%EC%84%9C-Llama3-%EB%8F%8C%EB%A6%AC%EA%B8%B0#-%EC%B0%B8%EC%A1%B0)
+- [Ollama](https://ollama.com/)
+- [LangChain](https://python.langchain.com/docs/introduction/)
