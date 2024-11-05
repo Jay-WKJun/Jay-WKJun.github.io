@@ -5,7 +5,7 @@ tags: [AI, Python, AI app, LangChain, LLM, Local LLM, LLaMa3, open source, open 
 excerpt_separator: <!--more-->
 ---
 
-LLM API를 이용해 원하는 서비스를 만들기 위해선 비용의 걱정이 있습니다.
+LLM API를 이용해 원하는 기능을 만들고 사용해보고 싶지만 항상 비용이 걱정됩니다.
 
 비용 문제도 해결하고 직접 학습도 할 수 있는 매력적인 Local LLM(LLaMa3)과 함께 LangChain의 주요 내용들을 알아보겠습니다.
 
@@ -25,9 +25,7 @@ context와 입출력 format을 더 자세히 제공할 수록 더 빠르게 구�
 
 여기서 LangChain이라는 툴이 유용하게 사용될 수 있습니다. LLM이 뇌라면 LangChain은 LLM의 손, 발, 눈, 코, 입이 되어줍니다.
 
-### LangChain JS/TS?
-
-랭체인은 최근 여러 programming language로도 함께 구현되고 있습니다.
+[LangChain - python](https://python.langchain.com/docs/introduction/)
 
 # Local LLM 실행 (w.Ollama)
 
@@ -37,17 +35,17 @@ LangChain 사용에 앞서 로컬에서도 LLM을 사용할 수 있는 방법을
 
 ![Ollama]({{ "../assets/img/aboutLangChain/ollama.png" | relative_url }})
 
-LLM을 로컬에서 실행할 수 있도록 해주는 툴입니다.
+**LLM을 로컬에서 실행할 수 있도록 도와주는 툴입니다.** cli 툴로 개발자들에게 특히 유용하게 사용될 수 있는 툴입니다.
 
-cli 툴로 개발자들에게 유용하게 사용될 수 있는 툴입니다.
+[ollama.com](https://ollama.com/)
 
-1. Ollama에 등록된 LLM을 로컬에 pull 받습니다.
+- Ollama에 등록된 LLM을 로컬에 pull 받습니다.
 
 ```shell
 ollama pull llama3
 ```
 
-2. Ollama를 실행합니다.
+- Ollama를 실행합니다.
 
 default로 `http://127.0.0.1:11434`에 ollama와 통신할 수 있는 API가 열립니다.
 
@@ -55,7 +53,7 @@ default로 `http://127.0.0.1:11434`에 ollama와 통신할 수 있는 API가 열
 ollama serve
 ```
 
-3. ollama와 통신, LLM과 대화
+- curl로 ollama와 통신, LLM과 대화
 
 open된 ollama 서버에 요청을 보내고, 결과를 받습니다.
 
@@ -70,9 +68,9 @@ curl http://localhost:11434/api/generate -d '{
 
 ![Ollama_demo]({{ "../assets/img/aboutLangChain/ollama_demo.gif" | relative_url }})
 
-3-1. langchain_ollama를 활용
+- 혹은 langchain_ollama를 활용해 통신, LLM과 대화
 
-LangChain community에서 제공하는 ollama 통신 모듈을 활용해 통신할 수도 있습니다.
+curl이외에 LangChain에서 제공하는 ollama 통신 모듈을 활용해 통신할 수도 있습니다.
 
 ```python
 # Python
@@ -90,13 +88,13 @@ print(f'{response=}')
 
 # Template & Parser
 
-기본적으로 LLM의 입력과 출력은 Text 혹은 Image와 같이 특정 런타임 환경을 넘어 컴퓨터가 온전히 이해할 수 있는 형태의 정보들을 받거나 출력할 수 있습니다.
+기본적으로 LLM의 입력과 출력은 Text 혹은 Image와 같이 컴퓨터가 온전히 이해할 수 있는 형태의 정보들을 받거나 출력할 수 있습니다.
 
-즉, Python의 Dictionary나 Array같은 어떤 프로그래밍 언어 만의 자료구조 형태로는 입력과 출력을 할 수 없다는 뜻입니다.
+즉, Python의 Dictionary나 Array같은 프로그래밍 언어 만의 자료구조 형태로는 입력과 출력을 할 수 없다는 뜻입니다.
 
-따라서, LLM이 이해할 수 있는 형태로 입력을 변환하여 주고, LLM이 출력한 결과를 다시 활용하기 좋은 형태로 변환해주는 작업이 필요합니다.
+따라서, **LLM이 이해할 수 있는 형태로 입력을 변환하여 주고, LLM이 출력한 결과를 다시 활용하기 좋은 형태로 변환해주는 작업이 필요합니다.**
 
-LangChain에선 입력은 Prompt Template, 출력은 Output parser의 형태로 이를 제공합니다.
+LangChain에선 **입력은 Prompt Template**, **출력은 Output parser**의 형태로 이를 제공합니다.
 
 (현 포스팅에선 Text 형태의 LLM 입,출력만 다룹니다.)
 
@@ -224,11 +222,11 @@ print(joke_object.punchline)
 
 # LCEL(LangChain Expression Language)
 
-프롬프트, 모델, 출력 파서 등의 구성 요소를 파이프 연산자( \| )를 사용해서 단일 체인으로 구성하는 LangChain에서 지원하는 표현입니다.
+프롬프트, 모델, 출력 파서 등의 구성 요소를 파이프 연산자( \| )를 사용해서 단일 체인으로 구성하는 LangChain에서 지원하는 표현 방식입니다.
 
 연속적인 함수 실행엔 메소드 체이닝 방법도 있지만, 그보다 훨씬 가독성이 좋은 방법이라고 할 수 있습니다.
 
-주의할 점으로 LCEL 파이프라인 시작시 랭체인에서 제공하는 함수 중, 파이프라인에 사용할 수 있는 함수를 사용해 시작해야합니다.
+**주의할 점으로 LCEL 파이프라인 시작시 랭체인에서 제공하는 함수 중, 파이프라인에 사용할 수 있는 함수를 사용해 시작해야합니다.**
 
 ```python
 from langchain_core.runnables import RunnableLambda
@@ -270,8 +268,10 @@ chain = RunnableLambda(prompt_lambda) | {
     'system_prompt': itemgetter('with_system_prompt') # 'Answer the user query. query : {prompt}'
 } | RunnablePassthrough()
 
-chain.invoke("What is the difference between Python and TypeScript?")
+res = chain.invoke("What is the difference between Python and TypeScript?")
+print(f'{res=}')
 # RunnablePassthrough는 바로 앞 pipeline의 output을 그대로 받아 출력한다.
+# res=
 # { 'original': {
 #     'prompt': 'What is the difference between Python and TypeScript?',
 #     'with_system_prompt': 'Answer the user query. query : What is the difference between Python and TypeScript?'
@@ -281,6 +281,8 @@ chain.invoke("What is the difference between Python and TypeScript?")
 ```
 
 ## LCEL with LLM
+
+LLM과 함께 파이프라인을 구현해보겠습니다.
 
 ```python
 prompt1 = ChatPromptTemplate.from_template("what is the city {person} is from?")
@@ -303,7 +305,7 @@ chain2 = (
 
 res = chain2.invoke({"person": "obama", "language": "korean"})
 print(f'{res=}')
-# res
+# res=
 # 오바마(Barrack Obama) 대통령의 생모지국은? 그것은 하와이(Hawaii)입니다.
 # 그는 1961년 8월 4일 Honolulu, Hawaii에서 Kapi'olani Medical Center for Women and Children에서 태어났습니다.
 # 하지만 그의 고향 또는 성장한 곳은 일리노이주 시카고(Cicago, Illinois)입니다! 오바마는 대부분의 인생을 시카고에서 보냈으며, 그는 하와이 생모지국보다 시카고에 더 많은 친감을 느꼈습니다.
