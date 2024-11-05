@@ -35,7 +35,7 @@ LangChain 사용에 앞서 로컬에서도 LLM을 사용할 수 있는 방법을
 
 ## Ollama
 
-![Ollama]({{ "../assets/img/aboutLangChain/Ollama.png" | relative_url }})
+![Ollama]({{ "../assets/img/aboutLangChain/ollama.png" | relative_url }})
 
 LLM을 로컬에서 실행할 수 있도록 해주는 툴입니다.
 
@@ -224,7 +224,7 @@ print(joke_object.punchline)
 
 # LCEL(LangChain Expression Language)
 
-프롬프트, 모델, 출력 파서 등의 구성 요소를 파이프 연산자( | )를 사용해서 단일 체인으로 구성하는 LangChain에서 지원하는 표현입니다.
+프롬프트, 모델, 출력 파서 등의 구성 요소를 파이프 연산자( \| )를 사용해서 단일 체인으로 구성하는 LangChain에서 지원하는 표현입니다.
 
 연속적인 함수 실행엔 메소드 체이닝 방법도 있지만, 그보다 훨씬 가독성이 좋은 방법이라고 할 수 있습니다.
 
