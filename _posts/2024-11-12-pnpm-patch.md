@@ -59,7 +59,7 @@ $ pnpm patch-commit "/Users/{유저ID}/me/patch-test/node_modules/.pnpm_patches/
 
 patch 결과 `<pkg name>@<version>.patch` 파일이 생성되며, .patch 파일의 내용에 맞춰 `<pkg name>@<version>`가 install 될 때마다 내부 코드를 갱신합니다.
 
-![patch-result]({{ "../assets/img/aboutDependency/patch-result.png" | relative_url }})
+![patch-result-in-project]({{ "../assets/img/aboutDependency/patch-result-in-project.png" | relative_url }})
 
 현 포스팅에선 예시로 다뤘던 `is-odd@3.0.1`의 코드가 다음과 같이 변경됩니다.
 
