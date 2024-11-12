@@ -15,11 +15,21 @@ excerpt_separator: <!--more-->
 
 # pnpm patch
 
-[pnpm patch](https://pnpm.io/ko/cli/patch) 사용방법에 대해 알아보겠습니다.
+[pnpm patch](https://pnpm.io/ko/cli/patch) 에 대해 알아보겠습니다.
 
-현 포스팅에선 `is-odd`라는 매우 간단한 dependency를 변경해보겠습니다.
+현 포스팅에선 예시로 `is-odd`라는 매우 간단한 dependency를 변경해보겠습니다.
+
+## pnpm patch가 필요한 경우
+
+dependency가 문제가 있는 경우 `/node_modules`에 있는 코드에 직접 접근해 수정하여 디버깅하거나 해결 할 수 있습니다.
+
+하지만, 이렇게 직접 수정한 코드는 제 local 프로젝트에만 적용되기 때문에, 다른 프로젝트에 적용하거나 다른 개발자와 공유하기 어렵습니다. (보통 `/node_modules`는 `.gitignore`에 포함되어 있기 때문에 git에 저장되지 않습니다.)
+
+이럴 때 `pnpm patch`를 이용하면, dependency를 수정한 내용을 `.patch` 파일로 하여금, 해당 dependency가 install 될 때마다 dependency 코드를 수정할 수 있습니다.
 
 ## pnpm patch
+
+지금부터 `pnpm patch`를 이용해 dependency를 수정하는 방법을 알아보겠습니다.
 
 먼저 바꾸고 싶은 dependency를 선정합니다.
 
@@ -48,6 +58,8 @@ $ pnpm patch-commit "/Users/{유저ID}/me/patch-test/node_modules/.pnpm_patches/
 ## patch 결과
 
 patch 결과 `<pkg name>@<version>.patch` 파일이 생성되며, .patch 파일의 내용에 맞춰 `<pkg name>@<version>`가 install 될 때마다 내부 코드를 갱신합니다.
+
+![patch-result]({{ "../assets/img/aboutDependency/patch-result.png" | relative_url }})
 
 현 포스팅에선 예시로 다뤘던 `is-odd@3.0.1`의 코드가 다음과 같이 변경됩니다.
 
