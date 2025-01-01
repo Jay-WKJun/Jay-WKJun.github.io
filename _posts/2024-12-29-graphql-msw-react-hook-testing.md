@@ -13,6 +13,8 @@ React와 GraphQL(Apollo Framework) 환경에서 MSW(Mock Service Worker)를 활�
 
 <!--more-->
 
+# 테스트코드와 환경 구축
+
 JavaScript에서 순수 함수를 테스트하는 것은 비교적 간단합니다. 하지만 특정 환경에서 실행되며 내부적으로 side effect를 일으키는 함수라면, 테스트 환경에서 그 환경을 mocking해야 합니다.
 
 React Hook은 하나의 함수처럼 보이지만, React라는 특수한 환경에서 동작하기 때문에 테스트 시 React 환경을 mocking하는 작업이 필요합니다.
