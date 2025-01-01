@@ -108,11 +108,11 @@ export function useReportQuery(reportId: string) {
   const result = examReport?.result;
 
   // 메소드를 통해 정보를 가공해 제공
-  const isReportCreatedBeforeGivenTime = useMemo((time: number) => {
+  const isReportCreatedBeforeGivenTime = useCallback((time: number) => {
     return exam.createdAt <= time;
   }, [exam]);
 
-  const getExamineeScholarLevel = useMemo(() => {
+  const getExamineeScholarLevel = useCallback(() => {
     return examinee.scholarLevel
   }, [examinee]);
 
@@ -196,7 +196,7 @@ server가 항상 안정적으로 통신된다면 좋겠지만, 항상 그렇지 
 
 그럼 테스트 할 수 없게 되는데요, 이를 대비해 server를 대신할 msw를 추가해줍니다.
 
-msw는 server를 mocking하기 때문에, 코드나 테스트코드를 수정할 필요가 없습니다. 따라서 하위 코드엔 msw 설정 부분만 따로 정리합니다.
+msw는 서버를 mocking하기 때문에, 실제 서버 상태와 무관하게 테스트를 안정적으로 실행할 수 있습니다. 또한 테스트 코드 자체를 수정할 필요 없이 msw 설정 파일만 업데이트하면 됩니다.
 
 ```typescript
 // mockStore.ts
@@ -227,7 +227,7 @@ export class MockStore {
       throw new Error(`No resolver for operationName: ${String(operationName)}`);
     }
 
-    let result: = undefined;
+    let result: any = undefined;
     let errors: GraphQLTestError[] = [];
 
     try {
@@ -242,7 +242,6 @@ export class MockStore {
 
   mswHandler: ResponseResolver<GraphQLRequest<GraphQLVariables>, GraphQLContext<Record<string, any>>, any> =
     async (req, res, ctx) => {
-      // @ts-ignore
       const operationName = (req as any).operationName ?? req.body?.operationName;
 
       const { data, errors } = await this.#resolve(operationName, req.variables as any);
@@ -387,7 +386,7 @@ GraphQL Query를 custom hook에서 다루도록 리팩토링하면서 코드 유
 	-	각 함수에 대한 테스트 코드 적용으로 안정성을 더욱 강화했습니다.
 -	테스트의 부가적 효과
 	-	작은 단위의 코드에서 안정성을 확보할 수 있었습니다.
-	-	테스트는 코드 로직의 설명서 역할을 하며, 팀 내 커뮤니케이션 도구로도 활용될 수 있습니다.
+	-	테스트는 코드 로직에 대한 설명서 역할을 하며, 문제 상황 발생 시 팀원 간의 논의를 더욱 명확히 하고 근거를 제공하는 도구로 활용될 수 있습니다.
 
 이러한 접근 방식은 유지보수성을 높이고 협업을 원활하게 할 뿐 아니라, 더 나은 사용자 경험을 제공하기 위한 중요한 밑거름이 될 것입니다.
 
