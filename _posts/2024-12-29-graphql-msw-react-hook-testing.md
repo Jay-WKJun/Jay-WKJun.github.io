@@ -5,7 +5,7 @@ tags: [react, react hook, react hook testing, msw, GraphQL, unit test, test, apo
 excerpt_separator: <!--more-->
 ---
 
-![unit_test_meme]({{ "../assets/img/aboutHookTest/write_unit_test_mesme.jpg" | relative_url }})
+![unit_test_meme]({{ "../assets/img/aboutHookTest/write_unit_test_meme.jpg" | relative_url }})
 
 React와 GraphQL(Apollo Framework) 환경에서 MSW(Mock Service Worker)를 활용한 React Hook 테스트 방법에 대해 알아보겠습니다.
 
