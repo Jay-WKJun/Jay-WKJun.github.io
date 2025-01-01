@@ -233,7 +233,6 @@ export class MockStore {
     let errors: GraphQLTestError[] = [];
 
     try {
-      // @ts-ignore
       result = await resolver({ variables, context: this.#context });
     } catch (error) {
       if (error) errors = [...errors, error as GraphQLTestError];
