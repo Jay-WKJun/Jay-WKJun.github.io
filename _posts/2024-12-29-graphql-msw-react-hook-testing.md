@@ -17,21 +17,21 @@ React와 GraphQL(Apollo Framework) 환경에서 MSW(Mock Service Worker)를 활�
 
 JavaScript에서 순수 함수를 테스트하는 것은 비교적 간단합니다. 하지만 특정 환경에서 실행되며 내부적으로 side effect를 일으키는 함수라면, 테스트 환경에서 그 환경을 mocking해야 합니다.
 
-React Hook은 하나의 함수처럼 보이지만, React라는 특수한 환경에서 동작하기 때문에 테스트 시 React 환경을 mocking하는 작업이 필요합니다.
+React Hook은 하나의 함수처럼 보이지만, React라는 특수한 환경에서 동작하기 때문에 테스트 시 **React 환경을 mocking**하는 작업이 필요합니다.
 
-여기서 더 나아가 Apollo Framework를 사용한 GraphQL 요청까지 포함된다면, 이를 처리할 테스트 환경도 구축해야 합니다.
+여기서 더 나아가 **Apollo Framework를 사용한 GraphQL 요청**까지 포함된다면, **이를 처리할 테스트 환경**도 구축해야 합니다.
 
-msw도 GraphQL 통신 환경에 맞춰 환경을 구축해야합니다.
+**msw도 GraphQL 통신 환경에 맞춰 환경을 구축**해야합니다.
 
 # 이전 코드 - Query에 종속된 컴포넌트
 
 기존에 있던 코드를 먼저 확인하고 이를 리팩토링 하면서 hook 테스트를 구축해보겠습니다.
 
-기존 코드는 컴포넌트에 query와 함께 있어, 서로 종속된 구조로 query만 따로 테스트할 수 없는 구조입니다.
+기존 코드는 **컴포넌트에 query와 함께** 있어, 서로 종속된 구조로 **query만 따로 테스트할 수 없는 구조**입니다.
 
-컴포넌트를 통째로 storybook + msw로 테스트할 수 있지만, 컴포넌트 안엔 여러 query들이 뒤섞여있을 수 있어 개별적인 query에 대한 테스팅은 불가능합니다.
+컴포넌트를 통째로 storybook + msw로 테스트할 수 있지만, 컴포넌트 안엔 여러 query들이 뒤섞여있을 수 있어 **개별적인 query에 대한 테스팅은 불가능**합니다.
 
-이렇게, View와 여러 Query들을 한꺼번에 테스트할 수 밖에 없어 디버깅도 불편합니다.
+이렇게, View와 여러 Query들을 한꺼번에 테스트할 수 밖에 없어 **디버깅도 불편**합니다.
 
 ```tsx
 import { gql, useQuery } from "@apollo/client";
@@ -137,7 +137,7 @@ export function useReportQuery(reportId: string) {
 
 custom hook을 생성했으니 이제 테스트를 구축해보겠습니다.
 
-hook에서 제공하는 정보들이 제대로 query되어 오는지, 메소드들이 원하는 정보를 정확히 제공하는지 확인합니다.
+**hook의 query가 잘 요청되고 제대로 응답값이 오는지**, 결과 데이터를 조작하는 각 메소드들이 의도에 맞게 **정보를 정확히 제공하는지 확인**합니다.
 
 본 포스팅에선 `import { renderHook } from '@testing-library/react'`을 활용해 hook만 별도로 테스트합니다.
 
@@ -159,7 +159,7 @@ describe('useReportQuery', () => {
 
 ### GraphQL 연결 (Apollo framework)
 
-아래와 같이 수정하면 hook 내부의 useQuery가 정상 실행되며 GraphQL 서버와 통신할 수 있습니다.
+아래와 같이 수정하면 hook 내부의 useQuery가 정상 실행되며 **GraphQL 서버와 통신**할 수 있습니다.
 
 ```typescript
 import React from 'react';
@@ -198,7 +198,7 @@ server가 항상 안정적으로 통신된다면 좋겠지만, 항상 그렇지 
 
 그럼 테스트 할 수 없게 되는데요, 이를 대비해 server를 대신할 msw를 추가해줍니다.
 
-msw는 서버를 mocking하기 때문에, 실제 서버 상태와 무관하게 테스트를 안정적으로 실행할 수 있습니다. 또한 테스트 코드 자체를 수정할 필요 없이 msw 설정 파일만 업데이트하면 됩니다.
+msw는 서버를 mocking하기 때문에, **실제 서버 상태와 무관하게 테스트를 안정적으로 실행**할 수 있습니다. 또한 코드와 테스트 코드 자체를 수정할 필요 없이 **msw 설정만 업데이트**하면 됩니다.
 
 ```typescript
 // mockStore.ts
@@ -319,12 +319,12 @@ afterAll(() => {
 
 ```typescript
 // useReportQuery.test.ts
-import { setupServer } from 'msw/node';
-import { graphql } from 'msw';
 import React from 'react';
 import { renderHook } from '@testing-library/react';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
 import fetch from 'cross-fetch';
+import { setupServer } from 'msw/node';
+import { graphql } from 'msw';
 import { useReportQuery } from './useReportQuery';
 import { MockStore } from './mockStore';
 
@@ -381,14 +381,14 @@ describe('useReportQuery', () => {
 
 GraphQL Query를 custom hook에서 다루도록 리팩토링하면서 코드 유지보수성과 테스트 가능성 모두에서 큰 이점을 얻을 수 있었습니다.
 -	custom hook을 활용한 구조적 개선
-	-	재사용 가능한 hook을 통해 불필요한 prop drilling을 방지했습니다.
-	-	각 Query에 대해 독립적인 테스트 코드를 작성할 수 있게 되었습니다.
+	-	**각 Query에 대해 독립적인 테스트 코드**를 작성할 수 있게 되었습니다.
+	-	**재사용 가능한 hook**을 통해 불필요한 prop drilling을 방지했습니다.
 -	비즈니스 로직 집중화
-	-	hook 내부에서 Query 결과를 조작하는 함수들을 제공해 비즈니스 로직이 흩어지는 것을 방지했습니다.
-	-	각 함수에 대한 테스트 코드 적용으로 안정성을 더욱 강화했습니다.
+	-	hook 내부에서 Query 결과를 조작하는 함수들을 제공해 **비즈니스 로직이 흩어지는 것을 방지**했습니다.
+	-	**각 함수에 대한 테스트 코드 적용**으로 안정성을 더욱 강화했습니다.
 -	테스트의 부가적 효과
-	-	작은 단위의 코드에서 안정성을 확보할 수 있었습니다.
-	-	테스트는 코드 로직에 대한 설명서 역할을 하며, 문제 상황 발생 시 팀원 간의 논의를 더욱 명확히 하고 근거를 제공하는 도구로 활용될 수 있습니다.
+	-	**작은 단위의 코드에서 안정성을 확보**할 수 있었습니다.
+	-	**테스트는 로직에 대한 설명서 역할**을 하며, 문제 상황 발생 시 팀원 간의 논의를 더욱 명확히 하고 근거를 제공하는 도구로 활용될 수 있습니다.
 
 이러한 접근 방식은 유지보수성을 높이고 협업을 원활하게 할 뿐 아니라, 더 나은 사용자 경험을 제공하기 위한 중요한 밑거름이 될 것입니다.
 
