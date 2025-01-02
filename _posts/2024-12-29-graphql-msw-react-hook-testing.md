@@ -98,10 +98,14 @@ component에 있던 Query를 custom hook에서 하도록 변경하여 의존성�
 
 ```typescript
 // imports...(생략)
-const ReportScreenQuery = gql`...query`;
+const ReportQuery = gql`
+  query Report() {
+    ...
+  }
+`;
 
 export function useReportQuery(reportId: string) {
-  const res = useQuery(ReportScreenQuery, { variables: { reportId } });
+  const res = useQuery(ReportQuery, { variables: { reportId } });
   const { data } = res;
 
   const examReport = data?.examReport;
@@ -162,6 +166,8 @@ describe('useReportQuery', () => {
 아래와 같이 수정하면 hook 내부의 useQuery가 정상 실행되며 **GraphQL 서버와 통신**할 수 있습니다.
 
 ```typescript
+// useReportQuery.test.ts
+
 import React from 'react';
 import { renderHook } from '@testing-library/react';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
@@ -254,6 +260,8 @@ export class MockStore {
 
 
 ```typescript
+// useReportQuery.test.ts
+
 import { setupServer } from 'msw/node';
 import { graphql } from 'msw';
 import { MockStore } from './mockStore';
@@ -318,6 +326,7 @@ afterAll(() => {
 
 ```typescript
 // useReportQuery.test.ts
+
 import React from 'react';
 import { renderHook } from '@testing-library/react';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink } from '@apollo/client';
@@ -329,7 +338,8 @@ import { MockStore } from './mockStore';
 
 // mock data 설정
 const store = new MockStore({
-  ReportQuery: () => ({ ...mockData })
+  // mock data 내용은 생략합니다.
+  ReportQuery: () => ({ ... })
 })
 
 // 서버 초기화
