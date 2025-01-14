@@ -162,9 +162,12 @@ console.log("Results (Declarative):", results);
 
   명확한 네이밍과 구조를 통해 코드의 의도를 쉽게 전달하며, 읽는 사람의 부담을 최소화해야 합니다.
 
-더 자세한 내용은 [Robert C. Martin의 클린코드](https://product.kyobobook.co.kr/detail/S000001032980) 책을 참고해주세요.
+더 자세한 내용은 아래 자료를 참고해주세요.
 
-정말 좋은 책이니 읽어보시길 추천드리겠습니다.
+- [클린코드 - Robert C. Martin](https://product.kyobobook.co.kr/detail/S000001032980)
+- [Code Complete - 스티브 맥코넬](https://product.kyobobook.co.kr/detail/S000001766290)
+
+정말 좋은 책들이니 읽어보시길 추천드리겠습니다.
 
 # 팀의 궁극적 목표 - 말하지 않아도 알아요
 
