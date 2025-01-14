@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 프로그래밍은 커뮤니케이션이다. - 빠르고 안정적인 제품 유지보수를 위한 협업의 기술
+title: 프로그래밍은 커뮤니케이션이다.
 tags: [clean code, convention, communication, naming, cooperate, co-programming]
 excerpt_separator: <!--more-->
 ---
@@ -12,6 +12,8 @@ excerpt_separator: <!--more-->
 명확하고 일관된 코드는 팀 협업을 원활히 하고, 유지보수 비용을 줄이며, 더 나은 제품으로 거듭나는 기반이 됩니다.
 
 이번 포스팅에서는 클린 코드와 협업의 중요성을 엔지니어링 비용 관점에서 살펴보겠습니다.
+
+<!--more-->
 
 # 프로그래밍은 커뮤니케이션이다.
 
