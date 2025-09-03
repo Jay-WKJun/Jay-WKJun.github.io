@@ -1,7 +1,21 @@
 ---
 layout: post
-title: Data based operation, observability & exception tracking
-tags: [aws, fe, infra, owner, frontend, service-builder, career, observability]
+title: 관찰 가능성 시스템 구현기 1 - 문제 정의
+tags:
+  [
+    aws,
+    fe,
+    infra,
+    product engineer,
+    observability,
+    grafana,
+    loki,
+    prometheus,
+    tempo,
+    elk,
+    datadog,
+    amplitude,
+  ]
 excerpt_separator: <!--more-->
 ---
 
@@ -11,7 +25,9 @@ excerpt_separator: <!--more-->
 
 <!--more-->
 
-앞으로 시리즈로 여러 관련 포스팅을 작성할 예정이며 이 시리즈를 통해 데이터 인프라가 어떻게 팀의 소통과 의사결정에 긍정적인 영향을 미치고 더 나은 서비스 품질에 영향을 주는지를 공유해보고자 합니다.
+앞으로 시리즈로 여러 관련 포스팅을 작성할 예정이며 이 시리즈를 통해 데이터 인프라를 어떻게 구축하였고 데이터 인프라가 어떻게 팀의 소통과 의사결정에 긍정적인 영향을 미치고 더 나은 서비스 품질에 영향을 주는지를 공유해보고자 합니다.
+
+데이터 인프라는 `alloy` - `loki` - `grafana` 구성으로 시스템을 구축했습니다.
 
 # 데이터 수집의 중요성
 
