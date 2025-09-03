@@ -19,6 +19,8 @@ tags:
 excerpt_separator: <!--more-->
 ---
 
+![observability_thumbnail]({{ "../assets/img/observability/observability_thumbnail.png" | relative_url }})
+
 이번 포스팅에선 프로젝트에 참여하여 데이터를 수집하고 관찰 가능성(Observability)를 향상시키는 과정에서 문제를 정의하고 적절한 해결을 위해 고민한 내용들을 공유하고자 합니다.
 
 당시 팀에는 데이터 인프라가 전혀 없었고, 문제가 발생해도 원인 분석에 한참이 걸렸으며 사용자를 이해하기 위한 정보가 부족해 팀 내 의사결정과 소통이 어려웠습니다. 이런 팀의 불편을 해결하기 위해 제가 직접 문제를 정의하고 솔루션을 구축했습니다. (구축된 솔루션은 계속해서 디벨롭 중입니다.)
