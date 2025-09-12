@@ -5,7 +5,7 @@ tags: [security, http, DB, SSH, Bastion host, SSM, EC2 endpoint]
 excerpt_separator: <!--more-->
 ---
 
-![ssm_thumbnail]({{ "../sdfassets/img/ssm_thumbnail.png" | relative_url }})
+![ssm_thumbnail]({{ "../sdfassets/img/aboutSSM/ssm_thumbnail.png" | relative_url }})
 
 SSE를 통해 private DB를 외부에 노출하지 않고 접근할 수 있는 방법을 알아보겠습니다.
 
